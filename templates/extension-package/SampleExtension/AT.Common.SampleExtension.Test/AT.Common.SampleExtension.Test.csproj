@@ -21,11 +21,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="TestData/**">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="../AT.Common.SampleExtension.Extensions/AT.Common.SampleExtension.Extensions.csproj" />
   </ItemGroup>
 </Project>

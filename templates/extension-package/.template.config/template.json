@@ -5,9 +5,9 @@
         "Nuget",
         "Package"
     ],
-    "identity": "AT.CommonPackage",
-    "name": "Common Package Template",
-    "shortName": "common-package",
+    "identity": "AT.ExtensionPackage",
+    "name": "Extension Package Template",
+    "shortName": "extension-package",
     "tags": {
         "language": "C#",
         "type": "project"
