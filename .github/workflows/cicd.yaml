@@ -28,7 +28,7 @@ jobs:
     name: Post Build Checks
     needs: [build-common, build-extension, build-hexarch]
     if: github.ref != 'refs/heads/main'
-    uses: ./.github/workflows/post-build-pr-template.yml
+    uses: ./.github/workflows/post-build-pr-template.yaml
     secrets: inherit
     with:
       package-path: "./"
