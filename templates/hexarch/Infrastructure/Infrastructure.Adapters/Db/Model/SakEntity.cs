@@ -1,0 +1,14 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
+
+namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db.Model;
+
+[Table("Saker")]
+internal class SakEntity : BaseEntity
+{
+    public required Guid Id { get; set; }
+
+    public required string Organisajonsnummer { get; set; }
+
+    public required SakStatus Status { get; set; }
+}

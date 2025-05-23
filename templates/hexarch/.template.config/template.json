@@ -1,0 +1,37 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Arbeidstilsynet",
+    "classifications": [
+        "Clean Architecture",
+        "Hexagonal",
+        "DDD",
+        "Microservices"
+    ],
+    "identity": "AT.HexagonalTemplate",
+    "name": "Hexagonal Architecture Template",
+    "shortName": "hexarch",
+    "tags": {
+        "language": "C#",
+        "type": "project"
+    },
+    "sourceName": "HexagonalArchitectureTemplateDocker",
+    "sources": [
+        {
+            "modifiers": [
+                {
+                    "exclude": [
+                        "**/[Bb]in/**",
+                        "**/[Oo]bj/**",
+                        ".template.config/**/*",
+                        "**/*.filelist",
+                        "**/*.user",
+                        "**/*.lock.json",
+                        ".idea/**",
+                        "pipelines/**",
+                        "**/volume/**"
+                    ]
+                }
+            ]
+        }
+    ]
+}
