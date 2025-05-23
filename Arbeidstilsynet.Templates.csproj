@@ -1,5 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <!-- The package metadata. Fill in the properties marked as TODO below -->
     <!-- Follow the instructions on
@@ -10,7 +9,6 @@
     <Authors>Arbeidstilsynet</Authors>
     <Description>Templates to get started with dotnet projects. To see the different types, refer to README.md</Description>
     <PackageTags>dotnet-new;templates;arbeidstilsynet</PackageTags>
-
     <!-- Keep package type as 'Template' to show the package as a template package on nuget.org and
     make your template available in dotnet new search.-->
     <PackageType>Template</PackageType>
@@ -22,23 +20,22 @@
     <NoDefaultExcludes>true</NoDefaultExcludes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
-
   <PropertyGroup>
     <LocalizeTemplates>false</LocalizeTemplates>
   </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="Microsoft.TemplateEngine.Tasks" Version="*" PrivateAssets="all"
-      IsImplicitlyDefined="true" />
+    <PackageReference
+      Include="Microsoft.TemplateEngine.Tasks"
+      Version="*"
+      PrivateAssets="all"
+      IsImplicitlyDefined="true"
+    />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="templates\**\*" Exclude="templates\**\bin\**;templates\**\obj\**" />
     <Compile Remove="**\*" />
   </ItemGroup>
-
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="" />
   </ItemGroup>
-
 </Project>
