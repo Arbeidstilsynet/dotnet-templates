@@ -1,4 +1,4 @@
-name: Build (PR)
+name: Build and Publish Packages
 
 on:
   pull_request:
@@ -23,3 +23,21 @@ jobs:
     uses: ./.github/workflows/build-pr-template.yaml
     with:
       package-path: "./templates/hexarch"
+
+  post-build-checks:
+    name: Post Build Checks
+    needs: [build-common, build-extension, build-hexarch]
+    if: github.ref != 'refs/heads/main'
+    uses: ./.github/workflows/post-build-pr-template.yml
+    secrets: inherit
+    with:
+      package-path: "./"
+
+  publish:
+    name: Publish Packages
+    needs: [build-common, build-extension, build-hexarch]
+    if: github.ref == 'refs/heads/main'
+    uses: ./.github/workflows/publish-template.yml
+    secrets: inherit
+    with:
+      package-path: "./"
