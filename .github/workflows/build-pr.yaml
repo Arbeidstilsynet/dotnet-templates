@@ -1,0 +1,25 @@
+name: Build (PR)
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  build-common:
+    name: Build common package
+    uses: ./.github/workflows/build-pr-template.yaml
+    with:
+      package-path: "./templates/common-package/SamplePackage"
+  
+  build-extension:
+    name: Build extension package
+    uses: ./.github/workflows/build-pr-template.yaml
+    with:
+      package-path: "./templates/extension-package/SampleExtension"
+
+  build-hexarch:
+    name: Build hexarch package
+    uses: ./.github/workflows/build-pr-template.yaml
+    with:
+      package-path: "./templates/hexarch"
