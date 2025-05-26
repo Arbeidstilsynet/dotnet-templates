@@ -23,7 +23,7 @@ services:
 
   monitoring_otel_collector:
     container_name: monitoring_otel_collector
-    image: otel/opentelemetry-collector-contrib:0.98.0
+    image: otel/opentelemetry-collector-contrib:0.98.0@sha256:5cea85bcbc734a3c0a641368e5a4ea9d31b472997e9f2feca57eeb4a147fcf1a
     networks:
       - applocal_network
     restart: always
@@ -41,7 +41,7 @@ services:
 
   monitoring_tempo:
     container_name: monitoring_tempo
-    image: grafana/tempo:2.4.1
+    image: grafana/tempo:2.4.1@sha256:5b9c08f6d8fb43b3b72dfd1252ba4f198b11a245257bf76ee2ca13e243bac565
     networks:
       - applocal_network
     restart: always
@@ -54,7 +54,7 @@ services:
 
   monitoring_mimir:
     container_name: monitoring_mimir
-    image: grafana/mimir:2.12.0
+    image: grafana/mimir:2.12.0@sha256:2a0192459f5cf0c4f10b543e8d61f973d2e49921745196a09f83b6e4d428d9f8
     networks:
       - applocal_network
     restart: always
@@ -68,7 +68,7 @@ services:
 
   monitoring_loki:
     container_name: monitoring_loki
-    image: grafana/loki:3.0.0
+    image: grafana/loki:3.0.0@sha256:757b5fadf816a1396f1fea598152947421fa49cb8b2db1ddd2a6e30fae003253
     networks:
       - applocal_network
     restart: always
