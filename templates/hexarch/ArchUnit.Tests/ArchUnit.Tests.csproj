@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.13.0" />
+    <PackageReference Include="xunit" Version="2.9.3" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="coverlet.collector" Version="6.0.4">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="TngTech.ArchUnitNET" Version="0.11.4" />
+    <PackageReference Include="TngTech.ArchUnitNET.xUnit" Version="0.11.4" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Infrastructure\Infrastructure.Adapters\Infrastructure.Adapters.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.Ports\Infrastructure.Ports.csproj" />
+    <ProjectReference Include="..\API\API.Ports\API.Ports.csproj" />
+    <ProjectReference Include="..\API\API.Adapters\API.Adapters.csproj" />
+    <ProjectReference Include="..\Domain\Domain.Logic\Domain.Logic.csproj" />
+    <ProjectReference Include="..\Domain\Domain.Data\Domain.Data.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,14 @@
+services:
+  api:
+    build: 
+      context: .
+    ports:
+      - "9008:8080"
+    networks:
+      - applocal_network
+    environment:
+      DatabaseConfiguration__ConnectionString: Host=postgres;Port=5432;Database=demo_db;Username=postgres;Password=postgres
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://monitoring_otel_collector:4317
+    depends_on:
+      postgres:
+        condition: service_healthy
