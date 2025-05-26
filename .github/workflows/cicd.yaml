@@ -16,6 +16,10 @@ jobs:
     outputs:
       build-required: ${{ steps.check_changes.outputs.build-required }}
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 0
       - name: Check if changes are inside workflow path
         id: check_changes
         run: |
