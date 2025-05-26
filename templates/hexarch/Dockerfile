@@ -1,5 +1,5 @@
 # https://hub.docker.com/_/microsoft-dotnet
-FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine@sha256:38543aaa0ad19f2d076b4f09bbbd2806d5aaf6e39d2735b0047fe8f1a0697f48 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine@sha256:abee55b11f42473da7a512149a4c1e48f5a1248533614f7e88f29de7ebd3411d AS build
 WORKDIR /source
 
 COPY HexagonalArchitectureTemplateDocker.sln .
