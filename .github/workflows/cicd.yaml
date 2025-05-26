@@ -9,46 +9,20 @@ on:
     branches: [main]
 
 jobs:
-  check-if-build-is-required:
-    name: Check if build jobs are required
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    outputs:
-      build-required: ${{ steps.check_changes.outputs.build-required }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
-        with:
-          fetch-depth: 0
-      - name: Check if changes are inside templates path
-        id: check_changes
-        run: |
-          if git diff --name-only origin/main...HEAD | grep "templates/"; then
-            echo "build-required=true" >> $GITHUB_OUTPUT
-          else
-            echo "build-required=false" >> $GITHUB_OUTPUT
-          fi
-
   build-common:
     name: Build common package
-    needs: check-if-build-is-required
-    if: needs.check-if-build-is-required.outputs.build-required == 'true'
     uses: ./.github/workflows/build-pr-template.yaml
     with:
       package-path: "./templates/common-package/SamplePackage"
 
   build-extension:
     name: Build extension package
-    needs: check-if-build-is-required
-    if: needs.check-if-build-is-required.outputs.build-required == 'true'
     uses: ./.github/workflows/build-pr-template.yaml
     with:
       package-path: "./templates/extension-package/SampleExtension"
 
   build-hexarch:
     name: Build hexarch package
-    needs: check-if-build-is-required
-    if: needs.check-if-build-is-required.outputs.build-required == 'true'
     uses: ./.github/workflows/build-pr-template.yaml
     with:
       package-path: "./templates/hexarch"
