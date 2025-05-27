@@ -1,6 +1,27 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "local>Arbeidstilsynet/renovate-config"
+    "config:best-practices",
+    "mergeConfidence:all-badges"
+  ],
+  "packageRules": [
+    {
+      "matchUpdateTypes": [
+        "pinDigest"
+      ],
+      "automerge": true,
+      "description": "Automerge pinDigest PRs (e.g., GitHub Actions)"
+    },
+    {
+      "groupName": "all non-major dependencies",
+      "groupSlug": "all-minor-patch",
+      "matchPackageNames": [
+        "*"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ]
+    }
   ]
 }
