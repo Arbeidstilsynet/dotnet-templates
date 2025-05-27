@@ -1,0 +1,41 @@
+name: Build all templates (reusable)
+
+on:
+  workflow_call:
+
+jobs:
+  build-common:
+    name: Build common package
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Build and Test .NET solution
+        uses: Arbeidstilsynet/action-dotnet-build@v1
+        with:
+          working-directory: "./templates/common-package/SamplePackage"
+
+  build-extension:
+    name: Build extension package
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Build and Test .NET solution
+        uses: Arbeidstilsynet/action-dotnet-build@v1
+        with:
+          working-directory: "./templates/extension-package/SampleExtension"
+
+  build-hexarch:
+    name: Build hexarch package
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - name: Build and Test .NET solution
+        uses: Arbeidstilsynet/action-dotnet-build@v1
+        with:
+          working-directory: "./templates/hexarch"
