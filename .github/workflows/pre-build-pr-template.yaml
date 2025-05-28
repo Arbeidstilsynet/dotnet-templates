@@ -19,7 +19,9 @@ jobs:
         id: check_changes
         run: |
           if git diff --name-only origin/main...HEAD | grep -q "templates/"; then
+            echo "Changes detected in the templates directory."
             echo "should-continue=true" >> $GITHUB_OUTPUT
           else
+            echo "No changes detected in the templates directory."
             echo "should-continue=false" >> $GITHUB_OUTPUT
           fi
