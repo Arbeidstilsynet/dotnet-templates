@@ -1,4 +1,4 @@
-name: Pre-Build Check
+name: Pre-Build Check (reusable)
 
 on:
   workflow_call:
