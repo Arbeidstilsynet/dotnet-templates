@@ -54,7 +54,7 @@ services:
 
   monitoring_mimir:
     container_name: monitoring_mimir
-    image: grafana/mimir:2.12.0@sha256:2a0192459f5cf0c4f10b543e8d61f973d2e49921745196a09f83b6e4d428d9f8
+    image: grafana/mimir:2.16.0@sha256:f5850c2fd0d872fc029378558765aa79c4be66a5fca0d8c6bf0fc30971484555
     networks:
       - applocal_network
     restart: always
