@@ -1,0 +1,22 @@
+name: Build and Publish Packages
+
+permissions:
+  contents: write
+  packages: write
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    name: Build all templates
+    uses: ./.github/workflows/build-template.yaml
+
+  publish:
+    name: Publish Packages
+    needs: build
+    uses: ./.github/workflows/publish-template.yml
+    secrets: inherit
+    with:
+      package-path: "./"

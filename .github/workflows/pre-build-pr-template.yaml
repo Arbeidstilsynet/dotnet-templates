@@ -1,0 +1,25 @@
+name: Pre-Build Check
+
+on:
+  workflow_call:
+
+jobs:
+  check-and-prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      should-continue: ${{ steps.check_changes.outputs.should-continue }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+        with:
+          fetch-depth: 0
+
+      - name: Check if changes are inside template path
+        id: check_changes
+        run: |
+          if git diff --name-only origin/main...HEAD | grep "templates/"; then
+            echo "should-continue=true" >> $GITHUB_OUTPUT
+          else
+            echo "should-continue=false" >> $GITHUB_OUTPUT
+          fi

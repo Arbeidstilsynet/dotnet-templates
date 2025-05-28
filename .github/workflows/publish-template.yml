@@ -17,28 +17,24 @@ jobs:
 
       - name: Get version and name from csproj file
         id: get_metadata_from_csprojectfile
-        uses: ./.github/actions/get-metadata-from-csprojectfile
-    
+        uses: Arbeidstilsynet/action-dotnet-get-csproj-metadata@v1
         with:
-          package-path: ${{ inputs.package-path }}
+          working-directory: ${{ inputs.package-path }}
 
       - name: Check if package version exists
         id: nuget_version_check
-        uses: ./.github/actions/nuget-version-check
-
+        uses: Arbeidstilsynet/action-nuget-check-published@v1
         with:
           name: ${{ steps.get_metadata_from_csprojectfile.outputs.name }}
           version: ${{ steps.get_metadata_from_csprojectfile.outputs.version }}
 
       - name: Publish package if not already published
         if: steps.nuget_version_check.outputs.published == 'false'
-        uses: ./.github/actions/publish-dotnet
+        uses: Arbeidstilsynet/action-dotnet-publish@v1
         with:
-          package-path: ${{ inputs.package-path }}
-          name: ${{ steps.get_metadata_from_csprojectfile.outputs.name }}
-          version: ${{ steps.get_metadata_from_csprojectfile.outputs.version }}
-          nuget-pat: ${{ secrets.AZURE_DEVOPS_PUBLISH_PACKAGE_PAT }}
-            
+          working-directory: ${{ inputs.package-path }}
+          nuget-auth-token: ${{ secrets.AZURE_DEVOPS_PUBLISH_PACKAGE_PAT }}
+
       - name: Extract changelog section for current version
         id: changelog
         working-directory: "${{ inputs.package-path }}"
@@ -58,7 +54,7 @@ jobs:
           else
             echo 'changelog=No changelog found.' >> $GITHUB_OUTPUT
           fi
-      - name: Create GitHub Release 
+      - name: Create GitHub Release
         if: steps.nuget_version_check.outputs.published == 'false'
         uses: actions/create-release@0cb9c9b65d5d1901c1f53e5e66eaf4afd303e70e # v1.1.4
         with:
@@ -72,4 +68,3 @@ jobs:
         run: |
           echo "Package ${{ steps.get_metadata_from_csprojectfile.outputs.name }} version ${{ steps.get_metadata_from_csprojectfile.outputs.version }} is already published. Skipping."
           exit 0
-
