@@ -1,4 +1,4 @@
-name: Build packages and run post-build checks
+name: Build (PR)
 
 on:
   pull_request:
@@ -8,20 +8,48 @@ permissions:
   packages: write
 
 jobs:
-  pre-build-checks:
+  pre-build:
     name: Check if build is needed
     uses: ./.github/workflows/pre-build-pr-template.yaml
 
   build:
     name: Build all templates
-    needs: pre-build-checks
-    if: ${{ needs.pre-build-checks.outputs.should-continue == 'true' }}
+    needs: pre-build
+    if: ${{ needs.pre-build.outputs.should-continue == 'true' }}
     uses: ./.github/workflows/build-template.yaml
 
-  post-build-checks:
+  post-build:
     name: Post Build Checks
     needs: build
     uses: ./.github/workflows/post-build-pr-template.yaml
     secrets: inherit
     with:
       package-path: "./"
+
+  # This job serves as a single status check for branch protection rules
+  status-check:
+    name: PR Build Complete
+    runs-on: ubuntu-latest
+    needs: [pre-build, build, post-build]
+    if: always()
+    steps:
+      - name: Evaluate results
+        run: |
+          echo "Build: ${{ needs.build.result }}"
+          echo "Post-build: ${{ needs.post-build.result }}"
+
+          # Pass if no template changes
+          if [[ "${{ needs.build.result }}" == "skipped" ]]; then
+            echo "✅ Build not needed"
+            exit 0
+          fi
+
+          # Pass if all succeeded
+          if [[ "${{ needs.build.result }}" == "success" && "${{ needs.post-build.result }}" == "success" ]]; then
+            echo "✅ All checks passed"
+            exit 0
+          fi
+
+          # Fail otherwise
+          echo "❌ Checks failed"
+          exit 1
