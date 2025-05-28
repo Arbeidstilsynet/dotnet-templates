@@ -44,13 +44,10 @@ jobs:
           fi
       - name: Publish prerelease package
         if: steps.prerelease_check.outputs.is_prerelease == 'true'
-        uses: ./.github/actions/publish-dotnet
+        uses: Arbeidstilsynet/action-dotnet-publish@v1
         with:
-          package-path: ${{ inputs.package-path }}
-          name: ${{ steps.get_metadata_from_csprojectfile.outputs.name }}
-          version: ${{ steps.get_metadata_from_csprojectfile.outputs.version }}
-          nuget-pat: ${{ secrets.AZURE_DEVOPS_PUBLISH_PACKAGE_PAT }}
-
+          working-directory: ${{ inputs.package-path }}
+          nuget-auth-token: ${{ secrets.AZURE_DEVOPS_PUBLISH_PACKAGE_PAT }}
       - name: Fail if prerelease was published
         if: steps.prerelease_check.outputs.is_prerelease == 'true'
         run: |
