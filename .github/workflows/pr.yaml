@@ -31,6 +31,25 @@ jobs:
     name: PR Build Complete
     runs-on: ubuntu-latest
     needs: [pre-build, build, post-build]
-    if: always() && (needs.build.result == 'success' || needs.build.result == 'skipped') && (needs.post-build.result == 'success' || needs.post-build.result == 'skipped')
+    if: always()
     steps:
-      - run: echo "✅ PR build passed or skipped"
+      - name: Evaluate results
+        run: |
+          echo "Build: ${{ needs.build.result }}"
+          echo "Post-build: ${{ needs.post-build.result }}"
+
+          # Pass if no template changes
+          if [[ "${{ needs.build.result }}" == "skipped" ]]; then
+            echo "✅ Build not needed"
+            exit 0
+          fi
+
+          # Pass if all succeeded
+          if [[ "${{ needs.build.result }}" == "success" && "${{ needs.post-build.result }}" == "success" ]]; then
+            echo "✅ All checks passed"
+            exit 0
+          fi
+
+          # Fail otherwise
+          echo "❌ Checks failed"
+          exit 1
