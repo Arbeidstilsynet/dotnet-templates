@@ -1,4 +1,4 @@
-name: Build packages and run post-build checks
+name: Build (PR)
 
 on:
   pull_request:
@@ -25,3 +25,12 @@ jobs:
     secrets: inherit
     with:
       package-path: "./"
+
+  # This job serves as a single status check for branch protection rules
+  status-check:
+    name: PR Build Complete
+    runs-on: ubuntu-latest
+    needs: [pre-build-checks, post-build-checks]
+    if: (needs.post-build-checks.result == 'success' || needs.post-build-checks.result == 'skipped')
+    steps:
+      - run: echo "✅ PR build passed or skipped"
