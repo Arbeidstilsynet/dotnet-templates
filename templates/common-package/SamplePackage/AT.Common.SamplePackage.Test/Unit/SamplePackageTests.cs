@@ -21,6 +21,6 @@ public class SamplePackageTests
         //act
         var result = await _sut.Get();
         //assert
-        result.Foo.ShouldBe("Bar 2");
+        result.Foo.ShouldBe("Bar");
     }
 }
