@@ -2,6 +2,10 @@ name: Pre-Build Check
 
 on:
   workflow_call:
+    outputs:
+      should-continue:
+        description: "Indicates whether the workflow should continue based on changes in the templates directory."
+        value: ${{ jobs.check.outputs.should-continue }}
 
 jobs:
   check:
@@ -14,7 +18,6 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           fetch-depth: 0
-
       - name: Check if changes are inside template path
         id: check_changes
         run: |
