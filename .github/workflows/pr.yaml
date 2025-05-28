@@ -3,6 +3,10 @@ name: Build packages and run post-build checks
 on:
   pull_request:
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   pre-build-checks:
     name: Check if build is needed
@@ -11,7 +15,7 @@ jobs:
   build:
     name: Build all templates
     needs: pre-build-checks
-    if: needs.pre-build-checks.outputs.should-continue == 'true'
+    if: ${{ needs.pre-build-checks.outputs.should-continue == 'true' }}
     uses: ./.github/workflows/build-template.yaml
 
   post-build-checks:

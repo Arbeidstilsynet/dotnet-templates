@@ -1,18 +1,14 @@
 # 📖 Description
 
-Klient som returner dummy data.
+Collection of extension methods.
 
 # 🧑‍💻 Usage
 
-Bruk via DependencyInjection.
+Bruk via import.
 
 ```csharp
-public static IServiceCollection AddServices
-    (
-        this IServiceCollection services,
-        DatabaseConfiguration databaseConfiguration
-    ) {
-        services.AddFooBarKlient();
-        return services;
-    }
+using Arbeidstilsynet.Common.SampleExtension.Extensions;
+///
+"test".WordCount();
+///
 ```

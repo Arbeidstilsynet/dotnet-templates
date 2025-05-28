@@ -2,9 +2,13 @@ name: Pre-Build Check
 
 on:
   workflow_call:
+    outputs:
+      should-continue:
+        description: "Indicates whether the workflow should continue based on changes in the templates directory."
+        value: ${{ jobs.check.outputs.should-continue }}
 
 jobs:
-  check-and-prepare:
+  check:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     outputs:
@@ -14,12 +18,13 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           fetch-depth: 0
-
       - name: Check if changes are inside template path
         id: check_changes
         run: |
-          if git diff --name-only origin/main...HEAD | grep "templates/"; then
+          if git diff --name-only origin/main...HEAD | grep -q "templates/"; then
+            echo "Changes detected in the templates directory."
             echo "should-continue=true" >> $GITHUB_OUTPUT
           else
+            echo "No changes detected in the templates directory."
             echo "should-continue=false" >> $GITHUB_OUTPUT
           fi
