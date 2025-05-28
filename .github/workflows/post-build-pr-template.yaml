@@ -38,7 +38,7 @@ jobs:
           fi
           VERSION="${{ steps.get_metadata_from_csprojectfile.outputs.version }}"
           # Check if the version string contains a prerelease identifier (e.g., alpha, beta, rc)
-          if [[ "$VERSION" =~ -([aA]lpha|[bB]eta|[rR][cC]) ]]; then
+          if [[ "$VERSION" == *-* ]]; then
             echo "is_prerelease=true" >> $GITHUB_OUTPUT
           else
             echo "is_prerelease=false" >> $GITHUB_OUTPUT
