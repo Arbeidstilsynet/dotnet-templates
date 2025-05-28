@@ -8,17 +8,17 @@ permissions:
   packages: write
 
 jobs:
-  pre-build-checks:
+  pre-build:
     name: Check if build is needed
     uses: ./.github/workflows/pre-build-pr-template.yaml
 
   build:
     name: Build all templates
-    needs: pre-build-checks
-    if: ${{ needs.pre-build-checks.outputs.should-continue == 'true' }}
+    needs: pre-build
+    if: ${{ needs.pre-build.outputs.should-continue == 'true' }}
     uses: ./.github/workflows/build-template.yaml
 
-  post-build-checks:
+  post-build:
     name: Post Build Checks
     needs: build
     uses: ./.github/workflows/post-build-pr-template.yaml
@@ -30,7 +30,7 @@ jobs:
   status-check:
     name: PR Build Complete
     runs-on: ubuntu-latest
-    needs: [pre-build-checks, post-build-checks]
-    if: always() && (needs.post-build-checks.result == 'success' || needs.post-build-checks.result == 'skipped')
+    needs: [pre-build, build, post-build]
+    if: always() && (needs.build.result == 'success' || needs.build.result == 'skipped') && (needs.post-build.result == 'success' || needs.post-build.result == 'skipped')
     steps:
       - run: echo "✅ PR build passed or skipped"
