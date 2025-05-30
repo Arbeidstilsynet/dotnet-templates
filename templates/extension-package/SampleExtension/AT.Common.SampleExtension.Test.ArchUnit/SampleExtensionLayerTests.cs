@@ -7,14 +7,14 @@ using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
 namespace SampleExtension.ArchUnit.Tests;
 
-public class SampleExtensionAdapterLayerTests
+public class SampleExtensionLayerTests
 {
     static readonly Architecture Architecture = new ArchLoader()
         .LoadAssemblies(Layers.SampleExtensionAssembly)
         .Build();
 
     [Fact]
-    public void TypesInSampleExtensionAdapterLayer_HaveCorrectNamespace()
+    public void TypesInSampleExtensionLayer_HaveCorrectNamespace()
     {
         IArchRule archRule = Types()
             .That()
@@ -29,15 +29,7 @@ public class SampleExtensionAdapterLayerTests
     }
 
     [Fact]
-    public void TypesInSampleExtensionAdapterLayer_AreInternal()
-    {
-        IArchRule archRule = Types().That().Are(Layers.SampleExtensionLayer).Should().BePublic();
-
-        archRule.Check(Architecture);
-    }
-
-    [Fact]
-    public void TypesInSampleExtensionAdapterLayer_DoNotDependOnAWS()
+    public void TypesInSampleExtensionLayer_DoNotDependOnAWS()
     {
         IArchRule archRule = Types()
             .That()
@@ -50,7 +42,7 @@ public class SampleExtensionAdapterLayerTests
     }
 
     [Fact]
-    public void TypesInSampleExtensionAdapterLayer_UseCorrectLogger()
+    public void TypesInSampleExtensionLayer_UseCorrectLogger()
     {
         IArchRule archRule = Types()
             .That()

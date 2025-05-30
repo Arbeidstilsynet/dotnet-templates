@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AT.Common.SampleExtension.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AT.Common.SampleExtension.Extensions", "AT.Common.SampleExtension.Extensions\AT.Common.SampleExtension.Extensions.csproj", "{F72B4BEF-D49D-425D-BD8A-1E1352DFD890}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AT.Common.SamplePackage.Test.ArchUnit", "AT.Common.SampleExtension.Test.ArchUnit\AT.Common.SamplePackage.Test.ArchUnit.csproj", "{F02AE585-E1F2-43B8-ABF9-553BB44D7B83}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AT.Common.SampleExtension.Test.ArchUnit", "AT.Common.SampleExtension.Test.ArchUnit\AT.Common.SampleExtension.Test.ArchUnit.csproj", "{F02AE585-E1F2-43B8-ABF9-553BB44D7B83}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -5,11 +5,13 @@ namespace Arbeidstilsynet.Common.SampleExtension.Extensions;
 /// </summary>
 public static class SampleExtension
 {
+    private static readonly char[] Separator = [' ', '.', '?'];
+
     /// <summary>
     /// Counts the number of words in a string.
     /// </summary>
     /// <param name="str"></param>
     /// <returns>Word count of str</returns>
     public static int WordCount(this string str) =>
-        str.Split([' ', '.', '?'], StringSplitOptions.RemoveEmptyEntries).Length;
+        str.Split(Separator, StringSplitOptions.RemoveEmptyEntries).Length;
 }
