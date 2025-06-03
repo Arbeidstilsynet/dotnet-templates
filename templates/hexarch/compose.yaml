@@ -11,7 +11,7 @@ services:
     build:
       context: .
     ports:
-      - "9008:8080"
+      - "8080:8080"
     networks:
       - applocal_network
     environment:

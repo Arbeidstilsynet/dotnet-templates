@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - chore(hexarch): Centralize Docker Compose configuration using the include directive and split database and monitoring services into dedicated snippets. Also replaced the monitoring stack in docker compose with a bundled solution.
+- chore(hexarch): Use default port 8080 instead of 9008 in dockerized environment.
 
 ### Fixed
 

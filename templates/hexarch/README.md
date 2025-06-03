@@ -53,7 +53,7 @@ Start the application by running:
 docker compose up --build -d
 ```
 
-The application exposes a swagger ui, which is locally accesible on [http://localhost:9008/scalar/v1](http://localhost:9008/scalar/v1). Discover the available endpoints on the UI or use the [OpenApi Spec](http://localhost:9008/openapi/v1.json). The OpenApi Spec can be imported by other tools like e.g. Postman.
+The application exposes a swagger ui, which is locally accesible on [http://localhost:8080/scalar/v1](http://localhost:8080/scalar/v1). Discover the available endpoints on the UI or use the [OpenApi Spec](http://localhost:8080/openapi/v1.json). The OpenApi Spec can be imported by other tools like e.g. Postman.
 
 ## 🏃‍♂️ Getting Started
 
