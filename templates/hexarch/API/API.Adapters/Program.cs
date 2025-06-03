@@ -12,8 +12,7 @@ var appSettings = builder.Configuration.GetRequired<AppSettings>();
 var services = builder.Services;
 var env = builder.Environment;
 
-services.ConfigureApi(
-    IAssemblyInfo.AppName, env);
+services.ConfigureApi(IAssemblyInfo.AppName, env);
 
 services.AddDomain();
 services.AddInfrastructureServices(appSettings.DatabaseConfiguration);
