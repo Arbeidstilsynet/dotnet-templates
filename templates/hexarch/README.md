@@ -36,7 +36,7 @@ Now, start the actual asp dotnet core application with the `Development` profile
 
 ```terminal
 cd API/API.Adapters
-dotnet run --environment Development
+dotnet run Environment=Development
 ```
 
 The application exposes a scalar ui, which is locally accesible on [http://localhost:8080/scalar/v1](http://localhost:8080/scalar/v1). Discover the available endpoints on the UI or use the [OpenApi Spec](http://localhost:8080/openapi/v1.json). The OpenApi Spec can be imported by other tools like e.g. Postman.
