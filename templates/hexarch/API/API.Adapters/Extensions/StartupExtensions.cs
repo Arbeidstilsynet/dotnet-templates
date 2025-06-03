@@ -2,7 +2,7 @@ using System.Net;
 using Arbeidstilsynet.Common.AspNetCore.Extensions;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
 
-namespace API.Adapters.Extensions;
+namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Api.Extensions;
 
 internal static class StartupExtensions
 {
