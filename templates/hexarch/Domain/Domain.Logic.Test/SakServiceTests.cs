@@ -3,7 +3,6 @@ using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports.Requests;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports;
 using Bogus;
-using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using Shouldly;
 
