@@ -29,7 +29,7 @@ To test and debug locally against a test data set, you need to run the following
 docker compose -f compose.db.yaml -f compose.monitoring.yaml up -d
 ```
 
-> The monitoring compoe file is optional and can be dropped. If used, a telemetry backend as defined in the [opentelemetry section](#-observability--opentelemetry) is spinned up.
+> The monitoring compose file is optional and can be dropped. If used, a telemetry backend as defined in the [opentelemetry section](#-observability--opentelemetry) is spinned up.
 
 This starts (as per today) a plain postgres instance without any seed.
 Now, start the actual asp dotnet core application with the `Development` profile:
