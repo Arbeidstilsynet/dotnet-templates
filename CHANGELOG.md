@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - chore(hexarch): Centralize Docker Compose configuration using the include directive and split database and monitoring services into dedicated snippets. Also replaced the monitoring stack in docker compose with a bundled solution.
 
+### Fixed
+
+- fix(common-package): Typo in ArchUnit tests
+
 ## 0.0.8
 
 ### Changed
