@@ -15,15 +15,16 @@ Idea/concept in a picture:
 
 ## 🚀 Start the show case application
 
+The application exposes a scalar ui, which is locally accesible on [http://localhost:8080/scalar/v1](http://localhost:8080/scalar/v1). Discover the available endpoints on the UI or use the [OpenApi Spec](http://localhost:8080/openapi/v1.json). The OpenApi Spec can be imported by other tools like e.g. Postman.
+
 ### Local Development (for developers)
 
 Prerequisites:
 
 - Docker installed
 - dotnet SDK installed (v8)
-- Conncetion to nuget feed configured on machine via e.g. [Azure Artifacts Credential Provider](https://github.com/microsoft/artifacts-credprovider)
 
-To test and debug locally against a test data set, you need to run the following commands:
+To test and debug locally, you need to run the following commands:
 
 ```terminal
 docker compose -f compose.db.yaml -f compose.monitoring.yaml up -d
@@ -32,14 +33,17 @@ docker compose -f compose.db.yaml -f compose.monitoring.yaml up -d
 > The monitoring compose file is optional and can be dropped. If used, a telemetry backend as defined in the [opentelemetry section](#-observability--opentelemetry) is spinned up.
 
 This starts (as per today) a plain postgres instance without any seed.
-Now, start the actual asp dotnet core application with the `Development` profile:
+Switch to the directory which contains the `Program.cs` file:
 
 ```terminal
 cd API/API.Adapters
-dotnet run Environment=Development
 ```
 
-The application exposes a scalar ui, which is locally accesible on [http://localhost:8080/scalar/v1](http://localhost:8080/scalar/v1). Discover the available endpoints on the UI or use the [OpenApi Spec](http://localhost:8080/openapi/v1.json). The OpenApi Spec can be imported by other tools like e.g. Postman.
+Now, start the actual asp dotnet core application with the `Development` profile:
+
+```terminal
+dotnet run Environment=Development
+```
 
 ### Local Development in a complete dockerized environment (for e.g tester)
 
@@ -53,7 +57,19 @@ Start the application by running:
 docker compose up --build -d
 ```
 
-The application exposes a swagger ui, which is locally accesible on [http://localhost:8080/scalar/v1](http://localhost:8080/scalar/v1). Discover the available endpoints on the UI or use the [OpenApi Spec](http://localhost:8080/openapi/v1.json). The OpenApi Spec can be imported by other tools like e.g. Postman.
+### Cleanup
+
+If you want to stop all containers, run:
+
+```terminal
+docker compose down
+```
+
+If you want to get a clean database at the next startup, simply remove the attached volume:
+
+```terminal
+docker volume rm -f $(docker volume ls | grep postgres-data)
+```
 
 ## 🏃‍♂️ Getting Started
 
@@ -75,29 +91,22 @@ dotnet test
 
 ## 🧱 Project Structure
 
+<!-- prettier-ignore -->
 ```md
 .
+├── API
+│   ├── API.Adapters
+│   ├── API.Adapters.Test
+│   └── API.Ports
 ├── ArchUnit.Tests
 ├── Domain
-│ ├── Domain.Data
-│ ├── Domain.Logic
-│ └── Domain.Logic.Test
-├── Infrastructure
-│ ├── Infrastructure.Adapters
-│ │ ├── Db
-│ │ │ └── Model
-│ │ └── Mapper
-│ ├── Infrastructure.Adapters.Test
-│ └── Infrastructure.Ports
-└── API
-├── API.Adapters
-│ ├── Extensions
-│ └── WebApi
-│ └── Controllers
-├── API.Adapters.Test
-└── API.Ports
-├── Requests
-└── Responses
+│   ├── Domain.Data
+│   ├── Domain.Logic
+│   └── Domain.Logic.Test
+└── Infrastructure
+    ├── Infrastructure.Adapters
+    ├── Infrastructure.Adapters.Test
+    └── Infrastructure.Ports
 ```
 
 - ArchUnit.Tests
