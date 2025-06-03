@@ -33,16 +33,11 @@ docker compose -f compose.db.yaml -f compose.monitoring.yaml up -d
 > The monitoring compose file is optional and can be dropped. If used, a telemetry backend as defined in the [opentelemetry section](#-observability--opentelemetry) is spinned up.
 
 This starts (as per today) a plain postgres instance without any seed.
-Switch to the directory which contains the `Program.cs` file:
-
-```terminal
-cd API/API.Adapters
-```
 
 Now, start the actual asp dotnet core application with the `Development` profile:
 
 ```terminal
-dotnet run Environment=Development
+dotnet run --project API/API.Adapters Environment=Development
 ```
 
 ### Local Development in a complete dockerized environment (for e.g tester)
