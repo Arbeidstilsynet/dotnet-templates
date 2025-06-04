@@ -1,4 +1,4 @@
-using Arbeidstilsynet.Common.SamplePackage.Extensions;
+using Arbeidstilsynet.Common.SamplePackage.Extensiones;
 using Arbeidstilsynet.Common.SamplePackage.Model;
 using Shouldly;
 using Xunit;
@@ -11,14 +11,11 @@ public class SamplePackageExtensionsTests
     public void SamplePackageExtensions_ShouldHaveCorrectNamespace()
     {
         // Arrange
-        var model = new SamplePackageDto()
-        {
-            Foo = "Bar"
-        };
+        var model = new SamplePackageDto() { Foo = "Bar" };
 
         // Act
         var result = model.ToUpper();
-        
+
         // Assert
         result.Foo.ShouldBe("BAR");
     }

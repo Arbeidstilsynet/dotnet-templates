@@ -7,5 +7,9 @@ namespace Arbeidstilsynet.Common.SamplePackage;
 /// </summary>
 public interface ISamplePackage
 {
+    /// <summary>
+    /// Required XML summary of the Get method
+    /// </summary>
+    /// <returns></returns>
     Task<SamplePackageDto> Get();
 }

@@ -32,15 +32,39 @@ public class SamplePackageAdapterLayerTests
             .That()
             .Are(Layers.SamplePackageLayer)
             .And()
-            .AreAssignableTo(Layers.PublicInterfaces)
+            .AreAssignableTo(Layers.SamplePackagePublicInterfaces)
             .And()
-            .AreNot(Layers.PublicInterfaces)
+            .AreNot(Layers.SamplePackagePublicInterfaces)
             .Should()
-            .NotBePublic();
+            .NotBePublic()
+            .Because("Implementations should not be public.");
 
         archRule.Check(Architecture);
     }
-    
+
+    [Fact]
+    public void PublicClasses_MustResideInExtensionsOrDependencyInjectionOrModelNamespaces()
+    {
+        IArchRule archRule = Types()
+            .That()
+            .Are(Layers.SamplePackageLayer)
+            .And()
+            .AreNot(Layers.SamplePackagePublicInterfaces)
+            .And()
+            .DoNotResideInNamespace(Constants.ExtensionsNamespace, true)
+            .And()
+            .DoNotResideInNamespace(Constants.DependencyInjectionNamespace, true)
+            .And()
+            .DoNotResideInNamespace(Constants.ModelNamespace, true)
+            .Should()
+            .NotBePublic()
+            .Because(
+                "Public classes should reside in either *.Extensions, *.DependencyInjection, or *.Model namespaces."
+            );
+
+        archRule.Check(Architecture);
+    }
+
     [Fact]
     public void TypesInSamplePackageAdapterLayer_DoNotDependOnAWS()
     {

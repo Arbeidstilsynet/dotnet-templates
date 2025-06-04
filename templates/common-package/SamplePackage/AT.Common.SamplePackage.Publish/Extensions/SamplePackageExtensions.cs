@@ -1,6 +1,6 @@
 using Arbeidstilsynet.Common.SamplePackage.Model;
 
-namespace Arbeidstilsynet.Common.SamplePackage.Extensions;
+namespace Arbeidstilsynet.Common.SamplePackage.Extensiones;
 
 /// <summary>
 /// Extensions for SamplePackage
@@ -14,8 +14,6 @@ public static class SamplePackageExtensions
     /// <returns>Returns the dto with a modified Foo property</returns>
     public static SamplePackageDto ToUpper(this SamplePackageDto dto)
     {
-        return new SamplePackageDto { 
-            Foo = dto.Foo.ToUpper() 
-        };
+        return new SamplePackageDto { Foo = dto.Foo.ToUpper() };
     }
 }
