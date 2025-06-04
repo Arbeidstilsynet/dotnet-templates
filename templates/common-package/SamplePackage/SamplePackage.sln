@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AT.Common.SamplePackage.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AT.Common.SamplePackage.Test", "AT.Common.SamplePackage.Test\AT.Common.SamplePackage.Test.csproj", "{666FC51B-55A8-4F6E-84ED-84EA44D86B69}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AT.Common.SamplePackage", "AT.Common.SamplePackage\AT.Common.SamplePackage.csproj", "{C8175CD1-D3BB-41B1-BB33-D30708FDF91B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AT.Common.SamplePackage.Publish", "AT.Common.SamplePackage.Publish\AT.Common.SamplePackage.Publish.csproj", "{C8175CD1-D3BB-41B1-BB33-D30708FDF91B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -21,6 +21,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AT.Common.SamplePackage\AT.Common.SamplePackage.csproj" />
+    <ProjectReference Include="..\AT.Common.SamplePackage.Publish\AT.Common.SamplePackage.Publish.csproj" />
   </ItemGroup>
 </Project>
