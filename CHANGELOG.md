@@ -5,29 +5,46 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.0.10
+
+### Changed
+
+- chore(hexarch): Centralize Docker Compose configuration using the include directive and split database and monitoring services into dedicated snippets. Also replaced the monitoring stack in docker compose with a bundled solution.
+- chore(hexarch): Use default port 8080 instead of 9008 in dockerized environment.
+
+### Fixed
+
+- fix(common-package): Typo in ArchUnit tests
+
 ## 0.0.9
+
+### Fixed
 
 - changed(extension-package): update AT.Common.AspNetCore.Extensions from v0.0.1 to v0.0.2
 
 ## 0.0.8
 
-- changed(extension-package): Updated the template to use the AT.Common.AspNetCore.Extensions package in order to reduce boilerplate.
+### Changed
+
+- chore(extension-package): Updated the template to use the AT.Common.AspNetCore.Extensions package in order to reduce boilerplate.
 
 ## 0.0.7
 
-- changed(extension-package): Removed an unnecessary ArchUnit test.
+### Changed
+
+- chore(extension-package): Removed an unnecessary ArchUnit test.
 
 ## 0.0.6
 
 ### Changed
 
-- changed(hexarch): update swashbuckle from v7 to v8 (major)
+- chore(hexarch): update swashbuckle from v7 to v8 (major)
 
 ## 0.0.5
 
 ### Changed
 
-- changed(hexarch): update scalar from v1 to v2 (major)
+- chore(hexarch): update scalar from v1 to v2 (major)
 
 ## 0.0.4
 

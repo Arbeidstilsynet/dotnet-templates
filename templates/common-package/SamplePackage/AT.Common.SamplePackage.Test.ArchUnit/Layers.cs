@@ -21,13 +21,13 @@ namespace SamplePackage.ArchUnit.Tests
             .ResideInAssembly(SamplePackagePortAssembly)
             .And()
             .DoNotResideInNamespace("Coverlet.Core.Instrumentation.Tracker")
-            .As("SamplePackage Adapter Layer");
+            .As("SamplePackage Port Layer");
 
         internal static readonly IObjectProvider<IType> SamplePackageAdapterLayer = Types()
             .That()
             .ResideInAssembly(SamplePackageAdapterAssembly)
             .And()
             .DoNotResideInNamespace("Coverlet.Core.Instrumentation.Tracker")
-            .As("SamplePackage Port Layer");
+            .As("SamplePackage Adapter Layer");
     }
 }

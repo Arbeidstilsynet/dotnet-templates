@@ -1,111 +1,22 @@
+include:
+  - compose.db.yaml
+  - compose.monitoring.yaml
+
 networks:
   applocal_network:
     external: false
 
 services:
-  postgres:
-    image: postgres:17-alpine@sha256:f325a29ec9deb7039c5f07761d77d79d537dac836ecd99f982f6ca5476724604
+  api:
+    build:
+      context: .
+    ports:
+      - "8080:8080"
     networks:
       - applocal_network
-    ports:
-      - 5432:5432
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
     environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=demo_db
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 1s
-      timeout: 5s
-      retries: 10
-
-  monitoring_otel_collector:
-    container_name: monitoring_otel_collector
-    image: otel/opentelemetry-collector-contrib:0.127.0@sha256:e94cfd92357aa21f4101dda3c0c01f90e6f24115ba91b263c4d09fed7911ae68
-    networks:
-      - applocal_network
-    restart: always
-    command:
-      - --config=/etc/otel-collector.yaml
-    volumes:
-      - ./.docker-compose.config/otel-collector.yaml:/etc/otel-collector.yaml
-    ports:
-      - "4317:4317"   # OTLP gRPC receiver
-    profiles: ["monitoring"]
+      DatabaseConfiguration__ConnectionString: Host=postgres;Port=5432;Database=demo_db;Username=postgres;Password=postgres
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://monitoring_otel:4317
     depends_on:
-      - monitoring_mimir
-      - monitoring_tempo
-      - monitoring_loki
-
-  monitoring_tempo:
-    container_name: monitoring_tempo
-    image: grafana/tempo:2.7.2@sha256:4b0277a9b572a4b1fa43b01468e58911ec214dd69d033f2cd476596d14de9fe3
-    networks:
-      - applocal_network
-    restart: always
-    command:
-      - -config.file=/etc/tempo.yaml
-      - -log.level=error
-    volumes:
-      - ./.docker-compose.config/tempo.yaml:/etc/tempo.yaml
-    profiles: ["monitoring"]
-
-  monitoring_mimir:
-    container_name: monitoring_mimir
-    image: grafana/mimir:2.16.0@sha256:f5850c2fd0d872fc029378558765aa79c4be66a5fca0d8c6bf0fc30971484555
-    networks:
-      - applocal_network
-    restart: always
-    command:
-      - -config.file=/etc/mimir.yaml
-      - -target=all
-      - -log.level=error
-    volumes:
-      - ./.docker-compose.config/mimir.yaml:/etc/mimir.yaml
-    profiles: ["monitoring"]
-
-  monitoring_loki:
-    container_name: monitoring_loki
-    image: grafana/loki:3.5.1@sha256:a74594532eec4cc313401beedc4dd2708c43674c032084b1aeb87c14a5be1745
-    networks:
-      - applocal_network
-    restart: always
-    command:
-      - -config.file=/etc/loki.yaml
-      - -target=all
-      - -log.level=error
-    volumes:
-      - ./.docker-compose.config/loki.yaml:/etc/loki.yaml
-    profiles: ["monitoring"]
-
-  monitoring_grafana:
-    container_name: monitoring_grafana
-    image: grafana/grafana:10.4.19@sha256:a9043254ba16fb10945cc27333963dfd08eccbb43b51f1222d831cc564e3a1f4
-    networks:
-      - applocal_network
-    restart: always
-    ports:
-     - '3000:3000'
-    volumes:
-      - ./.docker-compose.config/grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
-      - ./.docker-compose.config/grafana-dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml
-      - ./.docker-compose.config/grafana-dashboards:/var/lib/grafana/dashboards
-    environment:
-      - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-      - GF_AUTH_DISABLE_LOGIN_FORM=true
-      - GF_FEATURE_TOGGLES_ENABLE="traceqlEditor traceToMetrics metricsSummary"
-      - GF_LOG_LEVEL=error
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    profiles: ["monitoring"]
-    depends_on:
-      - monitoring_otel_collector
-      - monitoring_mimir
-      - monitoring_tempo
-      - monitoring_loki
-
-volumes:
-  postgres-data:
+      postgres:
+        condition: service_healthy
