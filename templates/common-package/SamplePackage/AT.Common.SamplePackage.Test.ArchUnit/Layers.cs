@@ -6,28 +6,29 @@ namespace SamplePackage.ArchUnit.Tests
     internal static class Constants
     {
         internal static string NameSpacePrefix = $"Arbeidstilsynet\\.Common\\.SamplePackage";
+        internal static string RootNamespace = $"^({NameSpacePrefix}|{NameSpacePrefix}\\..*)$";
+        internal static string ExtensionsNamespace = $"{NameSpacePrefix}\\.*\\.Extensions|{NameSpacePrefix}\\.Extensions";
+        internal static string DependencyInjectionNamespace = $"{NameSpacePrefix}\\.DependencyInjection";
+        internal static string ModelNamespace = $"{NameSpacePrefix}\\.Model";
     }
 
     internal static class Layers
     {
-        internal static readonly System.Reflection.Assembly SamplePackagePortAssembly =
-            typeof(Arbeidstilsynet.Common.SamplePackage.Ports.IAssemblyInfo).Assembly;
+        internal static readonly System.Reflection.Assembly SamplePackageAssembly =
+            typeof(Arbeidstilsynet.Common.SamplePackage.IAssemblyInfo).Assembly;
 
-        internal static readonly System.Reflection.Assembly SamplePackageAdapterAssembly =
-            typeof(Arbeidstilsynet.Common.SamplePackage.Adapters.IAssemblyInfo).Assembly;
-
-        internal static readonly IObjectProvider<IType> SamplePackagePortLayer = Types()
+        internal static readonly IObjectProvider<IType> SamplePackageLayer = Types()
             .That()
-            .ResideInAssembly(SamplePackagePortAssembly)
+            .ResideInAssembly(SamplePackageAssembly)
             .And()
             .DoNotResideInNamespace("Coverlet.Core.Instrumentation.Tracker")
-            .As("SamplePackage Port Layer");
-
-        internal static readonly IObjectProvider<IType> SamplePackageAdapterLayer = Types()
+            .As("SamplePackage Layer");
+        
+        internal static readonly IObjectProvider<IType> PublicInterfaces = Interfaces()
             .That()
-            .ResideInAssembly(SamplePackageAdapterAssembly)
+            .ResideInAssembly(SamplePackageAssembly)
             .And()
-            .DoNotResideInNamespace("Coverlet.Core.Instrumentation.Tracker")
-            .As("SamplePackage Adapter Layer");
+            .ArePublic()
+            .As("SamplePackage Public Interfaces");
     }
 }

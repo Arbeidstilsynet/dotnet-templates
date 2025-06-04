@@ -1,6 +1,6 @@
-using Arbeidstilsynet.Common.SamplePackage.Ports.Model;
+using Arbeidstilsynet.Common.SamplePackage.Model;
 
-namespace Arbeidstilsynet.Common.SamplePackage.Ports;
+namespace Arbeidstilsynet.Common.SamplePackage;
 
 /// <summary>
 /// Interface which can be dependency injected to use methods of SamplePackage

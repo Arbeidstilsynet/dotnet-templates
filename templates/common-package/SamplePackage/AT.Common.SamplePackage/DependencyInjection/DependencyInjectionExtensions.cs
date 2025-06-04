@@ -1,10 +1,7 @@
-using Arbeidstilsynet.Common.SamplePackage;
-using Arbeidstilsynet.Common.SamplePackage.Adapters;
-using Arbeidstilsynet.Common.SamplePackage.Ports;
+using Arbeidstilsynet.Common.SamplePackage.Implementation;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Arbeidstilsynet.Common.SamplePackage.Adapters.DependencyInjection;
+namespace Arbeidstilsynet.Common.SamplePackage.DependencyInjection;
 
 /// <summary>
 /// Extensions for Dependency Injection.

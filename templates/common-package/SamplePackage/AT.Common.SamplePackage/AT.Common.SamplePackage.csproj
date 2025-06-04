@@ -21,9 +21,6 @@
     />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="../AT.Common.SamplePackage.Ports/AT.Common.SamplePackage.Ports.csproj" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
   <Target

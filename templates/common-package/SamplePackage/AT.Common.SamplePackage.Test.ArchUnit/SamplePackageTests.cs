@@ -10,47 +10,43 @@ namespace SamplePackage.ArchUnit.Tests;
 public class SamplePackageAdapterLayerTests
 {
     static readonly Architecture Architecture = new ArchLoader()
-        .LoadAssemblies(Layers.SamplePackageAdapterAssembly)
+        .LoadAssemblies(Layers.SamplePackageAssembly)
         .Build();
 
     [Fact]
-    public void TypesInSamplePackageAdapterLayer_HaveCorrectNamespace()
+    public void TypesInSamplePackage_HaveCorrectNamespace()
     {
         IArchRule archRule = Types()
             .That()
-            .Are(Layers.SamplePackageAdapterLayer)
+            .Are(Layers.SamplePackageLayer)
             .Should()
-            .ResideInNamespace(
-                $"^({Constants.NameSpacePrefix}\\.Adapters|{Constants.NameSpacePrefix}\\.Adapters\\..*)$",
-                true
-            );
+            .ResideInNamespace(Constants.RootNamespace, true);
 
         archRule.Check(Architecture);
     }
 
     [Fact]
-    public void TypesInSamplePackageAdapterLayer_AreInternal()
+    public void InterfaceImplementationsInSamplePackage_AreNotPublic()
     {
         IArchRule archRule = Types()
             .That()
-            .Are(Layers.SamplePackageAdapterLayer)
+            .Are(Layers.SamplePackageLayer)
             .And()
-            .DoNotResideInNamespace(
-                $"^({Constants.NameSpacePrefix}\\.Adapters\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Adapters\\.DependencyInjection\\..*)$",
-                true
-            )
+            .AreAssignableTo(Layers.PublicInterfaces)
+            .And()
+            .AreNot(Layers.PublicInterfaces)
             .Should()
             .NotBePublic();
 
         archRule.Check(Architecture);
     }
-
+    
     [Fact]
     public void TypesInSamplePackageAdapterLayer_DoNotDependOnAWS()
     {
         IArchRule archRule = Types()
             .That()
-            .Are(Layers.SamplePackageAdapterLayer)
+            .Are(Layers.SamplePackageLayer)
             .Should()
             .NotDependOnAnyTypesThat()
             .ResideInNamespace("^Amazon.*$", true);
@@ -63,7 +59,7 @@ public class SamplePackageAdapterLayerTests
     {
         IArchRule archRule = Types()
             .That()
-            .Are(Layers.SamplePackageAdapterLayer)
+            .Are(Layers.SamplePackageLayer)
             .Should()
             .NotDependOnAny(typeof(System.Console))
             .Because(
