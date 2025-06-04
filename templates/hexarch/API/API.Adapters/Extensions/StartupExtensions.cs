@@ -8,14 +8,17 @@ internal static class StartupExtensions
 {
     public static IServiceCollection ConfigureStandardApi(
         this IServiceCollection services,
-        string appName,
-        IWebHostEnvironment env
+        string appName
     )
     {
         services.ConfigureApi();
         services.ConfigureOpenTelemetry(appName);
         services.ConfigureSwagger();
-        services.ConfigureLogging(env);
+        services.AddLogging(configure =>
+        {
+            configure.ClearProviders();
+            configure.SetMinimumLevel(LogLevel.Information);
+        });
 
         return services;
     }
