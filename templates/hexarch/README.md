@@ -1,9 +1,11 @@
 # 📖 Introduction
 
 Definition (wikipedia)
+
 > The hexagonal architecture, or ports and adapters architecture, is an architectural pattern used in software design. It aims at creating loosely coupled application components that can be easily connected to their software environment by means of ports and adapters. This makes components exchangeable at any level and facilitates test automation.
 
 Intend [by the author Alistair Cockburn](https://alistair.cockburn.us/hexagonal-architecture/)
+
 > Allow an application to equally be driven by users, programs, automated test or batch scripts, and to be developed and tested in isolation from its eventual run-time devices and databases.
 > When any driver wants to use the application at a port, it sends a request that is converted by an adapter for the specific technology of the driver into an usable procedure call or message, which passes that to the application port. The application is blissfully ignorant of the driver’s technology. When the application has something to send out, it sends it out through a port to an adapter, which creates the appropriate signals needed by the receiving technology (human or automated). The application has a semantically sound interaction with the adapters on all sides of it, without actually knowing the nature of the things on the other side of the adapters.
 
@@ -13,31 +15,30 @@ Idea/concept in a picture:
 
 ## 🚀 Start the show case application
 
+The application exposes a scalar ui, which is locally accesible on [http://localhost:8080/scalar/v1](http://localhost:8080/scalar/v1). Discover the available endpoints on the UI or use the [OpenApi Spec](http://localhost:8080/openapi/v1.json). The OpenApi Spec can be imported by other tools like e.g. Postman.
+
 ### Local Development (for developers)
 
 Prerequisites:
 
 - Docker installed
 - dotnet SDK installed (v8)
-- Conncetion to nuget feed configured on machine via e.g. [Azure Artifacts Credential Provider](https://github.com/microsoft/artifacts-credprovider)
 
-To test and debug locally against a test data set, you need to run the following commands:
+To test and debug locally, you need to run the following commands:
 
 ```terminal
-docker compose -f compose.yaml --profile "monitoring" up -d
+docker compose -f compose.db.yaml -f compose.monitoring.yaml up -d
 ```
 
-> The monitoring profile is optional and can be dropped. If used, a telemetry backend as defined in the [opentelemetry section](#-observability--opentelemetry) is spinned up.
+> The monitoring compose file is optional and can be dropped. If used, a telemetry backend as defined in the [opentelemetry section](#-observability--opentelemetry) is spinned up.
 
 This starts (as per today) a plain postgres instance without any seed.
+
 Now, start the actual asp dotnet core application with the `Development` profile:
 
 ```terminal
-cd API/API.Adapters
-dotnet run --environment Development
+dotnet run --project API/API.Adapters Environment=Development
 ```
-
-The application exposes a scalar ui, which is locally accesible on [http://localhost:8080/scalar/v1](http://localhost:8080/scalar/v1). Discover the available endpoints on the UI or use the [OpenApi Spec](http://localhost:8080/openapi/v1.json). The OpenApi Spec can be imported by other tools like e.g. Postman.
 
 ### Local Development in a complete dockerized environment (for e.g tester)
 
@@ -48,12 +49,22 @@ Prerequisites:
 Start the application by running:
 
 ```terminal
-docker compose --profile "monitoring" up --build -d
+docker compose up --build -d
 ```
 
-> The monitoring profile is optional and can be dropped. If used, a telemetry backend as defined in the [opentelemetry section](#-observability--opentelemetry) is spinned up.
+### Cleanup
 
-The application exposes a swagger ui, which is locally accesible on [http://localhost:9008/scalar/v1](http://localhost:9008/scalar/v1). Discover the available endpoints on the UI or use the [OpenApi Spec](http://localhost:9008/openapi/v1.json). The OpenApi Spec can be imported by other tools like e.g. Postman.
+If you want to stop all containers, run:
+
+```terminal
+docker compose down
+```
+
+If you want to get a clean database at the next startup, simply remove the attached volume:
+
+```terminal
+docker volume rm -f $(docker volume ls | grep postgres-data)
+```
 
 ## 🏃‍♂️ Getting Started
 
@@ -75,35 +86,28 @@ dotnet test
 
 ## 🧱 Project Structure
 
+<!-- prettier-ignore -->
 ```md
 .
+├── API
+│   ├── API.Adapters
+│   ├── API.Adapters.Test
+│   └── API.Ports
 ├── ArchUnit.Tests
 ├── Domain
 │   ├── Domain.Data
 │   ├── Domain.Logic
 │   └── Domain.Logic.Test
-├── Infrastructure
-│   ├── Infrastructure.Adapters
-│   │   ├── Db
-│   │   │   └── Model
-│   │   └── Mapper
-│   ├── Infrastructure.Adapters.Test
-│   └── Infrastructure.Ports
-└── API
-    ├── API.Adapters
-    │   ├── Extensions
-    │   └── WebApi
-    │       └── Controllers
-    ├── API.Adapters.Test
-    └── API.Ports
-        ├── Requests
-        └── Responses
+└── Infrastructure
+    ├── Infrastructure.Adapters
+    ├── Infrastructure.Adapters.Test
+    └── Infrastructure.Ports
 ```
 
 - ArchUnit.Tests
   - Important tests to gurantee the below structure keeps maintained
 - Domain
-  - Domain Logic *implements* API.Ports and *uses* Infrastructure.Ports
+  - Domain Logic _implements_ API.Ports and _uses_ Infrastructure.Ports
   - Tests that validate the domain logic
   - Domain Data contains Classes/DTOs which can be shared across layers
 - Infrastructure (Outgoing: infrastructure the application talks with)
@@ -115,7 +119,6 @@ dotnet test
   - Tests that validate the API.Adapters
 
 > Domain Logic and Infrastructure Adapter implementations are internal, and only exposed through DependencyInjection extensions.
-
 
 ## 👩‍💻 Logging
 
@@ -141,6 +144,7 @@ We strongly recommend to use the default opentelemetry setup in this application
 Checkout [OpenTelemetry .NET Traces](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/docs/trace/README.md) for best practices, fine-tuning and examples.
 
 #### Configuration example
+
 ```csharp
 services.AddOpenTelemetry()
         .WithTracing(options =>
@@ -158,10 +162,11 @@ services.AddOpenTelemetry()
 Checkout [OpenTelemetry .NET Logs](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/docs/logs/README.md) for best practices, fine-tuning and examples.
 
 #### Configuration example
+
 ```csharp
 services.AddOpenTelemetry()
         .WithLogging(
-            logging => logging.AddOtlpExporter(), 
+            logging => logging.AddOtlpExporter(),
             options => options.IncludeFormattedMessage = true
         );
 ```
@@ -171,6 +176,7 @@ services.AddOpenTelemetry()
 Checkout [OpenTelemetry .NET Metrics](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/docs/metrics/README.md) for best practices, fine-tuning and examples.
 
 #### Configuration example
+
 ```csharp
 services.AddOpenTelemetry()
         .WithMetrics(options =>
