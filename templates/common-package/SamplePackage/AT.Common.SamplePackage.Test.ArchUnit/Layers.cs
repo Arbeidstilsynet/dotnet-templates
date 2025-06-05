@@ -13,9 +13,9 @@ namespace SamplePackage.ArchUnit.Tests
         );
         internal static string ModelNamespace = CreateNamespaceRegex("Model");
 
-        private static string CreateNamespaceRegex(string postfix)
+        private static string CreateNamespaceRegex(string namespaceSection)
         {
-            return $@"^({NameSpacePrefix}\.*\.{postfix}|{NameSpacePrefix}\.{postfix})$";
+            return $@"^({NameSpacePrefix}\.{namespaceSection}|{NameSpacePrefix}\.{namespaceSection}\.*|{NameSpacePrefix}\.*\.{namespaceSection}|{NameSpacePrefix}\.*\.{namespaceSection}\.*)$";
         }
     }
 

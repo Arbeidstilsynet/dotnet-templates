@@ -1,4 +1,3 @@
-using Arbeidstilsynet.Common.SamplePackage.Adapters;
 using Arbeidstilsynet.Common.SamplePackage.Implementation;
 using Shouldly;
 using Xunit;

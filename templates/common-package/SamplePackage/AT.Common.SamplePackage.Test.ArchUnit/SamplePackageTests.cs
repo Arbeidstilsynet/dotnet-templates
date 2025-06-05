@@ -48,7 +48,7 @@ public class SamplePackageAdapterLayerTests
             .Should()
             .NotBePublic()
             .Because(
-                "public types should either be an interface OR reside in either *.Extensions, *.DependencyInjection, or *.Model."
+                "public types should either be an interface OR reside in a namespace containing \"Extensions\", \"DependencyInjection\" or \"Model\"."
             );
 
         archRule.Check(Architecture);
