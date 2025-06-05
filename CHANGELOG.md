@@ -9,9 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Consolidated extensions-package into common-package
 
+### Added
+
+- added(common-package): Added .gitignore
+
 ### Changed
 
 - changed(common-package): Single-project structure and new ArchUnit tests. A bit more flexible, which allows publishing any combination of ports/adapters, extensions or just model classes
+- changed(hexarch): Updated .gitignore to handle Rider metadata
 
 ### Removed
 
