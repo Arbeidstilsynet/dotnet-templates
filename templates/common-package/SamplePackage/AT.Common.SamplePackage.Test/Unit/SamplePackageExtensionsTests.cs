@@ -1,4 +1,4 @@
-using Arbeidstilsynet.Common.SamplePackage.Extensiones;
+using Arbeidstilsynet.Common.SamplePackage.Extensions;
 using Arbeidstilsynet.Common.SamplePackage.Model;
 using Shouldly;
 using Xunit;

@@ -30,14 +30,9 @@ public class SamplePackageAdapterLayerTests
     {
         IArchRule archRule = Types()
             .That()
-            .Are(Layers.SamplePackageLayer)
-            .And()
-            .AreAssignableTo(Layers.SamplePackagePublicInterfaces)
-            .And()
-            .AreNot(Layers.SamplePackagePublicInterfaces)
+            .Are(Layers.InterfaceImplementations)
             .Should()
-            .NotBePublic()
-            .Because("Implementations should not be public.");
+            .NotBePublic();
 
         archRule.Check(Architecture);
     }
@@ -47,19 +42,13 @@ public class SamplePackageAdapterLayerTests
     {
         IArchRule archRule = Types()
             .That()
-            .Are(Layers.SamplePackageLayer)
+            .AreNot(Layers.PublicInterfaces)
             .And()
-            .AreNot(Layers.SamplePackagePublicInterfaces)
-            .And()
-            .DoNotResideInNamespace(Constants.ExtensionsNamespace, true)
-            .And()
-            .DoNotResideInNamespace(Constants.DependencyInjectionNamespace, true)
-            .And()
-            .DoNotResideInNamespace(Constants.ModelNamespace, true)
+            .Are(Layers.TypesInInternalNamespaces)
             .Should()
             .NotBePublic()
             .Because(
-                "Public classes should reside in either *.Extensions, *.DependencyInjection, or *.Model namespaces."
+                "public types should either be an interface OR reside in either *.Extensions, *.DependencyInjection, or *.Model."
             );
 
         archRule.Check(Architecture);
@@ -87,7 +76,7 @@ public class SamplePackageAdapterLayerTests
             .Should()
             .NotDependOnAny(typeof(System.Console))
             .Because(
-                "We want to use streamlined logging. Try using ILogger<T> via DependencyInjection to log."
+                "we want to use streamlined logging. Try using ILogger<T> via DependencyInjection to log."
             );
 
         archRule.Check(Architecture);
