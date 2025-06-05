@@ -1,4 +1,4 @@
-namespace Arbeidstilsynet.Common.SamplePackage.Ports.Model;
+namespace Arbeidstilsynet.Common.SamplePackage.Model;
 
 /// <summary>
 /// Dummy dto for demo

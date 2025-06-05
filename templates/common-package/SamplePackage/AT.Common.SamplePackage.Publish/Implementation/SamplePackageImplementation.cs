@@ -1,7 +1,6 @@
-using Arbeidstilsynet.Common.SamplePackage.Ports;
-using Arbeidstilsynet.Common.SamplePackage.Ports.Model;
+using Arbeidstilsynet.Common.SamplePackage.Model;
 
-namespace Arbeidstilsynet.Common.SamplePackage.Adapters;
+namespace Arbeidstilsynet.Common.SamplePackage.Implementation;
 
 internal class SamplePackageImplementation : ISamplePackage
 {

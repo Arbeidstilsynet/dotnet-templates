@@ -10,37 +10,49 @@ namespace SamplePackage.ArchUnit.Tests;
 public class SamplePackageAdapterLayerTests
 {
     static readonly Architecture Architecture = new ArchLoader()
-        .LoadAssemblies(Layers.SamplePackageAdapterAssembly)
+        .LoadAssemblies(Layers.SamplePackageAssembly)
         .Build();
 
     [Fact]
-    public void TypesInSamplePackageAdapterLayer_HaveCorrectNamespace()
+    public void TypesInSamplePackage_HaveCorrectNamespace()
     {
         IArchRule archRule = Types()
             .That()
-            .Are(Layers.SamplePackageAdapterLayer)
+            .Are(Layers.SamplePackageLayer)
             .Should()
-            .ResideInNamespace(
-                $"^({Constants.NameSpacePrefix}\\.Adapters|{Constants.NameSpacePrefix}\\.Adapters\\..*)$",
-                true
-            );
+            .ResideInNamespace(Constants.RootNamespace, true)
+            .WithoutRequiringPositiveResults();
 
         archRule.Check(Architecture);
     }
 
     [Fact]
-    public void TypesInSamplePackageAdapterLayer_AreInternal()
+    public void InterfaceImplementationsInSamplePackage_AreNotPublic()
     {
         IArchRule archRule = Types()
             .That()
-            .Are(Layers.SamplePackageAdapterLayer)
-            .And()
-            .DoNotResideInNamespace(
-                $"^({Constants.NameSpacePrefix}\\.Adapters\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Adapters\\.DependencyInjection\\..*)$",
-                true
-            )
+            .Are(Layers.InterfaceImplementations)
             .Should()
-            .NotBePublic();
+            .NotBePublic()
+            .WithoutRequiringPositiveResults();
+
+        archRule.Check(Architecture);
+    }
+
+    [Fact]
+    public void PublicClasses_MustResideInExtensionsOrDependencyInjectionOrModelNamespaces()
+    {
+        IArchRule archRule = Types()
+            .That()
+            .AreNot(Layers.PublicInterfaces)
+            .And()
+            .Are(Layers.TypesInInternalNamespaces)
+            .Should()
+            .NotBePublic()
+            .Because(
+                "public types should either be an interface OR reside in a namespace containing \"Extensions\", \"DependencyInjection\" or \"Model\"."
+            )
+            .WithoutRequiringPositiveResults();
 
         archRule.Check(Architecture);
     }
@@ -50,7 +62,7 @@ public class SamplePackageAdapterLayerTests
     {
         IArchRule archRule = Types()
             .That()
-            .Are(Layers.SamplePackageAdapterLayer)
+            .Are(Layers.SamplePackageLayer)
             .Should()
             .NotDependOnAnyTypesThat()
             .ResideInNamespace("^Amazon.*$", true);
@@ -63,11 +75,11 @@ public class SamplePackageAdapterLayerTests
     {
         IArchRule archRule = Types()
             .That()
-            .Are(Layers.SamplePackageAdapterLayer)
+            .Are(Layers.SamplePackageLayer)
             .Should()
             .NotDependOnAny(typeof(System.Console))
             .Because(
-                "We want to use streamlined logging. Try using ILogger<T> via DependencyInjection to log."
+                "we want to use streamlined logging. Try using ILogger<T> via DependencyInjection to log."
             );
 
         archRule.Check(Architecture);

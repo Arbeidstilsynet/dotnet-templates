@@ -20,7 +20,6 @@
     <PackageReference Include="TngTech.ArchUnitNET.xUnit" Version="0.11.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="../AT.Common.SamplePackage.Ports/AT.Common.SamplePackage.Ports.csproj" />
-    <ProjectReference Include="../AT.Common.SamplePackage.Adapters/AT.Common.SamplePackage.Adapters.csproj" />
+    <ProjectReference Include="..\AT.Common.SamplePackage.Publish\AT.Common.SamplePackage.Publish.csproj" />
   </ItemGroup>
 </Project>
