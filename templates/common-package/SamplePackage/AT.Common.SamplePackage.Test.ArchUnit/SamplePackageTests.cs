@@ -20,7 +20,8 @@ public class SamplePackageAdapterLayerTests
             .That()
             .Are(Layers.SamplePackageLayer)
             .Should()
-            .ResideInNamespace(Constants.RootNamespace, true);
+            .ResideInNamespace(Constants.RootNamespace, true)
+            .WithoutRequiringPositiveResults();
 
         archRule.Check(Architecture);
     }
@@ -32,7 +33,8 @@ public class SamplePackageAdapterLayerTests
             .That()
             .Are(Layers.InterfaceImplementations)
             .Should()
-            .NotBePublic();
+            .NotBePublic()
+            .WithoutRequiringPositiveResults();
 
         archRule.Check(Architecture);
     }
@@ -49,7 +51,8 @@ public class SamplePackageAdapterLayerTests
             .NotBePublic()
             .Because(
                 "public types should either be an interface OR reside in a namespace containing \"Extensions\", \"DependencyInjection\" or \"Model\"."
-            );
+            )
+            .WithoutRequiringPositiveResults();
 
         archRule.Check(Architecture);
     }

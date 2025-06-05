@@ -1,6 +1,6 @@
 using Arbeidstilsynet.Common.SamplePackage.Model;
 
-namespace Arbeidstilsynet.Common.SamplePackage.Extensions;
+namespace Arbeidstilsynet.Common.SamplePackage.Extensions.Something;
 
 /// <summary>
 /// Extensions for SamplePackage
