@@ -5,7 +5,10 @@
     <ProjectReference Include="..\API.Ports\API.Ports.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Arbeidstilsynet.Common.AspNetCore.Extensions" Version="0.0.3" />
+    <PackageReference
+      Include="Arbeidstilsynet.Common.AspNetCore.Extensions"
+      Version="1.0.0-alpha"
+    />
     <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.12.0" />
     <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.12.0" />
     <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.12.0" />
