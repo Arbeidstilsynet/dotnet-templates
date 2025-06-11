@@ -1,8 +1,10 @@
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports.Requests;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports;
 using Bogus;
+using Microsoft.Extensions.Options;
 using NSubstitute;
 using Shouldly;
 
@@ -12,12 +14,17 @@ public class SakServiceTests
 {
     private readonly SakService _sut;
     private readonly ISakRepository _sakRepositoryMock = Substitute.For<ISakRepository>();
-
+    
     private static readonly string SampleOrgNr = "123456789";
+
+    private DomainConfiguration _domainConfiguration = new ()
+    {
+        SomeSetting = "SampleConfigValue"
+    };
 
     public SakServiceTests()
     {
-        _sut = new SakService(_sakRepositoryMock);
+        _sut = new SakService(_sakRepositoryMock, Options.Create(_domainConfiguration));
     }
 
     [Fact]

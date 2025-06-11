@@ -19,8 +19,8 @@ public class InfrastructureAdapterTestFixture : TestBedFixture, IAsyncLifetime
         global::Microsoft.Extensions.Configuration.IConfiguration? configuration
     )
     {
-        services.AddInfrastructureServices(
-            new DatabaseConfiguration() { ConnectionString = _dbDemoFixture.ConnectionString }
+        services.AddInfrastructure(
+            new InfrastructureConfiguration() { ConnectionString = _dbDemoFixture.ConnectionString }
         );
     }
 

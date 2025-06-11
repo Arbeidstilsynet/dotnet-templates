@@ -13,8 +13,8 @@ var env = builder.Environment;
 
 services.ConfigureStandardApi(IAssemblyInfo.AppName);
 
-services.AddDomain();
-services.AddInfrastructureServices(appSettings.DatabaseConfiguration);
+services.AddDomain(appSettings.DomainConfig);
+services.AddInfrastructure(appSettings.InfrastructureConfig);
 
 var app = builder.Build();
 
