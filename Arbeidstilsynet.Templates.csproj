@@ -25,7 +25,6 @@
     <LocalizeTemplates>false</LocalizeTemplates>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Arbeidstilsynet.Common.AspNetCore.Extensions" Version="0.0.1" />
     <PackageReference
       Include="Microsoft.TemplateEngine.Tasks"
       Version="*"
