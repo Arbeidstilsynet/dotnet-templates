@@ -16,6 +16,8 @@ services:
       - applocal_network
     environment:
       DatabaseConfiguration__ConnectionString: Host=postgres;Port=5432;Database=demo_db;Username=postgres;Password=postgres
+      CorsConfiguration__AllowedOrigins__0: http://localhost:3000
+      CorsConfiguration__AllowCredentials: false
       OTEL_EXPORTER_OTLP_ENDPOINT: http://monitoring_otel:4317
     depends_on:
       postgres:
