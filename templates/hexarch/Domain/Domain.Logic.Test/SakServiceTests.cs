@@ -14,13 +14,10 @@ public class SakServiceTests
 {
     private readonly SakService _sut;
     private readonly ISakRepository _sakRepositoryMock = Substitute.For<ISakRepository>();
-    
+
     private static readonly string SampleOrgNr = "123456789";
 
-    private DomainConfiguration _domainConfiguration = new ()
-    {
-        SomeSetting = "SampleConfigValue"
-    };
+    private DomainConfiguration _domainConfiguration = new() { SomeSetting = "SampleConfigValue" };
 
     public SakServiceTests()
     {

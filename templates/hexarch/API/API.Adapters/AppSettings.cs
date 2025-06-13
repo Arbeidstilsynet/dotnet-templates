@@ -7,12 +7,12 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Api;
 internal record AppSettings
 {
     [ConfigurationKeyName("API")]
-    public ApiConfiguration ApiConfig { get; init; } = new ();
-    
+    public ApiConfiguration ApiConfig { get; init; } = new();
+
     [Required]
     [ConfigurationKeyName("Infrastructure")]
     public required InfrastructureConfiguration InfrastructureConfig { get; init; }
-    
+
     [Required]
     [ConfigurationKeyName("Domain")]
     public required DomainConfiguration DomainConfig { get; init; }
@@ -21,14 +21,14 @@ internal record AppSettings
 internal record ApiConfiguration
 {
     [ConfigurationKeyName("Cors")]
-    public CorsConfiguration Cors { get; init; } = new ();
+    public CorsConfiguration Cors { get; init; } = new();
 }
 
 internal record CorsConfiguration
 {
     [Required]
     public string[] AllowedOrigins { get; init; } = [];
-    
+
     [Required]
     public bool AllowCredentials { get; init; } = false;
 }

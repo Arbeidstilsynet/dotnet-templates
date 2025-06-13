@@ -16,7 +16,10 @@ public class DomainConfiguration
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddDomain(this IServiceCollection services, DomainConfiguration domainConfiguration)
+    public static IServiceCollection AddDomain(
+        this IServiceCollection services,
+        DomainConfiguration domainConfiguration
+    )
     {
         services.AddMapper();
         services.AddSingleton(Options.Create(domainConfiguration));
