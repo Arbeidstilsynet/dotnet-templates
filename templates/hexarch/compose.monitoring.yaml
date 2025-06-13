@@ -12,4 +12,4 @@ services:
     ports:
       - "4317:4317" # OTLP gRPC receiver
       - "4318:4318" # OTLP HTTP receiver
-      - "3000:3000" # Grafana UI
+      - "4000:3000" # Grafana UI

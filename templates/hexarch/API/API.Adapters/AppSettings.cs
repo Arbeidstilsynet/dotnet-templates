@@ -6,10 +6,8 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Api;
 
 internal record AppSettings
 {
-    [Required]
     [ConfigurationKeyName("API")]
-    public required ApiConfiguration ApiConfig { get; init; }
-    
+    public ApiConfiguration ApiConfig { get; init; } = new ();
     
     [Required]
     [ConfigurationKeyName("Infrastructure")]

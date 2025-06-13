@@ -137,7 +137,7 @@ To ensure that our logging stays consistent, there are ArchUnit tests which chec
 
 [General information about observability](https://opentelemetry.io/docs/what-is-opentelemetry/)
 
-We strongly recommend to use the default opentelemetry setup in this application. It ensures a minimal level of observability and can be fine-tuned if needed. When running `docker-compose` with the monitoring profile, a default backend of a `opentelemetry-collector`, `mimir/prometheus` (Metrics), `loki` (Logs), `tempo` (Traces) and `grafana` (Dashboard) is started. You will find the same or a similar setup in our production environment. To explore the telemetry data your application is producing, check out [Grafana Explore](http://localhost:3000/explore).
+We strongly recommend to use the default opentelemetry setup in this application. It ensures a minimal level of observability and can be fine-tuned if needed. When running `docker-compose` with the monitoring profile, a default backend of a `opentelemetry-collector`, `mimir/prometheus` (Metrics), `loki` (Logs), `tempo` (Traces) and `grafana` (Dashboard) is started. You will find the same or a similar setup in our production environment. To explore the telemetry data your application is producing, check out [Grafana Explore](http://localhost:4000/explore).
 
 ### Traces
 

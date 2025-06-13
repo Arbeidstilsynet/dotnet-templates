@@ -8,7 +8,9 @@ internal static class StartupExtensions
 {
     public static IServiceCollection ConfigureStandardApi(
         this IServiceCollection services,
-        string appName
+        string appName,
+        ApiConfiguration apiConfiguration,
+        IWebHostEnvironment env
     )
     {
         services.ConfigureApi();
@@ -19,6 +21,11 @@ internal static class StartupExtensions
             configure.ClearProviders();
             configure.SetMinimumLevel(LogLevel.Information);
         });
+        services.ConfigureCors(
+            apiConfiguration.Cors.AllowedOrigins,
+            apiConfiguration.Cors.AllowCredentials,
+            env.IsDevelopment()
+        );
 
         return services;
     }
@@ -28,6 +35,7 @@ internal static class StartupExtensions
         app.AddApi(options =>
             options.AddExceptionMapping<SakNotFoundException>(HttpStatusCode.NotFound)
         );
+        app.UseCors();
         app.AddScalar();
 
         return app;
