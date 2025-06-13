@@ -29,7 +29,7 @@ public class ActionsControllerIntegrationTests : IClassFixture<ApplicationFactor
         result?.ShouldBeEquivalentTo(
             TestSak with
             {
-                Status = SakStatus.InPrograss,
+                Status = SakStatus.InProgress,
                 LastUpdated = result.LastUpdated,
             }
         );

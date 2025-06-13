@@ -1,8 +1,10 @@
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports.Requests;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports;
 using Bogus;
+using Microsoft.Extensions.Options;
 using NSubstitute;
 using Shouldly;
 
@@ -15,9 +17,11 @@ public class SakServiceTests
 
     private static readonly string SampleOrgNr = "123456789";
 
+    private DomainConfiguration _domainConfiguration = new() { SomeSetting = "SampleConfigValue" };
+
     public SakServiceTests()
     {
-        _sut = new SakService(_sakRepositoryMock);
+        _sut = new SakService(_sakRepositoryMock, Options.Create(_domainConfiguration));
     }
 
     [Fact]
@@ -79,7 +83,7 @@ public class SakServiceTests
         //arrange
         var testId = Guid.NewGuid();
         var mockedSakResponse = new Faker<Sak>().Generate() with { Id = testId };
-        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.InPrograss).Returns(mockedSakResponse);
+        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.InProgress).Returns(mockedSakResponse);
         //act
         var result = await _sut.StartSak(testId);
         //assert
@@ -92,7 +96,7 @@ public class SakServiceTests
         //arrange
         var testId = Guid.NewGuid();
         Sak? mockedSakResponse = null;
-        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.InPrograss).Returns(mockedSakResponse);
+        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.InProgress).Returns(mockedSakResponse);
         //act
         var act = () => _sut.StartSak(testId);
         //assert

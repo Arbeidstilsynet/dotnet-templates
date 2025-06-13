@@ -9,7 +9,7 @@ internal static class StartupExtensions
     public static IServiceCollection ConfigureStandardApi(
         this IServiceCollection services,
         string appName,
-        CorsConfiguration corsConfiguration,
+        ApiConfiguration apiConfiguration,
         IWebHostEnvironment env
     )
     {
@@ -22,8 +22,8 @@ internal static class StartupExtensions
             configure.SetMinimumLevel(LogLevel.Information);
         });
         services.ConfigureCors(
-            corsConfiguration.AllowedOrigins,
-            corsConfiguration.AllowCredentials,
+            apiConfiguration.Cors.AllowedOrigins,
+            apiConfiguration.Cors.AllowCredentials,
             env.IsDevelopment()
         );
 

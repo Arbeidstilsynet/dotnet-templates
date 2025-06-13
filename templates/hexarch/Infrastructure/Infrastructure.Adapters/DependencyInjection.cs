@@ -10,24 +10,24 @@ using Microsoft.Extensions.DependencyInjection;
 // ReSharper disable once CheckNamespace
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.DependencyInjection;
 
-public record DatabaseConfiguration
+public record InfrastructureConfiguration
 {
     [Required]
-    public required string ConnectionString { get; set; }
+    public required string ConnectionString { get; init; }
 }
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddInfrastructureServices(
+    public static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
-        DatabaseConfiguration databaseConfiguration
+        InfrastructureConfiguration infrastructureConfiguration
     )
     {
         services.AddScoped<ISakRepository, SakRepository>();
-        services.AddSingleton(databaseConfiguration);
+        services.AddSingleton(infrastructureConfiguration);
         services.AddDbContext<InfrastructureAdaptersDbContext>(opt =>
         {
-            opt.UseNpgsql(databaseConfiguration.ConnectionString);
+            opt.UseNpgsql(infrastructureConfiguration.ConnectionString);
         });
 
         services.AddMapper();

@@ -1,10 +1,18 @@
-# 📖 Description
+# Introduction
 
-Klient som returner dummy data.
+Give a brief introduction to SamplePackage, and explain its purpose.
 
-# 🧑‍💻 Usage
+## 📖 Installation
 
-Bruk via DependencyInjection.
+To install the SamplePackage, you can use the following command in your terminal:
+
+```bash
+dotnet add package Arbeidstilsynet.Common.SamplePackage
+```
+
+## 🧑‍💻 Usage
+
+Add to your service collection:
 
 ```csharp
 public static IServiceCollection AddServices
@@ -12,7 +20,27 @@ public static IServiceCollection AddServices
         this IServiceCollection services,
         DatabaseConfiguration databaseConfiguration
     ) {
-        services.AddFooBarKlient();
+        services.AddSamplePackage();
         return services;
     }
+```
+
+Inject into your class:
+
+```csharp
+public class MyService
+{
+    private readonly ISamplePackage _samplePackage;
+
+    public MyService(ISamplePackage samplePackage)
+    {
+        _samplePackage = samplePackage;
+    }
+
+    public async Task DoSomething()
+    {
+        var result = await _samplePackage.Get();
+        // Use result...
+    }
+}
 ```

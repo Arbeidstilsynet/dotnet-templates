@@ -4,7 +4,7 @@ public enum SakStatus
 {
     New,
 
-    InPrograss,
+    InProgress,
     Done,
 
     Archived,

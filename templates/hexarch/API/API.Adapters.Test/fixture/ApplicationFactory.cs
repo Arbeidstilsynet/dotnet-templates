@@ -18,9 +18,9 @@ public class ApplicationFactory : WebApplicationFactory<API.Adapters.IAssemblyIn
     {
         builder.ConfigureTestServices(services =>
         {
-            services.RemoveAll<DatabaseConfiguration>();
+            services.RemoveAll<InfrastructureConfiguration>();
             services.AddSingleton(
-                new DatabaseConfiguration
+                new InfrastructureConfiguration
                 {
                     ConnectionString = postgresDbDemoFixture.ConnectionString,
                 }
