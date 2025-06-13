@@ -1,10 +1,14 @@
 # Introduction
 
-Introduction to SamplePackage.
+Give a brief introduction to SamplePackage, and explain its purpose.
 
-## 📖 Description
+## 📖 Installation
 
-Describe SamplePackage.
+To install the SamplePackage, you can use the following command in your terminal:
+
+```bash
+dotnet add package Arbeidstilsynet.Common.SamplePackage
+```
 
 ## 🧑‍💻 Usage
 
