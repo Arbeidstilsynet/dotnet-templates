@@ -1,6 +1,6 @@
 # Introduction
 
-Introction to SamplePackage.
+Introduction to SamplePackage.
 
 ## 📖 Description
 
