@@ -36,7 +36,7 @@ internal class SakService(ISakRepository sakRepository, IOptions<DomainConfigura
 
     public async Task<Sak> StartSak(Guid sakId)
     {
-        return await sakRepository.UpdateSakStatus(sakId, SakStatus.InPrograss)
+        return await sakRepository.UpdateSakStatus(sakId, SakStatus.InProgress)
             ?? throw new SakNotFoundException(sakId);
     }
 

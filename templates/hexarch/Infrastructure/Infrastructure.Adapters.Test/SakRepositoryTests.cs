@@ -50,12 +50,12 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
         // arrange
         var createdSak = await _sut.CreateSak(SampleOrgNr);
         // act
-        var updatedSak = await _sut.UpdateSakStatus(createdSak.Id, SakStatus.InPrograss);
+        var updatedSak = await _sut.UpdateSakStatus(createdSak.Id, SakStatus.InProgress);
         // assert
         updatedSak.ShouldBeEquivalentTo(
             createdSak with
             {
-                Status = SakStatus.InPrograss,
+                Status = SakStatus.InProgress,
                 LastUpdated = updatedSak!.LastUpdated,
             }
         );

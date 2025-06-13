@@ -83,7 +83,7 @@ public class SakServiceTests
         //arrange
         var testId = Guid.NewGuid();
         var mockedSakResponse = new Faker<Sak>().Generate() with { Id = testId };
-        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.InPrograss).Returns(mockedSakResponse);
+        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.InProgress).Returns(mockedSakResponse);
         //act
         var result = await _sut.StartSak(testId);
         //assert
@@ -96,7 +96,7 @@ public class SakServiceTests
         //arrange
         var testId = Guid.NewGuid();
         Sak? mockedSakResponse = null;
-        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.InPrograss).Returns(mockedSakResponse);
+        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.InProgress).Returns(mockedSakResponse);
         //act
         var act = () => _sut.StartSak(testId);
         //assert
