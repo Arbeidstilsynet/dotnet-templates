@@ -13,14 +13,14 @@ internal static class StartupExtensions
         IWebHostEnvironment env
     )
     {
+        services.AddLogging(configure =>
+        {
+            configure.SetMinimumLevel(LogLevel.Information);
+        });
         services.ConfigureApi();
         services.ConfigureOpenTelemetry(appName);
         services.ConfigureSwagger();
-        services.AddLogging(configure =>
-        {
-            configure.ClearProviders();
-            configure.SetMinimumLevel(LogLevel.Information);
-        });
+
         services.ConfigureCors(
             apiConfiguration.Cors.AllowedOrigins,
             apiConfiguration.Cors.AllowCredentials,
