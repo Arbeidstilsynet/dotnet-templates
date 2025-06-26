@@ -13,7 +13,6 @@ internal record AppSettings
     [ConfigurationKeyName("Infrastructure")]
     public required InfrastructureConfiguration InfrastructureConfig { get; init; }
 
-    [Required]
     [ConfigurationKeyName("Domain")]
     public required DomainConfiguration DomainConfig { get; init; }
 }
