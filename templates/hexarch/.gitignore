@@ -10,9 +10,6 @@
 *.userosscache
 *.sln.docstates
 
-# User-specific files (MonoDevelop/Xamarin Studio)
-*.userprefs
-
 # Mono auto generated files
 mono_crash.*
 
@@ -128,11 +125,6 @@ $tf/
 
 # Guidance Automation Toolkit
 *.gpState
-
-# ReSharper is a .NET coding add-in
-_ReSharper*/
-*.[Rr]e[Ss]harper
-*.DotSettings.user
 
 # TeamCity is a build add-in
 _TeamCity*
