@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- changed(common-package): Added root namespace to common-package test project
 - changed(common-package): Removed duplicate lines from .gitignore
 - changed(hexarch): Removed duplicate lines from .gitignore
 
