@@ -47,6 +47,15 @@ namespace SamplePackage.ArchUnit.Tests
             .AreNot(PublicInterfaces)
             .As("interface implementations");
 
+        internal static readonly IObjectProvider<IType> PublicAbstractClasses = Classes()
+            .That()
+            .Are(SamplePackageLayer)
+            .And()
+            .AreAbstract()
+            .And()
+            .ArePublic()
+            .As("public abstract classes");
+
         internal static readonly IObjectProvider<IType> ExportableTypes = Types()
             .That()
             .ResideInNamespace(Constants.ExtensionsNamespace, true)

@@ -46,6 +46,8 @@ public class SamplePackageAdapterLayerTests
             .That()
             .AreNot(Layers.PublicInterfaces)
             .And()
+            .AreNot(Layers.PublicAbstractClasses)
+            .And()
             .Are(Layers.TypesInInternalNamespaces)
             .Should()
             .NotBePublic()
