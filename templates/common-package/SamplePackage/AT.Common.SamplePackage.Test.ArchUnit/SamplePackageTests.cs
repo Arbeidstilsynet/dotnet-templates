@@ -40,7 +40,7 @@ public class SamplePackageAdapterLayerTests
     }
 
     [Fact]
-    public void PublicClasses_MustResideInExtensionsOrDependencyInjectionOrModelNamespaces()
+    public void PublicNonAbstractClasses_MustResideInExtensionsOrDependencyInjectionOrModelNamespaces()
     {
         IArchRule archRule = Types()
             .That()
@@ -52,7 +52,7 @@ public class SamplePackageAdapterLayerTests
             .Should()
             .NotBePublic()
             .Because(
-                "public types should either be an interface OR reside in a namespace containing \"Extensions\", \"DependencyInjection\" or \"Model\"."
+                "public types should either be an abstract class, an interface OR reside in a namespace containing \"Extensions\", \"DependencyInjection\" or \"Model\"."
             )
             .WithoutRequiringPositiveResults();
 
