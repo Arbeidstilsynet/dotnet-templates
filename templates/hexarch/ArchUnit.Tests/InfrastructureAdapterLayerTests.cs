@@ -36,7 +36,7 @@ public class InfrastructureAdapterLayerTests
             .Are(Layers.InfrastructureAdapterLayer)
             .And()
             .DoNotResideInNamespace(
-                $"^({Constants.NameSpacePrefix}\\.Adapters\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Adapters\\.DependencyInjection\\..*)$",
+                $"^({Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection\\..*)$",
                 true
             )
             .Should()
