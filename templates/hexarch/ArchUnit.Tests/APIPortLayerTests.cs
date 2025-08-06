@@ -2,6 +2,7 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Loader;
 using ArchUnitNET.xUnit;
+using Microsoft.Extensions.Logging;
 //add a using directive to ArchUnitNET.Fluent.ArchRuleDefinition to easily define ArchRules
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
@@ -10,7 +11,7 @@ namespace ArchUnit.Tests;
 public class APIPortLayerTests
 {
     static readonly Architecture Architecture = new ArchLoader()
-        .LoadAssemblies(Layers.APIPortAssembly)
+        .LoadAssemblies(Layers.APIPortAssembly, Layers.SystemConsoleAssembly)
         .Build();
 
     [Fact]
@@ -20,9 +21,8 @@ public class APIPortLayerTests
             .That()
             .Are(Layers.APIPortLayer)
             .Should()
-            .ResideInNamespace(
-                $"^({Constants.NameSpacePrefix}\\.API\\.Ports|{Constants.NameSpacePrefix}\\.API\\.Ports\\..*)$",
-                true
+            .ResideInNamespaceMatching(
+                $"^({Constants.NameSpacePrefix}\\.API\\.Ports|{Constants.NameSpacePrefix}\\.API\\.Ports\\..*)$"
             );
 
         archRule.Check(Architecture);
@@ -43,25 +43,12 @@ public class APIPortLayerTests
             .That()
             .Are(Layers.APIPortLayer)
             .Should()
-            .NotDependOnAnyTypesThat()
-            .DoNotResideInNamespace(
-                $"(^Coverlet.Core.Instrumentation.*$|^System.*$|^{Constants.NameSpacePrefix}\\.API\\.Ports.*$|^{Constants.NameSpacePrefix}\\.Domain\\.Data.*$)",
-                true
-            );
-
-        archRule.Check(Architecture);
-    }
-
-    [Fact]
-    public void TypesInAPIPortLayer_ShouldNotUseLoggerAtAll()
-    {
-        IArchRule archRule = Types()
-            .That()
-            .Are(Layers.APIPortLayer)
-            .Should()
-            .NotDependOnAny(typeof(System.Console))
-            .Because(
-                "This layer should only define how the other layers can be accessed. Therefor it should only contain interfaces and DTOs."
+            .NotDependOnAny(
+                Types()
+                    .That()
+                    .DoNotResideInNamespaceMatching(
+                        $"^(System.*|{Constants.NameSpacePrefix}\\.API\\.Ports|{Constants.NameSpacePrefix}\\.API\\.Ports\\..*|{Constants.NameSpacePrefix}\\.Domain\\.Data.*)$"
+                    )
             );
 
         archRule.Check(Architecture);

@@ -10,5 +10,6 @@ internal class SakEntity : BaseEntity
 
     public required string Organisajonsnummer { get; set; }
 
+    [Column(TypeName = "varchar(24)")]
     public required SakStatus Status { get; set; }
 }

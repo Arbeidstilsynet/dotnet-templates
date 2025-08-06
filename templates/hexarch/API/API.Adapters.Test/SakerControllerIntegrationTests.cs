@@ -1,5 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Test.fixture;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports.Requests;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
@@ -10,10 +12,16 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Test;
 public class SakerControllerIntegrationTests : IClassFixture<ApplicationFactory>
 {
     private readonly HttpClient _client;
+    private readonly JsonSerializerOptions _options;
 
     public SakerControllerIntegrationTests(ApplicationFactory factory)
     {
         _client = factory.CreateClient();
+        _options = new System.Text.Json.JsonSerializerOptions()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        };
+        _options.Converters.Add(new JsonStringEnumConverter());
     }
 
     [Fact]
@@ -36,7 +44,9 @@ public class SakerControllerIntegrationTests : IClassFixture<ApplicationFactory>
         );
 
         // Assert
-        (await response.Content.ReadFromJsonAsync<Sak>())?.Organisajonsnummer.ShouldBe("123456789");
+        (await response.Content.ReadFromJsonAsync<Sak>(_options))?.Organisajonsnummer.ShouldBe(
+            "123456789"
+        );
     }
 
     [Fact]
@@ -71,9 +81,9 @@ public class SakerControllerIntegrationTests : IClassFixture<ApplicationFactory>
                 "/saker",
                 new CreateSakDto { Organisajonsnummer = "123456789" }
             )
-        ).Content.ReadFromJsonAsync<Sak>();
+        ).Content.ReadFromJsonAsync<Sak>(_options);
         // Act
-        var response = await _client.GetFromJsonAsync<Sak>($"/saker/{createdSak!.Id}");
+        var response = await _client.GetFromJsonAsync<Sak>($"/saker/{createdSak!.Id}", _options);
 
         // Assert
         response.ShouldBeEquivalentTo(createdSak);

@@ -1,5 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Test.fixture;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports.Requests;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
@@ -11,11 +13,18 @@ public class ActionsControllerIntegrationTests : IClassFixture<ApplicationFactor
 {
     private readonly HttpClient _client;
 
+    private readonly JsonSerializerOptions _options;
+
     private Sak? TestSak;
 
     public ActionsControllerIntegrationTests(ApplicationFactory factory)
     {
         _client = factory.CreateClient();
+        _options = new System.Text.Json.JsonSerializerOptions()
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        };
+        _options.Converters.Add(new JsonStringEnumConverter());
     }
 
     [Fact]
@@ -25,7 +34,7 @@ public class ActionsControllerIntegrationTests : IClassFixture<ApplicationFactor
         var response = await _client.PostAsync($"/actions/start-sak?sakId={TestSak!.Id}", null);
 
         // Assert
-        var result = await response.Content.ReadFromJsonAsync<Sak>();
+        var result = await response.Content.ReadFromJsonAsync<Sak>(_options);
         result?.ShouldBeEquivalentTo(
             TestSak with
             {
@@ -62,7 +71,7 @@ public class ActionsControllerIntegrationTests : IClassFixture<ApplicationFactor
         var response = await _client.PostAsync($"/actions/end-sak?sakId={TestSak!.Id}", null);
 
         // Assert
-        var result = await response.Content.ReadFromJsonAsync<Sak>();
+        var result = await response.Content.ReadFromJsonAsync<Sak>(_options);
         result?.ShouldBeEquivalentTo(
             TestSak with
             {
@@ -99,7 +108,7 @@ public class ActionsControllerIntegrationTests : IClassFixture<ApplicationFactor
         var response = await _client.PostAsync($"/actions/archive-sak?sakId={TestSak!.Id}", null);
 
         // Assert
-        var result = await response.Content.ReadFromJsonAsync<Sak>();
+        var result = await response.Content.ReadFromJsonAsync<Sak>(_options);
         result?.ShouldBeEquivalentTo(
             TestSak with
             {
@@ -137,7 +146,7 @@ public class ActionsControllerIntegrationTests : IClassFixture<ApplicationFactor
         );
 
         // Assert
-        TestSak = await response.Content.ReadFromJsonAsync<Sak>();
+        TestSak = await response.Content.ReadFromJsonAsync<Sak>(_options);
     }
 
     public Task DisposeAsync()

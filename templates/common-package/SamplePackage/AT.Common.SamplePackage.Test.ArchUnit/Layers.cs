@@ -24,11 +24,14 @@ namespace SamplePackage.ArchUnit.Tests
         internal static readonly System.Reflection.Assembly SamplePackageAssembly =
             typeof(Arbeidstilsynet.Common.SamplePackage.IAssemblyInfo).Assembly;
 
+        internal static readonly System.Reflection.Assembly SystemConsoleAssembly =
+            typeof(System.Console).Assembly;
+
         internal static readonly IObjectProvider<IType> SamplePackageLayer = Types()
             .That()
             .ResideInAssembly(SamplePackageAssembly)
             .And()
-            .DoNotResideInNamespace("Coverlet.Core.Instrumentation.Tracker")
+            .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
             .As("SamplePackage Layer");
 
         internal static readonly IObjectProvider<IType> PublicInterfaces = Interfaces()
@@ -58,11 +61,11 @@ namespace SamplePackage.ArchUnit.Tests
 
         internal static readonly IObjectProvider<IType> ExportableTypes = Types()
             .That()
-            .ResideInNamespace(Constants.ExtensionsNamespace, true)
+            .ResideInNamespaceMatching(Constants.ExtensionsNamespace)
             .Or()
-            .ResideInNamespace(Constants.DependencyInjectionNamespace, true)
+            .ResideInNamespaceMatching(Constants.DependencyInjectionNamespace)
             .Or()
-            .ResideInNamespace(Constants.ModelNamespace, true)
+            .ResideInNamespaceMatching(Constants.ModelNamespace)
             .As("inside exportable namespaces");
 
         internal static readonly IObjectProvider<IType> TypesInInternalNamespaces = Types()

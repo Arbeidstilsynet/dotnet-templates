@@ -10,7 +10,7 @@ namespace ArchUnit.Tests;
 public class APIAdapterLayerTests
 {
     static readonly Architecture Architecture = new ArchLoader()
-        .LoadAssemblies(Layers.APIAdapterAssembly)
+        .LoadAssemblies(Layers.APIAdapterAssembly, Layers.SystemConsoleAssembly)
         .Build();
 
     [Fact]
@@ -23,9 +23,8 @@ public class APIAdapterLayerTests
             // top level class cannot have any namespace
             .DoNotHaveFullName("Program")
             .Should()
-            .ResideInNamespace(
-                $"^({Constants.NameSpacePrefix}\\.API\\.Adapters|{Constants.NameSpacePrefix}\\.API\\.Adapters\\..*)$",
-                true
+            .ResideInNamespaceMatching(
+                $"^({Constants.NameSpacePrefix}\\.API\\.Adapters|{Constants.NameSpacePrefix}\\.API\\.Adapters\\..*)$"
             );
 
         archRule.Check(Architecture);
