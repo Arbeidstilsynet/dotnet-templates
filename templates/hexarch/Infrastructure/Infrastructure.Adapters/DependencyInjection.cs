@@ -47,8 +47,8 @@ public static class DependencyInjection
         {
             var config = new TypeAdapterConfig()
             {
-                RequireExplicitMapping = true,
-                RequireDestinationMemberSource = false,
+                RequireExplicitMapping = false,
+                RequireDestinationMemberSource = true,
             };
             config.Scan(Assembly.GetExecutingAssembly());
             services.AddSingleton(config);

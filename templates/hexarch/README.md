@@ -27,10 +27,10 @@ Prerequisites:
 To test and debug locally, you need to run the following commands:
 
 ```terminal
-docker compose -f compose.db.yaml -f compose.monitoring.yaml up -d
+docker compose -f compose.infra.yaml --profile monitoring up -d
 ```
 
-> The monitoring compose file is optional and can be dropped. If used, a telemetry backend as defined in the [opentelemetry section](#-observability--opentelemetry) is spinned up.
+> The monitoring profile is optional and can be dropped. If used, a telemetry backend as defined in the [opentelemetry section](#-observability--opentelemetry) is spinned up.
 
 This starts (as per today) a plain postgres instance without any seed.
 
@@ -60,10 +60,10 @@ If you want to stop all containers, run:
 docker compose down
 ```
 
-If you want to get a clean database at the next startup, simply remove the attached volume:
+If you want to get a clean database at the next startup, simply run the down command with the '-v' flag:
 
 ```terminal
-docker volume rm -f $(docker volume ls | grep postgres-data)
+docker compose down -v
 ```
 
 ## 🏃‍♂️ Getting Started
