@@ -12,6 +12,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
-    <RootNamespace>API.Adapters</RootNamespace>
+    <RootNamespace>Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters</RootNamespace>
   </PropertyGroup>
 </Project>

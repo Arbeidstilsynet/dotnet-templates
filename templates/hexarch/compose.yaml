@@ -1,9 +1,9 @@
 include:
-  - compose.db.yaml
-  - compose.monitoring.yaml
+  - compose.infra.yaml
 
 networks:
-  applocal_network:
+  HexagonalArchitectureTemplateDocker_network:
+    name: HexagonalArchitectureTemplateDocker_network
     external: false
 
 services:
@@ -13,7 +13,7 @@ services:
     ports:
       - "8080:8080"
     networks:
-      - applocal_network
+      - HexagonalArchitectureTemplateDocker_network
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       Infrastructure__ConnectionString: Host=postgres;Port=5432;Database=demo_db;Username=postgres;Password=postgres

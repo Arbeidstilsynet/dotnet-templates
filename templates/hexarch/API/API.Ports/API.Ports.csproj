@@ -6,6 +6,6 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>API.Ports</RootNamespace>
+    <RootNamespace>Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports</RootNamespace>
   </PropertyGroup>
 </Project>
