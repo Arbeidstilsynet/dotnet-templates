@@ -1,4 +1,4 @@
-using Arbeidstilsynet.Common.AspNetCore.Extensions;
+using Arbeidstilsynet.Common.AspNetCore.Extensions.Extensions;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Api;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Api.Extensions;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;

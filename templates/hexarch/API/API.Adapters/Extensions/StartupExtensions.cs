@@ -1,5 +1,5 @@
 using System.Net;
-using Arbeidstilsynet.Common.AspNetCore.Extensions;
+using Arbeidstilsynet.Common.AspNetCore.Extensions.Extensions;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Api.Extensions;
