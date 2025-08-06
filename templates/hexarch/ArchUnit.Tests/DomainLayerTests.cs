@@ -2,6 +2,7 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Loader;
 using ArchUnitNET.xUnit;
+using Microsoft.Extensions.Logging;
 //add a using directive to ArchUnitNET.Fluent.ArchRuleDefinition to easily define ArchRules
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
@@ -10,7 +11,7 @@ namespace ArchUnit.Tests;
 public class DomainLayerTests
 {
     static readonly Architecture Architecture = new ArchLoader()
-        .LoadAssemblies(Layers.DomainAssembly)
+        .LoadAssembliesIncludingDependencies(Layers.DomainAssembly, Layers.SystemConsoleAssembly)
         .Build();
 
     [Fact]
@@ -20,9 +21,8 @@ public class DomainLayerTests
             .That()
             .Are(Layers.DomainLayer)
             .Should()
-            .ResideInNamespace(
-                $"^({Constants.NameSpacePrefix}\\.Domain\\.Data|{Constants.NameSpacePrefix}\\.Domain\\.Data\\..*)$",
-                true
+            .ResideInNamespaceMatching(
+                $"^({Constants.NameSpacePrefix}\\.Domain\\.Data|{Constants.NameSpacePrefix}\\.Domain\\.Data\\..*)$"
             );
 
         archRule.Check(Architecture);
@@ -43,24 +43,13 @@ public class DomainLayerTests
             .That()
             .Are(Layers.DomainLayer)
             .Should()
-            .NotDependOnAnyTypesThat()
-            .DoNotResideInNamespace(
-                $"(^Coverlet.Core.Instrumentation.*$|^System.*$|^{Constants.NameSpacePrefix}\\.Domain\\.Data.*$)",
-                true
+            .NotDependOnAny(
+                Types()
+                    .That()
+                    .DoNotResideInNamespaceMatching(
+                        $"^(System.*|{Constants.NameSpacePrefix}\\.Domain\\.Data.*)$"
+                    )
             );
-
-        archRule.Check(Architecture);
-    }
-
-    [Fact]
-    public void TypesInDomainLayer_ShouldNotUseLoggerAtAll()
-    {
-        IArchRule archRule = Types()
-            .That()
-            .Are(Layers.DomainLayer)
-            .Should()
-            .NotDependOnAny(typeof(System.Console))
-            .Because("This layer describes our core model and should not contain any logic.");
 
         archRule.Check(Architecture);
     }

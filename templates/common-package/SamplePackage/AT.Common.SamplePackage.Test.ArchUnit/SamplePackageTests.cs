@@ -20,7 +20,7 @@ public class SamplePackageAdapterLayerTests
             .That()
             .Are(Layers.SamplePackageLayer)
             .Should()
-            .ResideInNamespace(Constants.RootNamespace, true)
+            .ResideInNamespaceMatching(Constants.RootNamespace, true)
             .WithoutRequiringPositiveResults();
 
         archRule.Check(Architecture);
@@ -67,7 +67,7 @@ public class SamplePackageAdapterLayerTests
             .Are(Layers.SamplePackageLayer)
             .Should()
             .NotDependOnAnyTypesThat()
-            .ResideInNamespace("^Amazon.*$", true);
+            .ResideInNamespaceMatching("^Amazon.*$", true);
 
         archRule.Check(Architecture);
     }

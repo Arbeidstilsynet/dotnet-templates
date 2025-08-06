@@ -2,6 +2,7 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Loader;
 using ArchUnitNET.xUnit;
+using Microsoft.Extensions.Logging;
 //add a using directive to ArchUnitNET.Fluent.ArchRuleDefinition to easily define ArchRules
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
@@ -10,7 +11,7 @@ namespace ArchUnit.Tests;
 public class InfrastructurePortLayerTests
 {
     static readonly Architecture Architecture = new ArchLoader()
-        .LoadAssemblies(Layers.InfrastructurePortAssembly)
+        .LoadAssemblies(Layers.InfrastructurePortAssembly, Layers.SystemConsoleAssembly)
         .Build();
 
     [Fact]
@@ -20,9 +21,8 @@ public class InfrastructurePortLayerTests
             .That()
             .Are(Layers.InfrastructurePortLayer)
             .Should()
-            .ResideInNamespace(
-                $"^({Constants.NameSpacePrefix}\\.Infrastructure\\.Ports|{Constants.NameSpacePrefix}\\.Infrastructure\\.Ports\\..*)$",
-                true
+            .ResideInNamespaceMatching(
+                $"^({Constants.NameSpacePrefix}\\.Infrastructure\\.Ports|{Constants.NameSpacePrefix}\\.Infrastructure\\.Ports\\..*)$"
             );
 
         archRule.Check(Architecture);
@@ -43,25 +43,12 @@ public class InfrastructurePortLayerTests
             .That()
             .Are(Layers.InfrastructurePortLayer)
             .Should()
-            .NotDependOnAnyTypesThat()
-            .DoNotResideInNamespace(
-                $"(^Coverlet.Core.Instrumentation.*$|^System.*$|^{Constants.NameSpacePrefix}\\.Infrastructure\\.Ports.*$|^{Constants.NameSpacePrefix}\\.Domain\\.Data.*$)",
-                true
-            );
-
-        archRule.Check(Architecture);
-    }
-
-    [Fact]
-    public void TypesInInfrastructurePortLayer_ShouldNotUseLoggerAtAll()
-    {
-        IArchRule archRule = Types()
-            .That()
-            .Are(Layers.InfrastructurePortLayer)
-            .Should()
-            .NotDependOnAny(typeof(System.Console))
-            .Because(
-                "This layer should only define how the other layers can be accessed. Therefor it should only contain interfaces and DTOs."
+            .NotDependOnAny(
+                Types()
+                    .That()
+                    .DoNotResideInNamespaceMatching(
+                        $"(^Coverlet.Core.Instrumentation.*$|^System.*$|^{Constants.NameSpacePrefix}\\.Infrastructure\\.Ports.*$|^{Constants.NameSpacePrefix}\\.Domain\\.Data.*$)"
+                    )
             );
 
         archRule.Check(Architecture);

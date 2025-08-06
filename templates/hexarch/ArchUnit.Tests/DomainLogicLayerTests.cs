@@ -10,7 +10,10 @@ namespace ArchUnit.Tests;
 public class DomainLogicLayerTests
 {
     static readonly Architecture Architecture = new ArchLoader()
-        .LoadAssemblies(Layers.DomainLogicAssembly)
+        .LoadAssembliesIncludingDependencies(
+            Layers.DomainLogicAssembly,
+            Layers.SystemConsoleAssembly
+        )
         .Build();
 
     [Fact]
@@ -20,9 +23,8 @@ public class DomainLogicLayerTests
             .That()
             .Are(Layers.DomainLogicLayer)
             .Should()
-            .ResideInNamespace(
-                $"^({Constants.NameSpacePrefix}\\.Domain\\.Logic|{Constants.NameSpacePrefix}\\.Domain\\.Logic\\..*)$",
-                true
+            .ResideInNamespaceMatching(
+                $"^({Constants.NameSpacePrefix}\\.Domain\\.Logic|{Constants.NameSpacePrefix}\\.Domain\\.Logic\\..*)$"
             );
 
         archRule.Check(Architecture);
@@ -43,8 +45,7 @@ public class DomainLogicLayerTests
             .That()
             .Are(Layers.DomainLogicLayer)
             .Should()
-            .NotDependOnAnyTypesThat()
-            .ResideInNamespace("^Amazon.*$", true);
+            .NotDependOnAny(Types().That().ResideInNamespaceMatching("^Amazon.*$"));
 
         archRule.Check(Architecture);
     }

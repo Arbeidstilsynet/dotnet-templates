@@ -10,7 +10,7 @@ namespace ArchUnit.Tests;
 public class InfrastructureAdapterLayerTests
 {
     static readonly Architecture Architecture = new ArchLoader()
-        .LoadAssemblies(Layers.InfrastructureAdapterAssembly)
+        .LoadAssemblies(Layers.InfrastructureAdapterAssembly, Layers.SystemConsoleAssembly)
         .Build();
 
     [Fact]
@@ -20,9 +20,8 @@ public class InfrastructureAdapterLayerTests
             .That()
             .Are(Layers.InfrastructureAdapterLayer)
             .Should()
-            .ResideInNamespace(
-                $"^({Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters|{Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\..*)$",
-                true
+            .ResideInNamespaceMatching(
+                $"^({Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters|{Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\..*)$"
             );
 
         archRule.Check(Architecture);
@@ -35,9 +34,8 @@ public class InfrastructureAdapterLayerTests
             .That()
             .Are(Layers.InfrastructureAdapterLayer)
             .And()
-            .DoNotResideInNamespace(
-                $"^({Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection\\..*)$",
-                true
+            .DoNotResideInNamespaceMatching(
+                $"^({Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection\\..*)$"
             )
             .Should()
             .NotBePublic();

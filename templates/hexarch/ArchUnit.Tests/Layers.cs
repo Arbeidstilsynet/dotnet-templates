@@ -24,51 +24,52 @@ namespace ArchUnit.Tests
         internal static readonly System.Reflection.Assembly APIAdapterAssembly =
             typeof(Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.IAssemblyInfo).Assembly;
 
+        internal static readonly System.Reflection.Assembly SystemConsoleAssembly =
+            typeof(System.Console).Assembly;
+
         internal static readonly IObjectProvider<IType> DomainLogicLayer = Types()
             .That()
             .ResideInAssembly(DomainLogicAssembly)
             .And()
-            .DoNotResideInNamespace("Coverlet.Core.Instrumentation.Tracker")
+            .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
             .And()
-            .DoNotResideInNamespace(
-                $"^({Constants.NameSpacePrefix}\\.Domain\\.Logic\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Domain\\.Logic\\.DependencyInjection\\..*)$",
-                true
+            .DoNotResideInNamespaceMatching(
+                $"^({Constants.NameSpacePrefix}\\.Domain\\.Logic\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Domain\\.Logic\\.DependencyInjection\\..*)$"
             )
             .As("Application Service Layer");
         internal static readonly IObjectProvider<IType> InfrastructureAdapterLayer = Types()
             .That()
             .ResideInAssembly(InfrastructureAdapterAssembly)
             .And()
-            .DoNotResideInNamespace(
-                $"^({Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection\\..*)$",
-                true
+            .DoNotResideInNamespaceMatching(
+                $"^({Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection\\..*)$"
             )
             .And()
-            .DoNotResideInNamespace("Coverlet.Core.Instrumentation.Tracker")
+            .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
             .As("Infrastructure Adapter Layer");
         internal static readonly IObjectProvider<IType> InfrastructurePortLayer = Types()
             .That()
             .ResideInAssembly(InfrastructurePortAssembly)
             .And()
-            .DoNotResideInNamespace("Coverlet.Core.Instrumentation.Tracker")
+            .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
             .As("Infrastructure Port Layer");
         internal static readonly IObjectProvider<IType> APIPortLayer = Types()
             .That()
             .ResideInAssembly(APIPortAssembly)
             .And()
-            .DoNotResideInNamespace("Coverlet.Core.Instrumentation.Tracker")
+            .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
             .As("API Port Layer");
         internal static readonly IObjectProvider<IType> DomainLayer = Types()
             .That()
             .ResideInAssembly(DomainAssembly)
             .And()
-            .DoNotResideInNamespace("Coverlet.Core.Instrumentation.Tracker")
+            .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
             .As("Domain Layer");
         internal static readonly IObjectProvider<IType> APIAdapterLayer = Types()
             .That()
             .ResideInAssembly(APIAdapterAssembly)
             .And()
-            .DoNotResideInNamespace("Coverlet.Core.Instrumentation.Tracker")
+            .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
             .As("API Adapter Layer");
     }
 }

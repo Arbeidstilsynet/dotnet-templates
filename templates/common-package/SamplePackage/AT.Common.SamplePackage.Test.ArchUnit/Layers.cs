@@ -28,7 +28,7 @@ namespace SamplePackage.ArchUnit.Tests
             .That()
             .ResideInAssembly(SamplePackageAssembly)
             .And()
-            .DoNotResideInNamespace("Coverlet.Core.Instrumentation.Tracker")
+            .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
             .As("SamplePackage Layer");
 
         internal static readonly IObjectProvider<IType> PublicInterfaces = Interfaces()
@@ -58,11 +58,11 @@ namespace SamplePackage.ArchUnit.Tests
 
         internal static readonly IObjectProvider<IType> ExportableTypes = Types()
             .That()
-            .ResideInNamespace(Constants.ExtensionsNamespace, true)
+            .ResideInNamespaceMatching(Constants.ExtensionsNamespace, true)
             .Or()
-            .ResideInNamespace(Constants.DependencyInjectionNamespace, true)
+            .ResideInNamespaceMatching(Constants.DependencyInjectionNamespace, true)
             .Or()
-            .ResideInNamespace(Constants.ModelNamespace, true)
+            .ResideInNamespaceMatching(Constants.ModelNamespace, true)
             .As("inside exportable namespaces");
 
         internal static readonly IObjectProvider<IType> TypesInInternalNamespaces = Types()
