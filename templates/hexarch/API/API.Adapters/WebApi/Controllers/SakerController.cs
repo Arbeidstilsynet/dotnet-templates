@@ -13,6 +13,7 @@ public class SakerController(ISakService _sakService) : ControllerBase
     [HttpPost()]
     public async Task<ActionResult<Sak>> CreateSak([FromBody] CreateSakDto sakDto)
     {
+        using var activity = Tracer.Source.StartActivity("received CreateSakRequest");
         var result = await _sakService.CreateNewSak(sakDto);
         return Ok(result);
     }
