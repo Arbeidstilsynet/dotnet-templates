@@ -157,6 +157,16 @@ services.AddOpenTelemetry()
             })
 ```
 
+## Custom Traces
+
+In order to group traces, it can be helpful to create Spans within the application flow. Therefore, there is a `Tracer.cs` class in each project, which can be used for doing so. Simply call the following before the action you want to have within a span:
+
+```csharp
+using var activity = Tracer.Source.StartActivity("<activity-display-name>");
+```
+
+We provided examples for this when creating a new Sak. Check it out.
+
 ### Logs
 
 Checkout [OpenTelemetry .NET Logs](https://github.com/open-telemetry/opentelemetry-dotnet/blob/main/docs/logs/README.md) for best practices, fine-tuning and examples.

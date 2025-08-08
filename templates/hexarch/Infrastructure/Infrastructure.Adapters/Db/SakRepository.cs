@@ -24,6 +24,7 @@ internal class SakRepository(
 
     public async Task<Sak> CreateSak(string organisajonsnummer)
     {
+        using var activity = Tracer.Source.StartActivity("persist SakEntity");
         var sakEntity = new SakEntity
         {
             Id = Guid.NewGuid(),
