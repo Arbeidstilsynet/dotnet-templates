@@ -29,7 +29,7 @@ jobs:
             exit 0
           fi
           # Check if all changed files are markdown files
-            non_dotnet_related_files=$(echo "$changed_files" | grep -vE '\.md$|Dockerfile|(\.ya?ml)?$' || true)
+            non_dotnet_related_files=$(echo "$changed_files" | grep -vE '\.md$|Dockerfile|compose.*\.ya?ml$' || true)
           # If empty, do not continue
           if [ -z "$non_dotnet_related_files" ]; then
             echo "should-continue=false" >> $GITHUB_OUTPUT
