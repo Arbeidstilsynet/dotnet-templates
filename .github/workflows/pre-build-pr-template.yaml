@@ -21,10 +21,21 @@ jobs:
       - name: Check if changes are inside template path
         id: check_changes
         run: |
-          if git diff --name-only origin/main...HEAD | grep -q "templates/"; then
-            echo "Changes detected in the templates directory."
-            echo "should-continue=true" >> $GITHUB_OUTPUT
-          else
-            echo "No changes detected in the templates directory."
+          changed_files=$(git --no-pager diff --name-only origin/main...HEAD | grep "templates/" || true)
+          # If empty, do not continue
+            if [ -z "$changed_files" ]; then
             echo "should-continue=false" >> $GITHUB_OUTPUT
+            echo "No changes detected which require a version update. Exiting workflow gracefully."
+            exit 0
           fi
+          # Check if all changed files are markdown files
+            non_dotnet_related_files=$(echo "$changed_files" | grep -vE '\.md$|Dockerfile|(\.ya?ml)?$' || true)
+          # If empty, do not continue
+          if [ -z "$non_dotnet_related_files" ]; then
+            echo "should-continue=false" >> $GITHUB_OUTPUT
+            echo "No changes detected which require a version update. Exiting workflow gracefully."
+          else
+            echo "should-continue=true" >> $GITHUB_OUTPUT
+            echo "Changes detected which require a version update. The workflow will continue..."
+          fi
+          exit 0
