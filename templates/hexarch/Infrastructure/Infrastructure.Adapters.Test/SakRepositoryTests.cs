@@ -20,7 +20,7 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
 
     private static readonly string SampleOrgNr = "123456789";
 
-    private readonly InfrastructureAdaptersDbContext _dbContext;
+    private readonly SakDbContext _dbContext;
 
     public SakRepositoryTests(
         ITestOutputHelper testOutputHelper,
@@ -29,9 +29,7 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
         : base(testOutputHelper, infrastractureAdapterTestFixture)
     {
         _sut = infrastractureAdapterTestFixture.GetService<ISakRepository>(testOutputHelper)!;
-        _dbContext = infrastractureAdapterTestFixture.GetService<InfrastructureAdaptersDbContext>(
-            testOutputHelper
-        )!;
+        _dbContext = infrastractureAdapterTestFixture.GetService<SakDbContext>(testOutputHelper)!;
     }
 
     [Fact]
