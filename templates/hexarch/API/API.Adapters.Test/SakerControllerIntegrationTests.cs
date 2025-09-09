@@ -37,25 +37,30 @@ public class SakerControllerIntegrationTests : IClassFixture<ApplicationFactory>
     [Fact]
     public async Task Saker_Post_CreatesNewSak()
     {
+        const string orgNr = "987654321";
+
         // Act
         var response = await _client.PostAsJsonAsync(
             "/saker",
-            new CreateSakDto { Organisajonsnummer = "123456789" }
+            new CreateSakDto { Organisajonsnummer = orgNr }
         );
 
         // Assert
         (await response.Content.ReadFromJsonAsync<Sak>(_options))?.Organisajonsnummer.ShouldBe(
-            "123456789"
+            orgNr
         );
     }
 
-    [Fact]
-    public async Task Saker_PostWithInvalidOrgNr_Returns400()
+    [Theory]
+    [InlineData("123")] // Too short
+    [InlineData("1234567890")] // Too long
+    [InlineData("abcdefghi")] // Not numeric
+    public async Task Saker_PostWithInvalidOrgNr_Returns400(string invalidOrgnummer)
     {
         // Act
         var response = await _client.PostAsJsonAsync(
             "/saker",
-            new CreateSakDto { Organisajonsnummer = "111" }
+            new CreateSakDto { Organisajonsnummer = invalidOrgnummer }
         );
 
         // Assert
