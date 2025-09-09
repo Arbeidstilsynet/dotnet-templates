@@ -1,7 +1,7 @@
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Mapper;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test.Fixtures;
-
+using Bogus;
 using Shouldly;
 using Xunit.Abstractions;
 using Xunit.Microsoft.DependencyInjection.Abstracts;
@@ -11,23 +11,19 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ada
 
 public class SakEntityMapperTests
 {
+    private readonly Faker<SakEntity> _sakEntityFaker = TestData.CreateSakEntityFaker();
+
     [Fact]
     public void Map_SakEntity_To_Sak()
     {
         //arrange
-        var sakEntity = new SakEntity()
-        {
-            Id = Guid.NewGuid(),
-            Organisajonsnummer = "123456789",
-            Status = SakStatus.New,
-            CreatedAt = DateTime.Now,
-            UpdatedAt = DateTime.Now,
-        };
+        var sakEntity = _sakEntityFaker.Generate();
+
         //act
         var mappedSak = sakEntity.ToDomain();
 
         //assert
-        mappedSak.ShouldBeEquivalentTo(
+        mappedSak.ShouldBe(
             new Sak()
             {
                 Id = sakEntity.Id,

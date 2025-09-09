@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db.Model;
 

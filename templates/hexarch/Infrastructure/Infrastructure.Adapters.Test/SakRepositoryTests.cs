@@ -14,13 +14,9 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
 {
     private readonly ISakRepository _sut;
 
-    private readonly Faker<SakEntity> _sakEntityFaker = new Faker<SakEntity>()
-        .UseSeed(1337)
-        .RuleFor(sak => sak.Organisajonsnummer, static f => string.Join("", f.Random.Digits(9)));
+    private readonly Faker<SakEntity> _sakEntityFaker = TestData.CreateSakEntityFaker();
 
     private static readonly string SampleOrgNr = "123456789";
-
-    private readonly SakDbContext _dbContext;
 
     public SakRepositoryTests(
         ITestOutputHelper testOutputHelper,
@@ -29,7 +25,6 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
         : base(testOutputHelper, infrastractureAdapterTestFixture)
     {
         _sut = infrastractureAdapterTestFixture.GetService<ISakRepository>(testOutputHelper)!;
-        _dbContext = infrastractureAdapterTestFixture.GetService<SakDbContext>(testOutputHelper)!;
     }
 
     [Fact]
@@ -63,10 +58,7 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
     public async Task GetSaker_WhenCalled_ReturnsAllSaker()
     {
         // arrange
-        await _dbContext.Database.EnsureCreatedAsync();
-        var seed = _sakEntityFaker.Generate(50);
-        await _dbContext.Saker.AddRangeAsync(seed);
-        await _dbContext.SaveChangesAsync();
+        var seed = _fixture.SeededEntities;
         // act
         var allSaker = await _sut.GetSaker();
         // assert
