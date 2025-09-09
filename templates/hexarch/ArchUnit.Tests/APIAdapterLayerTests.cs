@@ -7,10 +7,10 @@ using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
 namespace ArchUnit.Tests;
 
-public class APIAdapterLayerTests
+public class ApiAdapterLayerTests
 {
     static readonly Architecture Architecture = new ArchLoader()
-        .LoadAssemblies(Layers.APIAdapterAssembly, Layers.SystemConsoleAssembly)
+        .LoadAssemblies(Layers.ApiAdapterAssembly, Layers.SystemConsoleAssembly)
         .Build();
 
     [Fact]
@@ -18,7 +18,7 @@ public class APIAdapterLayerTests
     {
         IArchRule archRule = Types()
             .That()
-            .Are(Layers.APIAdapterLayer)
+            .Are(Layers.ApiAdapterLayer)
             .And()
             // top level class cannot have any namespace
             .DoNotHaveFullName("Program")
@@ -35,9 +35,9 @@ public class APIAdapterLayerTests
     {
         IArchRule archRule = Types()
             .That()
-            .Are(Layers.APIAdapterLayer)
+            .Are(Layers.ApiAdapterLayer)
             .Should()
-            .NotDependOnAny(typeof(System.Console))
+            .NotDependOnAny(typeof(Console))
             .Because(
                 "We want to use streamlined logging. Try using ILogger<T> via DependencyInjection to log."
             );

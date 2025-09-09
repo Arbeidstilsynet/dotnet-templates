@@ -10,9 +10,9 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Test.fixture;
 
-public class ApplicationFactory : WebApplicationFactory<API.Adapters.IAssemblyInfo>, IAsyncLifetime
+public class ApplicationFactory : WebApplicationFactory<IAssemblyInfo>, IAsyncLifetime
 {
-    private readonly PostgresDbDemoFixture postgresDbDemoFixture = new();
+    private readonly PostgresDbDemoFixture _postgresDbDemoFixture = new();
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -22,7 +22,7 @@ public class ApplicationFactory : WebApplicationFactory<API.Adapters.IAssemblyIn
             services.AddSingleton(
                 new InfrastructureConfiguration
                 {
-                    ConnectionString = postgresDbDemoFixture.ConnectionString,
+                    ConnectionString = _postgresDbDemoFixture.ConnectionString,
                 }
             );
             // replacing the current db context
@@ -49,18 +49,18 @@ public class ApplicationFactory : WebApplicationFactory<API.Adapters.IAssemblyIn
             }
             services.AddDbContext<InfrastructureAdaptersDbContext>(opt =>
             {
-                opt.UseNpgsql(postgresDbDemoFixture.ConnectionString);
+                opt.UseNpgsql(_postgresDbDemoFixture.ConnectionString);
             });
         });
     }
 
     public async Task InitializeAsync()
     {
-        await postgresDbDemoFixture.InitializeAsync();
+        await _postgresDbDemoFixture.InitializeAsync();
     }
 
     public new async Task DisposeAsync()
     {
-        await postgresDbDemoFixture.DisposeAsync();
+        await _postgresDbDemoFixture.DisposeAsync();
     }
 }

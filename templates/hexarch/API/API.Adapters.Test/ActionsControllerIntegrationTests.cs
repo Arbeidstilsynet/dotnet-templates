@@ -15,12 +15,12 @@ public class ActionsControllerIntegrationTests : IClassFixture<ApplicationFactor
 
     private readonly JsonSerializerOptions _options;
 
-    private Sak? TestSak;
+    private Sak? _testSak;
 
     public ActionsControllerIntegrationTests(ApplicationFactory factory)
     {
         _client = factory.CreateClient();
-        _options = new System.Text.Json.JsonSerializerOptions()
+        _options = new JsonSerializerOptions()
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         };
@@ -31,12 +31,12 @@ public class ActionsControllerIntegrationTests : IClassFixture<ApplicationFactor
     public async Task ActionsStartSak_Post_UpdatesStatus()
     {
         // Act
-        var response = await _client.PostAsync($"/actions/start-sak?sakId={TestSak!.Id}", null);
+        var response = await _client.PostAsync($"/actions/start-sak?sakId={_testSak!.Id}", null);
 
         // Assert
         var result = await response.Content.ReadFromJsonAsync<Sak>(_options);
         result?.ShouldBeEquivalentTo(
-            TestSak with
+            _testSak with
             {
                 Status = SakStatus.InProgress,
                 LastUpdated = result.LastUpdated,
@@ -68,12 +68,12 @@ public class ActionsControllerIntegrationTests : IClassFixture<ApplicationFactor
     public async Task ActionsEndSak_Post_UpdatesStatus()
     {
         // Act
-        var response = await _client.PostAsync($"/actions/end-sak?sakId={TestSak!.Id}", null);
+        var response = await _client.PostAsync($"/actions/end-sak?sakId={_testSak!.Id}", null);
 
         // Assert
         var result = await response.Content.ReadFromJsonAsync<Sak>(_options);
         result?.ShouldBeEquivalentTo(
-            TestSak with
+            _testSak with
             {
                 Status = SakStatus.Done,
                 LastUpdated = result.LastUpdated,
@@ -105,12 +105,12 @@ public class ActionsControllerIntegrationTests : IClassFixture<ApplicationFactor
     public async Task ActionsArchiveSak_Post_UpdatesStatus()
     {
         // Act
-        var response = await _client.PostAsync($"/actions/archive-sak?sakId={TestSak!.Id}", null);
+        var response = await _client.PostAsync($"/actions/archive-sak?sakId={_testSak!.Id}", null);
 
         // Assert
         var result = await response.Content.ReadFromJsonAsync<Sak>(_options);
         result?.ShouldBeEquivalentTo(
-            TestSak with
+            _testSak with
             {
                 Status = SakStatus.Archived,
                 LastUpdated = result.LastUpdated,
@@ -146,7 +146,7 @@ public class ActionsControllerIntegrationTests : IClassFixture<ApplicationFactor
         );
 
         // Assert
-        TestSak = await response.Content.ReadFromJsonAsync<Sak>(_options);
+        _testSak = await response.Content.ReadFromJsonAsync<Sak>(_options);
     }
 
     public Task DisposeAsync()

@@ -32,7 +32,7 @@ public class SakServiceTests
         {
             Organisajonsnummer = SampleOrgNr,
         };
-        _sakRepositoryMock.CreateSak(SampleOrgNr).Returns(mockedSakResponse);
+        _sakRepositoryMock.PersistSak(SampleOrgNr).Returns(mockedSakResponse);
         //act
         var result = await _sut.CreateNewSak(new CreateSakDto { Organisajonsnummer = SampleOrgNr });
         //assert

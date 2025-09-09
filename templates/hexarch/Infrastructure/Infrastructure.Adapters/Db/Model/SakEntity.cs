@@ -8,6 +8,7 @@ internal class SakEntity : BaseEntity
 {
     public required Guid Id { get; set; }
 
+    [Column(TypeName = "varchar(9)")]
     public required string Organisajonsnummer { get; set; }
 
     [Column(TypeName = "varchar(24)")]
