@@ -1,13 +1,13 @@
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Extensions;
-using MapsterMapper;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Mapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SakEntity = Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db.Model.SakEntity;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db;
 
-internal class SakRepository(SakDbContext dbContext, IMapper mapper, ILogger<SakRepository> logger)
+internal class SakRepository(SakDbContext dbContext, ILogger<SakRepository> logger)
     : Ports.ISakRepository
 {
     private SakDbContext DbContext
@@ -33,7 +33,7 @@ internal class SakRepository(SakDbContext dbContext, IMapper mapper, ILogger<Sak
         await DbContext.SaveChangesAsync();
         await updatedEntity.ReloadAsync();
 
-        return mapper.Map<Sak>(updatedEntity.Entity);
+        return updatedEntity.Entity.ToDomain();
     }
 
     public async Task<Sak?> UpdateSakStatus(Guid id, SakStatus sakStatus)
@@ -43,7 +43,7 @@ internal class SakRepository(SakDbContext dbContext, IMapper mapper, ILogger<Sak
         {
             entity.Status = sakStatus;
             await DbContext.SaveChangesAsync();
-            return mapper.Map<Sak>(entity);
+            return entity.ToDomain();
         }
         logger.LogSakNotFound(id);
         return null;
@@ -54,7 +54,7 @@ internal class SakRepository(SakDbContext dbContext, IMapper mapper, ILogger<Sak
         var entity = await DbContext.Saker.FindAsync(id);
         if (entity != null)
         {
-            return mapper.Map<Sak>(entity);
+            return entity.ToDomain();
         }
 
         logger.LogSakNotFound(id);
@@ -63,6 +63,6 @@ internal class SakRepository(SakDbContext dbContext, IMapper mapper, ILogger<Sak
 
     public async Task<IEnumerable<Sak>> GetSaker()
     {
-        return await DbContext.Saker.Select(b => mapper.Map<Sak>(b)).ToListAsync();
+        return await DbContext.Saker.Select(b => b.ToDomain()).ToListAsync();
     }
 }
