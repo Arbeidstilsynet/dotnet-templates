@@ -4,7 +4,7 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Por
 
 public interface ISakRepository
 {
-    public Task<Sak> CreateSak(string organisajonsnummer);
+    public Task<Sak> PersistSak(string organisajonsnummer);
 
     public Task<Sak?> UpdateSakStatus(Guid id, SakStatus sakStatus);
     public Task<Sak?> GetSak(Guid? id);

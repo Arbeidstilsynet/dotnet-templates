@@ -8,7 +8,7 @@ internal class DbContextHealthCheck : IHealthCheck
 
     public DbContextHealthCheck(InfrastructureAdaptersDbContext dbContext)
     {
-        this._dbContext = dbContext;
+        _dbContext = dbContext;
     }
 
     public async Task<HealthCheckResult> CheckHealthAsync(

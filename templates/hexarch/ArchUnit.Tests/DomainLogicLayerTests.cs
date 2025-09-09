@@ -57,7 +57,7 @@ public class DomainLogicLayerTests
             .That()
             .Are(Layers.DomainLogicLayer)
             .Should()
-            .NotDependOnAny(typeof(System.Console))
+            .NotDependOnAny(typeof(Console))
             .Because(
                 "We want to use streamlined logging. Try using ILogger<T> via DependencyInjection to log."
             );

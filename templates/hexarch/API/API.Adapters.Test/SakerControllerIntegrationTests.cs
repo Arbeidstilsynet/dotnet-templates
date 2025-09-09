@@ -17,7 +17,7 @@ public class SakerControllerIntegrationTests : IClassFixture<ApplicationFactory>
     public SakerControllerIntegrationTests(ApplicationFactory factory)
     {
         _client = factory.CreateClient();
-        _options = new System.Text.Json.JsonSerializerOptions()
+        _options = new JsonSerializerOptions()
         {
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         };

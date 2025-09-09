@@ -14,7 +14,7 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
 {
     private readonly ISakRepository _sut;
 
-    private readonly Faker<SakEntity> SakEntityFaker = new Faker<SakEntity>()
+    private readonly Faker<SakEntity> _sakEntityFaker = new Faker<SakEntity>()
         .UseSeed(1337)
         .RuleFor(sak => sak.Organisajonsnummer, static f => string.Join("", f.Random.Digits(9)));
 
@@ -38,7 +38,7 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
     public async Task CreateSak_WhenCalled_PersistsSakEntityAsync()
     {
         // act
-        var createdSak = await _sut.CreateSak(SampleOrgNr);
+        var createdSak = await _sut.PersistSak(SampleOrgNr);
         // assert
         var result = await _sut.GetSak(createdSak.Id);
         result?.Organisajonsnummer.ShouldBe(SampleOrgNr);
@@ -48,7 +48,7 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
     public async Task UpdateSakStatus_WhenCalled_PersistsSakEntityAsync()
     {
         // arrange
-        var createdSak = await _sut.CreateSak(SampleOrgNr);
+        var createdSak = await _sut.PersistSak(SampleOrgNr);
         // act
         var updatedSak = await _sut.UpdateSakStatus(createdSak.Id, SakStatus.InProgress);
         // assert
@@ -66,7 +66,7 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
     {
         // arrange
         await _dbContext.Database.EnsureCreatedAsync();
-        var seed = SakEntityFaker.Generate(50);
+        var seed = _sakEntityFaker.Generate(50);
         await _dbContext.Saker.AddRangeAsync(seed);
         await _dbContext.SaveChangesAsync();
         // act

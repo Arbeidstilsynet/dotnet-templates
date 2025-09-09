@@ -13,7 +13,7 @@ namespace ArchUnit.Tests
     {
         internal static readonly System.Reflection.Assembly DomainLogicAssembly =
             typeof(Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.IAssemblyInfo).Assembly;
-        internal static readonly System.Reflection.Assembly APIPortAssembly =
+        internal static readonly System.Reflection.Assembly ApiPortAssembly =
             typeof(Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports.IAssemblyInfo).Assembly;
         internal static readonly System.Reflection.Assembly InfrastructureAdapterAssembly =
             typeof(Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.IAssemblyInfo).Assembly;
@@ -21,11 +21,11 @@ namespace ArchUnit.Tests
             typeof(Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports.IAssemblyInfo).Assembly;
         internal static readonly System.Reflection.Assembly DomainAssembly =
             typeof(Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data.IAssemblyInfo).Assembly;
-        internal static readonly System.Reflection.Assembly APIAdapterAssembly =
+        internal static readonly System.Reflection.Assembly ApiAdapterAssembly =
             typeof(Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.IAssemblyInfo).Assembly;
 
         internal static readonly System.Reflection.Assembly SystemConsoleAssembly =
-            typeof(System.Console).Assembly;
+            typeof(Console).Assembly;
 
         internal static readonly IObjectProvider<IType> DomainLogicLayer = Types()
             .That()
@@ -53,9 +53,9 @@ namespace ArchUnit.Tests
             .And()
             .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
             .As("Infrastructure Port Layer");
-        internal static readonly IObjectProvider<IType> APIPortLayer = Types()
+        internal static readonly IObjectProvider<IType> ApiPortLayer = Types()
             .That()
-            .ResideInAssembly(APIPortAssembly)
+            .ResideInAssembly(ApiPortAssembly)
             .And()
             .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
             .As("API Port Layer");
@@ -65,9 +65,9 @@ namespace ArchUnit.Tests
             .And()
             .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
             .As("Domain Layer");
-        internal static readonly IObjectProvider<IType> APIAdapterLayer = Types()
+        internal static readonly IObjectProvider<IType> ApiAdapterLayer = Types()
             .That()
-            .ResideInAssembly(APIAdapterAssembly)
+            .ResideInAssembly(ApiAdapterAssembly)
             .And()
             .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
             .As("API Adapter Layer");

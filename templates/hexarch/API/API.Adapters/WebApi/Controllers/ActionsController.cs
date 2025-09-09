@@ -7,13 +7,13 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Api.C
 
 [Route("[controller]")]
 [ApiController]
-public class ActionsController(ISakService _sakService) : ControllerBase
+public class ActionsController(ISakService sakService) : ControllerBase
 {
     // POST actions/start-sak
     [HttpPost("start-sak")]
     public async Task<ActionResult<Sak>> StartSak([FromQuery(Name = "SakId")] [Required] Guid sakId)
     {
-        var result = await _sakService.StartSak(sakId);
+        var result = await sakService.StartSak(sakId);
         return Ok(result);
     }
 
@@ -21,7 +21,7 @@ public class ActionsController(ISakService _sakService) : ControllerBase
     [HttpPost("end-sak")]
     public async Task<ActionResult<Sak>> EndSak([FromQuery(Name = "SakId")] [Required] Guid sakId)
     {
-        var result = await _sakService.EndSak(sakId);
+        var result = await sakService.EndSak(sakId);
         return Ok(result);
     }
 
@@ -31,7 +31,7 @@ public class ActionsController(ISakService _sakService) : ControllerBase
         [FromQuery(Name = "SakId")] [Required] Guid sakId
     )
     {
-        var result = await _sakService.ArchiveSak(sakId);
+        var result = await sakService.ArchiveSak(sakId);
         return Ok(result);
     }
 }
