@@ -3,8 +3,6 @@ using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapter
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test.Fixtures;
 using Bogus;
 using Shouldly;
-using Xunit.Abstractions;
-using Xunit.Microsoft.DependencyInjection.Abstracts;
 using SakEntity = Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db.Model.SakEntity;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test;

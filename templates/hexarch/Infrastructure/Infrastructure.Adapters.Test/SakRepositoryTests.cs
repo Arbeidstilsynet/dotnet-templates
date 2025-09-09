@@ -1,5 +1,4 @@
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db.Model;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test.Fixtures;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports;

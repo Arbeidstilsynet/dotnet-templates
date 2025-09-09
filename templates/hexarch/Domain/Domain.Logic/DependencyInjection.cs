@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
