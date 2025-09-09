@@ -5,12 +5,13 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ada
 
 internal static class MappingExtensions
 {
-    public static Sak ToDomain(this SakEntity entity) => new()
-    {
-        Id = entity.Id,
-        CreatedAt = entity.CreatedAt,
-        LastUpdated = entity.UpdatedAt,
-        Organisajonsnummer = entity.Organisajonsnummer,
-        Status = entity.Status
-    };
+    public static Sak ToDomain(this SakEntity entity) =>
+        new()
+        {
+            Id = entity.Id,
+            CreatedAt = entity.CreatedAt,
+            LastUpdated = entity.UpdatedAt,
+            Organisajonsnummer = entity.Organisajonsnummer,
+            Status = entity.Status,
+        };
 }

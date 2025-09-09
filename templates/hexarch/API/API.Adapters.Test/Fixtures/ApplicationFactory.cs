@@ -25,28 +25,7 @@ public class ApplicationFactory : WebApplicationFactory<IAssemblyInfo>, IAsyncLi
                     ConnectionString = _postgresDbDemoFixture.ConnectionString,
                 }
             );
-            // replacing the current db context
-            var context = services.FirstOrDefault(descriptor =>
-                descriptor.ServiceType == typeof(SakDbContext)
-            );
-            if (context != null)
-            {
-                services.Remove(context);
-                var options = services
-                    .Where(r =>
-                        (r.ServiceType == typeof(DbContextOptions))
-                        || (
-                            r.ServiceType.IsGenericType
-                            && r.ServiceType.GetGenericTypeDefinition()
-                                == typeof(DbContextOptions<>)
-                        )
-                    )
-                    .ToArray();
-                foreach (var option in options)
-                {
-                    services.Remove(option);
-                }
-            }
+            services.RemoveAll<SakDbContext>();
             services.AddDbContext<SakDbContext>(opt =>
             {
                 opt.UseNpgsql(_postgresDbDemoFixture.ConnectionString);
