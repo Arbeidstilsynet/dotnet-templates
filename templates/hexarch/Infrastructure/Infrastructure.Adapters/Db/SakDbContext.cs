@@ -3,9 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db;
 
-internal class InfrastructureAdaptersDbContext(
-    DbContextOptions<InfrastructureAdaptersDbContext> dbContextOption
-) : DbContext(dbContextOption)
+internal class SakDbContext(DbContextOptions<SakDbContext> dbContextOption)
+    : DbContext(dbContextOption)
 {
     public DbSet<SakEntity> Saker { get; set; }
 

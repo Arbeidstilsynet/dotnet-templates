@@ -27,7 +27,7 @@ public class ApplicationFactory : WebApplicationFactory<IAssemblyInfo>, IAsyncLi
             );
             // replacing the current db context
             var context = services.FirstOrDefault(descriptor =>
-                descriptor.ServiceType == typeof(InfrastructureAdaptersDbContext)
+                descriptor.ServiceType == typeof(SakDbContext)
             );
             if (context != null)
             {
@@ -47,7 +47,7 @@ public class ApplicationFactory : WebApplicationFactory<IAssemblyInfo>, IAsyncLi
                     services.Remove(option);
                 }
             }
-            services.AddDbContext<InfrastructureAdaptersDbContext>(opt =>
+            services.AddDbContext<SakDbContext>(opt =>
             {
                 opt.UseNpgsql(_postgresDbDemoFixture.ConnectionString);
             });

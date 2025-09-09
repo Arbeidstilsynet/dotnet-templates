@@ -25,13 +25,13 @@ public static class DependencyInjection
     {
         services.AddScoped<ISakRepository, SakRepository>();
         services.AddSingleton(infrastructureConfiguration);
-        services.AddDbContext<InfrastructureAdaptersDbContext>(opt =>
+        services.AddDbContext<SakDbContext>(opt =>
         {
             opt.UseNpgsql(infrastructureConfiguration.ConnectionString);
         });
 
         services.AddMapper();
-        services.AddHealthChecks().AddCheck<DbContextHealthCheck>("DbContextCheck");
+        services.AddHealthChecks().AddDbContextCheck<SakDbContext>();
 
         return services;
     }
