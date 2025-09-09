@@ -17,7 +17,9 @@ public class ApplicationFactory : WebApplicationFactory<IAssemblyInfo>, IAsyncLi
 {
     private readonly PostgresDbDemoFixture _postgresDbDemoFixture = new();
 
-    internal Sak SeededSak { get; private set; }
+    private Sak? _seededSak;
+    internal Sak SeededSak =>
+        _seededSak ?? throw new InvalidOperationException("Database not seeded yet");
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -43,7 +45,7 @@ public class ApplicationFactory : WebApplicationFactory<IAssemblyInfo>, IAsyncLi
         using var scope = Services.CreateScope();
         var sakService = scope.ServiceProvider.GetRequiredService<ISakService>();
 
-        SeededSak = await sakService.CreateNewSak(
+        _seededSak = await sakService.CreateNewSak(
             new CreateSakDto() { Organisajonsnummer = "123456789" }
         );
     }
