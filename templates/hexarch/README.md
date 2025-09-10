@@ -52,6 +52,12 @@ Start the application by running:
 docker compose up --build -d
 ```
 
+Or with monitoring profile:
+
+```terminal
+docker compose --profile monitoring up --build -d
+```
+
 ### Cleanup
 
 If you want to stop all containers, run:
