@@ -21,7 +21,7 @@ public class SakEntityMapperTests
         var mappedSak = sakEntity.ToDomain();
 
         //assert
-        mappedSak.ShouldBe(
+        mappedSak.ShouldBeEquivalentTo(
             new Sak()
             {
                 Id = sakEntity.Id,
