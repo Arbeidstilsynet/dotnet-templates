@@ -6,7 +6,7 @@ using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;
+namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic;
 
 public class DomainConfiguration
 {

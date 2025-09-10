@@ -3,7 +3,7 @@ using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports.Requests;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Api.Controllers;
+namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.WebApi.Controllers;
 
 [Route("[controller]")]
 [ApiController]
