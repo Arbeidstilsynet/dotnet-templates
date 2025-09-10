@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
-namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Test.fixture;
+namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Test.Fixture;
 
 public class ApplicationFactory : WebApplicationFactory<IAssemblyInfo>, IAsyncLifetime
 {
