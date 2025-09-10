@@ -1,6 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports;
+using Mapster;
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -27,7 +29,34 @@ public static class DependencyInjection
             opt.UseNpgsql(infrastructureConfiguration.ConnectionString);
         });
 
+        services.AddMapper();
         services.AddHealthChecks().AddDbContextCheck<SakDbContext>();
+
+        return services;
+    }
+
+    internal static IServiceCollection AddMapper(this IServiceCollection services)
+    {
+        var existingConfig = services
+            .Select(s => s.ImplementationInstance)
+            .OfType<TypeAdapterConfig>()
+            .FirstOrDefault();
+
+        if (existingConfig == null)
+        {
+            var config = new TypeAdapterConfig()
+            {
+                RequireExplicitMapping = false,
+                RequireDestinationMemberSource = true,
+            };
+            config.Scan(Assembly.GetExecutingAssembly());
+            services.AddSingleton(config);
+            services.AddScoped<IMapper, ServiceMapper>();
+        }
+        else
+        {
+            existingConfig.Scan(Assembly.GetExecutingAssembly());
+        }
 
         return services;
     }
