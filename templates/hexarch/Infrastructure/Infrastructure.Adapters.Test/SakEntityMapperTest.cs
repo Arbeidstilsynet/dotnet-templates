@@ -1,4 +1,5 @@
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Mapper;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test.Fixtures;
 using Bogus;
 using MapsterMapper;
@@ -7,17 +8,16 @@ using SakEntity = Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastruc
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test;
 
-public class SakEntityMapperTests : TestBed<InfrastructureAdapterTestFixture>
+public class InfrastructureMapperTests
 {
-    private readonly IMapper _mapper;
+    private readonly Faker<SakEntity> _sakEntityFaker = TestData.CreateSakEntityFaker();
+    
+    private readonly InfrastructureMapper _sut = new();
+    private readonly MapsterMapper.Mapper _mapper = new();
 
-    public SakEntityMapperTests(
-        ITestOutputHelper testOutputHelper,
-        InfrastructureAdapterTestFixture applicationTestFixture
-    )
-        : base(testOutputHelper, applicationTestFixture)
+    public InfrastructureMapperTests()
     {
-        _mapper = applicationTestFixture.GetService<IMapper>(testOutputHelper)!;
+        _sut.Register(_mapper.Config);
     }
 
     [Fact]

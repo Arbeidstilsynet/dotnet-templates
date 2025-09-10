@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports;
 using Mapster;
@@ -35,7 +36,7 @@ public static class DependencyInjection
         return services;
     }
 
-    internal static IServiceCollection AddMapper(this IServiceCollection services)
+    private static IServiceCollection AddMapper(this IServiceCollection services)
     {
         var existingConfig = services
             .Select(s => s.ImplementationInstance)
