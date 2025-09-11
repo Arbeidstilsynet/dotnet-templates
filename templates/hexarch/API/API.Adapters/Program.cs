@@ -1,6 +1,7 @@
 using Arbeidstilsynet.Common.AspNetCore.Extensions.Extensions;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Api;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Api.Extensions;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Extensions;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.DependencyInjection;
 using IAssemblyInfo = Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.IAssemblyInfo;
@@ -11,7 +12,12 @@ var appSettings = builder.Configuration.GetRequired<AppSettings>();
 var services = builder.Services;
 var env = builder.Environment;
 
-services.ConfigureStandardApi(IAssemblyInfo.AppName, appSettings.ApiConfig, env);
+var appNameFromConfig = Environment.GetEnvironmentVariable("OTEL_SERVICE_NAME");
+services.ConfigureStandardApi(
+    string.IsNullOrEmpty(appNameFromConfig) ? IAssemblyInfo.AppName : appNameFromConfig,
+    appSettings.ApiConfig,
+    env
+);
 
 services.AddDomain(appSettings.DomainConfig);
 services.AddInfrastructure(appSettings.InfrastructureConfig);

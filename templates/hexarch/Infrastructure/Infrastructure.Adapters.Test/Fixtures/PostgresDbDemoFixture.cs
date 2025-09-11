@@ -4,12 +4,7 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ada
 
 public class PostgresDbDemoFixture : IAsyncLifetime
 {
-    private readonly PostgreSqlContainer _sqlContainer;
-
-    public PostgresDbDemoFixture()
-    {
-        _sqlContainer = new PostgreSqlBuilder().Build();
-    }
+    private readonly PostgreSqlContainer _sqlContainer = new PostgreSqlBuilder().Build();
 
     public string ConnectionString => _sqlContainer.GetConnectionString();
 

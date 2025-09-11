@@ -4,7 +4,7 @@ using Mapster;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Mapper;
 
-internal class SakEntityMapper : IRegister
+internal class InfrastructureMapper : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {

@@ -1,17 +1,25 @@
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db.Model;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.DependencyInjection;
+using Bogus;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit.Microsoft.DependencyInjection;
 using Xunit.Microsoft.DependencyInjection.Abstracts;
+using Xunit.Sdk;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test.Fixtures;
 
 public class InfrastructureAdapterTestFixture : TestBedFixture, IAsyncLifetime
 {
-    private readonly PostgresDbDemoFixture _dbDemoFixture;
+    private readonly TestOutputHelper _testOutputHelper = new();
+    private readonly PostgresDbDemoFixture _dbDemoFixture = new();
+
+    private readonly Faker<SakEntity> _sakEntityFaker = TestData.CreateSakEntityFaker();
+    internal List<SakEntity> SeededEntities { get; }
 
     public InfrastructureAdapterTestFixture()
     {
-        _dbDemoFixture = new PostgresDbDemoFixture();
+        SeededEntities = _sakEntityFaker.Generate(50);
     }
 
     protected override void AddServices(
@@ -31,9 +39,19 @@ public class InfrastructureAdapterTestFixture : TestBedFixture, IAsyncLifetime
         yield return new() { Filename = "appsettings.json", IsOptional = true };
     }
 
-    public Task InitializeAsync()
+    private async Task SeedDatabase()
     {
-        return _dbDemoFixture.InitializeAsync();
+        var dbContext = GetService<SakDbContext>(_testOutputHelper)!;
+
+        await dbContext.Database.EnsureCreatedAsync();
+        await dbContext.Saker.AddRangeAsync(SeededEntities);
+        await dbContext.SaveChangesAsync();
+    }
+
+    public async Task InitializeAsync()
+    {
+        await _dbDemoFixture.InitializeAsync();
+        await SeedDatabase();
     }
 
     public new Task DisposeAsync()
