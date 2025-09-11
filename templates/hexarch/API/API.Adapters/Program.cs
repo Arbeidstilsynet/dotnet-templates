@@ -2,6 +2,7 @@ using Arbeidstilsynet.Common.AspNetCore.Extensions.Extensions;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Extensions;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.DependencyInjection;
 using IAssemblyInfo = Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.IAssemblyInfo;
 

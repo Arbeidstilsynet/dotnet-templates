@@ -6,7 +6,8 @@ using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 
-namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic;
+// ReSharper disable once CheckNamespace
+namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;
 
 public class DomainConfiguration
 {
