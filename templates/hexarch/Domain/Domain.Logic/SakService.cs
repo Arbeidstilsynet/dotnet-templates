@@ -14,8 +14,8 @@ internal class SakService(ISakRepository sakRepository, IOptions<DomainConfigura
 
     public async Task<Sak> CreateNewSak(CreateSakDto sakDto)
     {
-        using var activity = Tracer.Source.StartActivity("create Sak");
-        return await sakRepository.CreateSak(sakDto.Organisajonsnummer);
+        using var activity = Tracer.Source.StartActivity();
+        return await sakRepository.PersistSak(sakDto.Organisajonsnummer);
     }
 
     public async Task<IEnumerable<Sak>> GetAllSaker()

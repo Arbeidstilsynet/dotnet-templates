@@ -7,24 +7,21 @@ using SakEntity = Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastruc
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db;
 
-internal class SakRepository(
-    InfrastructureAdaptersDbContext _dbContext,
-    IMapper _mapper,
-    ILogger<SakRepository> _logger
-) : Infrastructure.Ports.ISakRepository
+internal class SakRepository(SakDbContext dbContext, IMapper mapper, ILogger<SakRepository> logger)
+    : Ports.ISakRepository
 {
-    private InfrastructureAdaptersDbContext DbContext
+    private SakDbContext DbContext
     {
         get
         {
-            _dbContext.Database.EnsureCreated();
-            return _dbContext;
+            dbContext.Database.EnsureCreated();
+            return dbContext;
         }
     }
 
-    public async Task<Sak> CreateSak(string organisajonsnummer)
+    public async Task<Sak> PersistSak(string organisajonsnummer)
     {
-        using var activity = Tracer.Source.StartActivity("persist SakEntity");
+        using var activity = Tracer.Source.StartActivity();
         var sakEntity = new SakEntity
         {
             Id = Guid.NewGuid(),
@@ -36,7 +33,7 @@ internal class SakRepository(
         await DbContext.SaveChangesAsync();
         await updatedEntity.ReloadAsync();
 
-        return _mapper.Map<Sak>(updatedEntity.Entity);
+        return mapper.Map<Sak>(updatedEntity.Entity);
     }
 
     public async Task<Sak?> UpdateSakStatus(Guid id, SakStatus sakStatus)
@@ -46,9 +43,9 @@ internal class SakRepository(
         {
             entity.Status = sakStatus;
             await DbContext.SaveChangesAsync();
-            return _mapper.Map<Sak>(entity);
+            return mapper.Map<Sak>(entity);
         }
-        _logger.LogSakNotFound(id);
+        logger.LogSakNotFound(id);
         return null;
     }
 
@@ -57,15 +54,15 @@ internal class SakRepository(
         var entity = await DbContext.Saker.FindAsync(id);
         if (entity != null)
         {
-            return _mapper.Map<Sak>(entity);
+            return mapper.Map<Sak>(entity);
         }
 
-        _logger.LogSakNotFound(id);
+        logger.LogSakNotFound(id);
         return null;
     }
 
     public async Task<IEnumerable<Sak>> GetSaker()
     {
-        return await DbContext.Saker.Select(b => _mapper.Map<Sak>(b)).ToListAsync();
+        return await DbContext.Saker.Select(b => mapper.Map<Sak>(b)).ToListAsync();
     }
 }

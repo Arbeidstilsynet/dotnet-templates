@@ -2,16 +2,15 @@ using ArchUnitNET.Domain;
 using ArchUnitNET.Fluent;
 using ArchUnitNET.Loader;
 using ArchUnitNET.xUnit;
-using Microsoft.Extensions.Logging;
 //add a using directive to ArchUnitNET.Fluent.ArchRuleDefinition to easily define ArchRules
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
 namespace ArchUnit.Tests;
 
-public class APIPortLayerTests
+public class ApiPortLayerTests
 {
     static readonly Architecture Architecture = new ArchLoader()
-        .LoadAssemblies(Layers.APIPortAssembly, Layers.SystemConsoleAssembly)
+        .LoadAssemblies(Layers.ApiPortAssembly, Layers.SystemConsoleAssembly)
         .Build();
 
     [Fact]
@@ -19,7 +18,7 @@ public class APIPortLayerTests
     {
         IArchRule archRule = Types()
             .That()
-            .Are(Layers.APIPortLayer)
+            .Are(Layers.ApiPortLayer)
             .Should()
             .ResideInNamespaceMatching(
                 $"^({Constants.NameSpacePrefix}\\.API\\.Ports|{Constants.NameSpacePrefix}\\.API\\.Ports\\..*)$"
@@ -31,7 +30,7 @@ public class APIPortLayerTests
     [Fact]
     public void TypesInAPIPortLayer_ArePublic()
     {
-        IArchRule archRule = Types().That().Are(Layers.APIPortLayer).Should().BePublic();
+        IArchRule archRule = Types().That().Are(Layers.ApiPortLayer).Should().BePublic();
 
         archRule.Check(Architecture);
     }
@@ -41,7 +40,7 @@ public class APIPortLayerTests
     {
         IArchRule archRule = Types()
             .That()
-            .Are(Layers.APIPortLayer)
+            .Are(Layers.ApiPortLayer)
             .Should()
             .NotDependOnAny(
                 Types()
