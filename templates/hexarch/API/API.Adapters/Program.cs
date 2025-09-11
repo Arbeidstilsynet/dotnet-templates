@@ -12,7 +12,12 @@ var appSettings = builder.Configuration.GetRequired<AppSettings>();
 var services = builder.Services;
 var env = builder.Environment;
 
-services.ConfigureStandardApi(IAssemblyInfo.AppName, appSettings.ApiConfig, env);
+var appNameFromConfig = Environment.GetEnvironmentVariable("OTEL_SERVICE_NAME");
+services.ConfigureStandardApi(
+    string.IsNullOrEmpty(appNameFromConfig) ? IAssemblyInfo.AppName : appNameFromConfig,
+    appSettings.ApiConfig,
+    env
+);
 
 services.AddDomain(appSettings.DomainConfig);
 services.AddInfrastructure(appSettings.InfrastructureConfig);
