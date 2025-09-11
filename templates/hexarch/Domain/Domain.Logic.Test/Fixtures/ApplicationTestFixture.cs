@@ -1,8 +1,9 @@
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection;
+using Xunit.Microsoft.DependencyInjection;
 using Xunit.Microsoft.DependencyInjection.Abstracts;
 
-namespace Xunit.Microsoft.DependencyInjection.Application.Test.Fixtures;
+namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.Test.Fixtures;
 
 public class ApplicationTestFixture : TestBedFixture
 {

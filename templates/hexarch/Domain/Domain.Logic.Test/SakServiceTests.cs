@@ -17,7 +17,10 @@ public class SakServiceTests
 
     private static readonly string SampleOrgNr = "123456789";
 
-    private DomainConfiguration _domainConfiguration = new() { SomeSetting = "SampleConfigValue" };
+    private readonly DomainConfiguration _domainConfiguration = new()
+    {
+        SomeSetting = "SampleConfigValue",
+    };
 
     public SakServiceTests()
     {

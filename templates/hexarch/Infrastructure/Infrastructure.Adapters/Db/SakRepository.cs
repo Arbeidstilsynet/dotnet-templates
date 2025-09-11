@@ -7,13 +7,10 @@ using SakEntity = Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastruc
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db;
 
-internal class SakRepository(
-    InfrastructureAdaptersDbContext dbContext,
-    IMapper mapper,
-    ILogger<SakRepository> logger
-) : Ports.ISakRepository
+internal class SakRepository(SakDbContext dbContext, IMapper mapper, ILogger<SakRepository> logger)
+    : Ports.ISakRepository
 {
-    private InfrastructureAdaptersDbContext DbContext
+    private SakDbContext DbContext
     {
         get
         {

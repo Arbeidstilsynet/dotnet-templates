@@ -1,5 +1,4 @@
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db.Model;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test.Fixtures;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports;
@@ -10,29 +9,15 @@ using Xunit.Microsoft.DependencyInjection.Abstracts;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test;
 
-public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
+public class SakRepositoryTests(
+    ITestOutputHelper testOutputHelper,
+    InfrastructureAdapterTestFixture infrastractureAdapterTestFixture
+) : TestBed<InfrastructureAdapterTestFixture>(testOutputHelper, infrastractureAdapterTestFixture)
 {
-    private readonly ISakRepository _sut;
-
-    private readonly Faker<SakEntity> _sakEntityFaker = new Faker<SakEntity>()
-        .UseSeed(1337)
-        .RuleFor(sak => sak.Organisajonsnummer, static f => string.Join("", f.Random.Digits(9)));
+    private readonly ISakRepository _sut =
+        infrastractureAdapterTestFixture.GetService<ISakRepository>(testOutputHelper)!;
 
     private static readonly string SampleOrgNr = "123456789";
-
-    private readonly InfrastructureAdaptersDbContext _dbContext;
-
-    public SakRepositoryTests(
-        ITestOutputHelper testOutputHelper,
-        InfrastructureAdapterTestFixture infrastractureAdapterTestFixture
-    )
-        : base(testOutputHelper, infrastractureAdapterTestFixture)
-    {
-        _sut = infrastractureAdapterTestFixture.GetService<ISakRepository>(testOutputHelper)!;
-        _dbContext = infrastractureAdapterTestFixture.GetService<InfrastructureAdaptersDbContext>(
-            testOutputHelper
-        )!;
-    }
 
     [Fact]
     public async Task CreateSak_WhenCalled_PersistsSakEntityAsync()
@@ -65,10 +50,7 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
     public async Task GetSaker_WhenCalled_ReturnsAllSaker()
     {
         // arrange
-        await _dbContext.Database.EnsureCreatedAsync();
-        var seed = _sakEntityFaker.Generate(50);
-        await _dbContext.Saker.AddRangeAsync(seed);
-        await _dbContext.SaveChangesAsync();
+        var seed = _fixture.SeededEntities;
         // act
         var allSaker = await _sut.GetSaker();
         // assert
