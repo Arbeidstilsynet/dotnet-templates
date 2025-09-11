@@ -11,10 +11,11 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ada
 
 public class SakRepositoryTests(
     ITestOutputHelper testOutputHelper,
-    InfrastructureAdapterTestFixture infrastractureAdapterTestFixture)
-    : TestBed<InfrastructureAdapterTestFixture>(testOutputHelper, infrastractureAdapterTestFixture)
+    InfrastructureAdapterTestFixture infrastractureAdapterTestFixture
+) : TestBed<InfrastructureAdapterTestFixture>(testOutputHelper, infrastractureAdapterTestFixture)
 {
-    private readonly ISakRepository _sut = infrastractureAdapterTestFixture.GetService<ISakRepository>(testOutputHelper)!;
+    private readonly ISakRepository _sut =
+        infrastractureAdapterTestFixture.GetService<ISakRepository>(testOutputHelper)!;
 
     private static readonly string SampleOrgNr = "123456789";
 

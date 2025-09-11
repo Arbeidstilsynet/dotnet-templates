@@ -17,7 +17,7 @@ public class ActionsControllerIntegrationTests(ApplicationFixture fixture)
     private readonly JsonSerializerOptions _options = new()
     {
         PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        Converters = { new JsonStringEnumConverter() }
+        Converters = { new JsonStringEnumConverter() },
     };
 
     [Fact]
