@@ -5,40 +5,34 @@ using System.Text.Json.Serialization;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Test.Fixture;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
 using Shouldly;
+using Xunit.Abstractions;
+using Xunit.Microsoft.DependencyInjection.Abstracts;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Test;
 
-public class ActionsControllerIntegrationTests : IClassFixture<ApplicationFactory>
+public class ActionsControllerIntegrationTests(ApplicationFixture fixture)
+    : IClassFixture<ApplicationFixture>
 {
-    private readonly ApplicationFactory _factory;
-    private readonly HttpClient _client;
-
-    private readonly JsonSerializerOptions _options;
-
-    public ActionsControllerIntegrationTests(ApplicationFactory factory)
+    private readonly HttpClient _client = fixture.CreateClient();
+    private readonly JsonSerializerOptions _options = new()
     {
-        _factory = factory;
-        _client = factory.CreateClient();
-        _options = new JsonSerializerOptions()
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        };
-        _options.Converters.Add(new JsonStringEnumConverter());
-    }
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        Converters = { new JsonStringEnumConverter() }
+    };
 
     [Fact]
     public async Task ActionsStartSak_Post_UpdatesStatus()
     {
         // Act
         var response = await _client.PostAsync(
-            $"/actions/start-sak?sakId={_factory.SeededSak.Id}",
+            $"/actions/start-sak?sakId={fixture.SeededSak.Id}",
             null
         );
 
         // Assert
         var result = await response.Content.ReadFromJsonAsync<Sak>(_options);
         result?.ShouldBeEquivalentTo(
-            _factory.SeededSak with
+            fixture.SeededSak with
             {
                 Status = SakStatus.InProgress,
                 LastUpdated = result.LastUpdated,
@@ -79,14 +73,14 @@ public class ActionsControllerIntegrationTests : IClassFixture<ApplicationFactor
     {
         // Act
         var response = await _client.PostAsync(
-            $"/actions/end-sak?sakId={_factory.SeededSak.Id}",
+            $"/actions/end-sak?sakId={fixture.SeededSak.Id}",
             null
         );
 
         // Assert
         var result = await response.Content.ReadFromJsonAsync<Sak>(_options);
         result?.ShouldBeEquivalentTo(
-            _factory.SeededSak with
+            fixture.SeededSak with
             {
                 Status = SakStatus.Done,
                 LastUpdated = result.LastUpdated,
@@ -127,14 +121,14 @@ public class ActionsControllerIntegrationTests : IClassFixture<ApplicationFactor
     {
         // Act
         var response = await _client.PostAsync(
-            $"/actions/archive-sak?sakId={_factory.SeededSak.Id}",
+            $"/actions/archive-sak?sakId={fixture.SeededSak.Id}",
             null
         );
 
         // Assert
         var result = await response.Content.ReadFromJsonAsync<Sak>(_options);
         result?.ShouldBeEquivalentTo(
-            _factory.SeededSak with
+            fixture.SeededSak with
             {
                 Status = SakStatus.Archived,
                 LastUpdated = result.LastUpdated,

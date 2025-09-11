@@ -13,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Test.Fixture;
 
-public class ApplicationFactory : WebApplicationFactory<IAssemblyInfo>, IAsyncLifetime
+public class ApplicationFixture : WebApplicationFactory<IAssemblyInfo>, IAsyncLifetime
 {
     private readonly PostgresDbDemoFixture _postgresDbDemoFixture = new();
 
@@ -33,6 +33,7 @@ public class ApplicationFactory : WebApplicationFactory<IAssemblyInfo>, IAsyncLi
                 }
             );
             services.RemoveAll<SakDbContext>();
+            services.RemoveAll<DbContextOptions<SakDbContext>>();
             services.AddDbContext<SakDbContext>(opt =>
             {
                 opt.UseNpgsql(_postgresDbDemoFixture.ConnectionString);

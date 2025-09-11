@@ -9,22 +9,14 @@ using Xunit.Microsoft.DependencyInjection.Abstracts;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test;
 
-public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
+public class SakRepositoryTests(
+    ITestOutputHelper testOutputHelper,
+    InfrastructureAdapterTestFixture infrastractureAdapterTestFixture)
+    : TestBed<InfrastructureAdapterTestFixture>(testOutputHelper, infrastractureAdapterTestFixture)
 {
-    private readonly ISakRepository _sut;
-
-    private readonly Faker<SakEntity> _sakEntityFaker = TestData.CreateSakEntityFaker();
+    private readonly ISakRepository _sut = infrastractureAdapterTestFixture.GetService<ISakRepository>(testOutputHelper)!;
 
     private static readonly string SampleOrgNr = "123456789";
-
-    public SakRepositoryTests(
-        ITestOutputHelper testOutputHelper,
-        InfrastructureAdapterTestFixture infrastractureAdapterTestFixture
-    )
-        : base(testOutputHelper, infrastractureAdapterTestFixture)
-    {
-        _sut = infrastractureAdapterTestFixture.GetService<ISakRepository>(testOutputHelper)!;
-    }
 
     [Fact]
     public async Task CreateSak_WhenCalled_PersistsSakEntityAsync()

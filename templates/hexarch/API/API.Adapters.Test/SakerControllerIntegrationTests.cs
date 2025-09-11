@@ -9,20 +9,14 @@ using Shouldly;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Test;
 
-public class SakerControllerIntegrationTests : IClassFixture<ApplicationFactory>
+public class SakerControllerIntegrationTests(ApplicationFixture fixture) : IClassFixture<ApplicationFixture>
 {
-    private readonly HttpClient _client;
-    private readonly JsonSerializerOptions _options;
-
-    public SakerControllerIntegrationTests(ApplicationFactory factory)
+    private readonly HttpClient _client = fixture.CreateClient();
+    private readonly JsonSerializerOptions _options = new()
     {
-        _client = factory.CreateClient();
-        _options = new JsonSerializerOptions()
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        };
-        _options.Converters.Add(new JsonStringEnumConverter());
-    }
+        PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+        Converters = { new JsonStringEnumConverter() }
+    };
 
     [Fact]
     public async Task ScalarEndpoint_ReturnsOK()
