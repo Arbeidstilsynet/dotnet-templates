@@ -11,7 +11,7 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ada
 public class InfrastructureMapperTests
 {
     private readonly Faker<SakEntity> _sakEntityFaker = TestData.CreateSakEntityFaker();
-    
+
     private readonly InfrastructureMapper _sut = new();
     private readonly MapsterMapper.Mapper _mapper = new();
 
