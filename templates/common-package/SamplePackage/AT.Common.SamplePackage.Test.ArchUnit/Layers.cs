@@ -1,7 +1,7 @@
 using ArchUnitNET.Domain;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
-namespace SamplePackage.ArchUnit.Tests
+namespace Arbeidstilsynet.Common.SamplePackage.Test.ArchUnit
 {
     internal static class Constants
     {

@@ -1,3 +1,3 @@
-namespace Arbeidstilsynet.Common.SamplePackage.Adapters.Test;
+namespace Arbeidstilsynet.Common.SamplePackage.Test;
 
 public interface IAssemblyInfo { }

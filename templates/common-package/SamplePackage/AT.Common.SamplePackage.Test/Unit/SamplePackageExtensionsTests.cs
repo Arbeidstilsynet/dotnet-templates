@@ -1,15 +1,14 @@
 using Arbeidstilsynet.Common.SamplePackage.Extensions;
-using Arbeidstilsynet.Common.SamplePackage.Extensions.Something;
 using Arbeidstilsynet.Common.SamplePackage.Model;
 using Shouldly;
 using Xunit;
 
-namespace Arbeidstilsynet.Common.SamplePackage.Test;
+namespace Arbeidstilsynet.Common.SamplePackage.Test.Unit;
 
 public class SamplePackageExtensionsTests
 {
     [Fact]
-    public void SamplePackageExtensions_ShouldHaveCorrectNamespace()
+    public void ToUpper_WhenCalled_ReturnsUppercaseFoo()
     {
         // Arrange
         var model = new SamplePackageDto() { Foo = "Bar" };

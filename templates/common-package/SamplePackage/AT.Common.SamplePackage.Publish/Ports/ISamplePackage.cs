@@ -1,9 +1,10 @@
+using Arbeidstilsynet.Common.SamplePackage.DependencyInjection;
 using Arbeidstilsynet.Common.SamplePackage.Model;
 
-namespace Arbeidstilsynet.Common.SamplePackage;
+namespace Arbeidstilsynet.Common.SamplePackage.Ports;
 
 /// <summary>
-/// Interface which can be dependency injected to use methods of SamplePackage
+/// Use the <see cref="DependencyInjectionExtensions.AddSamplePackage"/> method to inject an implementation of this interface.
 /// </summary>
 public interface ISamplePackage
 {

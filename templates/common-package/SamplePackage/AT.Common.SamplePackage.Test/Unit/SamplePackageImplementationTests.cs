@@ -2,16 +2,11 @@ using Arbeidstilsynet.Common.SamplePackage.Implementation;
 using Shouldly;
 using Xunit;
 
-namespace Arbeidstilsynet.Common.SamplePackage.Test;
+namespace Arbeidstilsynet.Common.SamplePackage.Test.Unit;
 
 public class SamplePackageTests
 {
-    private readonly SamplePackageImplementation _sut;
-
-    public SamplePackageTests()
-    {
-        _sut = new SamplePackageImplementation();
-    }
+    private readonly SamplePackageImplementation _sut = new();
 
     [Fact]
     public async Task Get_WhenCalled_ReturnsBar()
