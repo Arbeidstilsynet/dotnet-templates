@@ -8,6 +8,7 @@
     <Product>Arbeidstilsynet.Common.SamplePackage</Product>
     <Authors>Digital Samhandling</Authors>
     <Company>Arbeidstilsynet</Company>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Description></Description>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Version>0.0.1</Version>

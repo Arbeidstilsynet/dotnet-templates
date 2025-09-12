@@ -1,7 +1,7 @@
 using ArchUnitNET.Domain;
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
-namespace ArchUnit.Tests
+namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.ArchUnit.Tests
 {
     internal static class Constants
     {

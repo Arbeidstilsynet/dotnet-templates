@@ -4,5 +4,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data</RootNamespace>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 </Project>

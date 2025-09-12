@@ -17,5 +17,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters</RootNamespace>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 </Project>

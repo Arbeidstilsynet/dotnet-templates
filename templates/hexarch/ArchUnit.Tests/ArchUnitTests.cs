@@ -1,10 +1,10 @@
+//add a using directive to ArchUnitNET.Fluent.ArchRuleDefinition to easily define ArchRules
 using ArchUnitNET.Domain;
 using ArchUnitNET.Loader;
 using ArchUnitNET.xUnit;
-//add a using directive to ArchUnitNET.Fluent.ArchRuleDefinition to easily define ArchRules
 using static ArchUnitNET.Fluent.ArchRuleDefinition;
 
-namespace ArchUnit.Tests;
+namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.ArchUnit.Tests;
 
 public class ArchUnitTests
 {

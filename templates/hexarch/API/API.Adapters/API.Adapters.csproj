@@ -13,5 +13,6 @@
     <Nullable>enable</Nullable>
     <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
     <RootNamespace>Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters</RootNamespace>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 </Project>

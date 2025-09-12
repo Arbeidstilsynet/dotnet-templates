@@ -7,5 +7,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports</RootNamespace>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 </Project>

@@ -1,4 +1,5 @@
 using Arbeidstilsynet.Common.SamplePackage.Implementation;
+using Arbeidstilsynet.Common.SamplePackage.Ports;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Arbeidstilsynet.Common.SamplePackage.DependencyInjection;
@@ -9,9 +10,9 @@ namespace Arbeidstilsynet.Common.SamplePackage.DependencyInjection;
 public static class DependencyInjectionExtensions
 {
     /// <summary>
-    /// Registrerer en implementasjon av ISamplePackage i den spesifiserte <see cref="IServiceCollection"/>.
+    /// Registers an implementation av <see cref="ISamplePackage"/> in <paramref name="services"/>.
     /// </summary>
-    /// <param name="services"><see cref="IServiceCollection"/> som tjenesten skal legges til i.</param>
+    /// <param name="services"><see cref="IServiceCollection"/> to register the service in.</param>
     /// <returns><see cref="IServiceCollection"/> for chaining.</returns>
     public static IServiceCollection AddSamplePackage(this IServiceCollection services)
     {

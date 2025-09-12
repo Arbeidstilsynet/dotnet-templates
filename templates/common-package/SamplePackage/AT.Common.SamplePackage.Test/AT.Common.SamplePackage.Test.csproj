@@ -6,6 +6,7 @@
     <RootNamespace>Arbeidstilsynet.Common.SamplePackage.Test</RootNamespace>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Shouldly" Version="4.3.0" />
