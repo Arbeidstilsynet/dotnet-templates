@@ -12,5 +12,5 @@ public interface ISamplePackage
     /// Required XML summary of the Get method
     /// </summary>
     /// <returns></returns>
-    Task<SamplePackageDto> Get();
+    public Task<SamplePackageDto> Get();
 }
