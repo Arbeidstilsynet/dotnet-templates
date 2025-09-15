@@ -8,5 +8,6 @@
     <Nullable>enable</Nullable>
     <RootNamespace>Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <IsPublishable>false</IsPublishable>
   </PropertyGroup>
 </Project>
