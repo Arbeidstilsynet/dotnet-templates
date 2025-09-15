@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- changed(common-package): set test projects to not be publishable, and added IsTestProject property to the archunit test project
+- changed(hexarch+common-package): set most projects to not be publishable by default (test and library projects)
 
 ## 1.3.1
 
