@@ -6,6 +6,7 @@
     <RootNamespace>Arbeidstilsynet.Common.SamplePackage.Test</RootNamespace>
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <IsPublishable>false</IsPublishable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>

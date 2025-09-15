@@ -12,6 +12,7 @@
     <Description></Description>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Version>0.0.1</Version>
+    <IsPublishable>true</IsPublishable>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageReleaseNotes>(Package release notes are in CHANGELOG.md)</PackageReleaseNotes>
   </PropertyGroup>
