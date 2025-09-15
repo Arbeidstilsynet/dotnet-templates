@@ -6,7 +6,7 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ada
 internal class SakDbContext(DbContextOptions<SakDbContext> dbContextOption)
     : DbContext(dbContextOption)
 {
-    public DbSet<SakEntity> Saker { get; set; } = null!;
+    public required DbSet<SakEntity> Saker { get; init; }
 
     public override int SaveChanges()
     {
