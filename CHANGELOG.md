@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- changed(hexarch+common-package): set most projects to not be publishable by default (test and library projects)
+- changed(hexarch+common-package): Added project properties to for clarity
 
 ## 1.3.1
 
