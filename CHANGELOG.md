@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- fixed(hexarch+common-package): Removed `<IsPublishable>false</IsPublishable>` from all non-test projects
+- fixed(hexarch): Removed `<IsPublishable>false</IsPublishable>` from all non-test projects
 
 ## 1.3.3
 
