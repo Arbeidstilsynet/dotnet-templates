@@ -15,6 +15,6 @@
     <Nullable>enable</Nullable>
     <RootNamespace>Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <IsPublishable>false</IsPublishable>
+    
   </PropertyGroup>
 </Project>
