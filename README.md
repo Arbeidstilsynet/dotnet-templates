@@ -23,6 +23,12 @@ Per today, we published all our templates in our Public `AT.Public.NuGet` Nuget 
 </configuration>
 ```
 
+You can add the feed to your global NuGet configuration by running the following command:
+
+```bash
+dotnet nuget add source https://pkgs.dev.azure.com/Atil-utvikling/Public/_packaging/AT.Public.NuGet/nuget/v3/index.json --name "AT.Public.NuGet" --configfile ~/AppData/Roaming/NuGet/NuGet.Config
+```
+
 ## 🏃‍♂️ Getting Started
 
 Install our template package by running the following command. If you get an exeption, make sure you updated the `nuget.config` as described in [Prerequisites](#-prerequisites).
