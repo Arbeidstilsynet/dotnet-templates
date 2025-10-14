@@ -24,7 +24,7 @@ services:
 
   monitoring_otel:
     container_name: monitoring_otel
-    image: grafana/otel-lgtm@sha256:09d8c3ce4f3a5f2f5b1ef7a3cc526a7e03b608aeef3ea1c67c912df43b2690c9
+    image: grafana/otel-lgtm@sha256:f9f6310025dc4e1ae1bd4f44dc24ffcbaa354c3daccdc1edf8d0d96d2bd972d2
     networks:
       - HexagonalArchitectureTemplateDocker_network
     restart: always
