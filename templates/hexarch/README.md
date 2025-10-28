@@ -34,6 +34,14 @@ docker compose -f compose.infra.yaml --profile monitoring up -d
 
 This starts (as per today) a plain postgres instance without any seed.
 
+To be able to run future migrations, we created an initial migration script by running the following `dotnet ef` command:
+
+```terminal
+dotnet ef migrations add InitDb --startup-project API/API.Adapters --project Infrastructure/Infrastructure.Adapters --namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Migrations
+```
+
+If you have future migrations (changes in your entity model), run this command and replace `InitDb` with a meaningful migration name.
+
 Now, start the actual asp dotnet core application with the `Development` profile:
 
 ```terminal

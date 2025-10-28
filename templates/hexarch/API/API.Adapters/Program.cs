@@ -3,6 +3,7 @@ using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Extensions;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.DependencyInjection;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports;
 using IAssemblyInfo = Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.IAssemblyInfo;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,5 +30,12 @@ if (env.IsDevelopment())
 }
 
 app.AddStandardApi();
+
+// Apply migrations before running the application
+using (var scope = app.Services.CreateScope())
+{
+    var migrationService = scope.ServiceProvider.GetRequiredService<IDatabaseMigrationService>();
+    await migrationService.RunMigrations();
+}
 
 await app.RunAsync();
