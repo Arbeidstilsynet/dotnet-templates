@@ -18,20 +18,26 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ada
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Organisajonsnummer = table.Column<string>(type: "varchar(9)", nullable: false),
                     Status = table.Column<string>(type: "varchar(24)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
+                    UpdatedAt = table.Column<DateTime>(
+                        type: "timestamp with time zone",
+                        nullable: false
+                    ),
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Saker", x => x.Id);
-                });
+                }
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Saker");
+            migrationBuilder.DropTable(name: "Saker");
         }
     }
 }
