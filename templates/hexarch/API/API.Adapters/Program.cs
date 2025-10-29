@@ -32,7 +32,7 @@ if (env.IsDevelopment())
 app.AddStandardApi();
 
 // Apply migrations before running the application
-using (var scope = app.Services.CreateScope())
+await using (var scope = app.Services.CreateAsyncScope())
 {
     var migrationService = scope.ServiceProvider.GetRequiredService<IDatabaseMigrationService>();
     await migrationService.RunMigrations();
