@@ -81,6 +81,8 @@ internal static class StartupExtensions
         {
             app.UseAuthentication();
         }
+        app.UseAuthorization();
+
         app.AddApi(options =>
             options.AddExceptionMapping<SakNotFoundException>(HttpStatusCode.NotFound)
         );
