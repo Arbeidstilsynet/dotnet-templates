@@ -17,7 +17,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       Infrastructure__ConnectionString: Host=postgres_db;Port=5432;Database=demo_db;Username=postgres;Password=postgres
-      API__AuthenticationConfiguration__DangerousDisableAuth: "true"
+      API__Authentication__DangerousDisableAuth: "true"
       API__FeatureFlag__Url: http://unleash_web:4242/api/
       API__FeatureFlag__ApiKey: default:development.unleash-insecure-api-token
       API__FeatureFlag__AppName: HexagonalArchitectureTemplateDocker
