@@ -1,4 +1,5 @@
 using Arbeidstilsynet.Common.AspNetCore.Extensions.Extensions;
+using Arbeidstilsynet.Common.FeatureFlags.DependencyInjection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Extensions;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;
@@ -18,6 +19,7 @@ services.ConfigureStandardApi(
     appSettings.ApiConfig,
     env
 );
+services.AddFeatureFlags(builder.Environment, appSettings.ApiConfig.FeatureFlagSettings);
 
 services.AddDomain(appSettings.DomainConfig);
 services.AddInfrastructure(appSettings.InfrastructureConfig);
@@ -30,6 +32,7 @@ if (env.IsDevelopment())
 }
 
 app.AddStandardApi();
+app.MapFeatureFlagEndpoint();
 
 // Apply migrations before running the application
 await using (var scope = app.Services.CreateAsyncScope())

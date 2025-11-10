@@ -1,3 +1,4 @@
+using Arbeidstilsynet.Common.FeatureFlags.Ports;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports.Requests;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
@@ -7,7 +8,7 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.WebAp
 
 [Route("[controller]")]
 [ApiController]
-public class SakerController(ISakService sakService) : ControllerBase
+public class SakerController(ISakService sakService, IFeatureFlags featureFlags) : ControllerBase
 {
     // POST
     [HttpPost()]
@@ -22,7 +23,12 @@ public class SakerController(ISakService sakService) : ControllerBase
     [HttpGet]
     public async Task<ActionResult<List<Sak>>> Get()
     {
-        return Ok(await sakService.GetAllSaker());
+        var saker = await sakService.GetAllSaker();
+        if (featureFlags.IsEnabled("newestFirst").IsEnabled)
+        {
+            saker = saker.OrderByDescending(s => s.CreatedAt);
+        }
+        return Ok(saker);
     }
 
     // GET saker/{sakId}
