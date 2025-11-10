@@ -31,7 +31,7 @@ if (env.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.AddStandardApi();
+app.AddStandardApi(appSettings.ApiConfig);
 app.MapFeatureFlagEndpoint();
 
 // Apply migrations before running the application
