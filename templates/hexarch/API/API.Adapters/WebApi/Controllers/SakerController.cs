@@ -24,7 +24,7 @@ public class SakerController(ISakService sakService, IFeatureFlags featureFlags)
     public async Task<ActionResult<List<Sak>>> Get()
     {
         var saker = await sakService.GetAllSaker();
-        if (featureFlags.IsEnabled("newestFirst").IsEnabled)
+        if (featureFlags.IsEnabled("newestFirst"))
         {
             saker = saker.OrderByDescending(s => s.CreatedAt);
         }
