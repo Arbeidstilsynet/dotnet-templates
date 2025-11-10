@@ -25,9 +25,16 @@ public static class DependencyInjection
     {
         services.AddScoped<ISakRepository, SakRepository>();
         services.AddSingleton(infrastructureConfiguration);
+        services.AddScoped<IDatabaseMigrationService, DatabaseMigrationService>();
         services.AddDbContext<SakDbContext>(opt =>
         {
-            opt.UseNpgsql(infrastructureConfiguration.ConnectionString);
+            opt.UseNpgsql(
+                infrastructureConfiguration.ConnectionString,
+                options =>
+                {
+                    options.MigrationsHistoryTable("ef_migrations_history");
+                }
+            );
         });
 
         services.AddMapper();

@@ -5,11 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 1.3.4
+
+## 1.4.2
 
 ### Fixed
 
 - fix(hexarch): update (correct) nuget config within hexarch template to clear package sources before importing the required ones
+
+## 1.4.1
+
+### Added
+
+- feat(hexarch): Added `IDatabaseMigrationService` interface and implementation to handle database migrations
+
+## 1.4.0
+
+### Fixed
+
+- fixed(hexarch): Removed `<IsPublishable>false</IsPublishable>` from all non-test projects
 
 ## 1.3.3
 
