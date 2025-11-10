@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Arbeidstilsynet.Common.FeatureFlags.Model;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.DependencyInjection;
 
@@ -21,6 +22,9 @@ internal record ApiConfiguration
 {
     [ConfigurationKeyName("Cors")]
     public CorsConfiguration Cors { get; init; } = new();
+
+    [ConfigurationKeyName("FeatureFlag")]
+    public FeatureFlagSettings FeatureFlagSettings { get; init; } = new();
 }
 
 internal record CorsConfiguration
