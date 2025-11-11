@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using Arbeidstilsynet.Common.AspNetCore.Extensions.Extensions;
 using Arbeidstilsynet.Common.FeatureFlags.DependencyInjection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters;

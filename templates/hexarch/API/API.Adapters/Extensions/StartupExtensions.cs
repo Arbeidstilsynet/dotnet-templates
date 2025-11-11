@@ -1,5 +1,4 @@
 using System.Net;
-using System.Text;
 using Arbeidstilsynet.Common.AspNetCore.Extensions.Extensions;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -32,8 +31,12 @@ internal static class StartupExtensions
 
         if (apiConfiguration.AuthenticationConfiguration.DangerousDisableAuth)
         {
-            // TODO add proper ILogger
-            // Console.WriteLine("WARNING: Authentication is DISABLED");
+            LoggerFactory
+                .Create(builder => builder.AddConsole())
+                .CreateLogger<Program>()
+                .LogWarning(
+                    "Authentication is disabled. Update AuthenticationConfiguration to require authentication."
+                );
 
             // Register a permissive authorization policy that allows all requests
             services.AddAuthorization(options =>
