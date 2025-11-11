@@ -1,5 +1,5 @@
 # https://hub.docker.com/_/microsoft-dotnet
-FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine@sha256:3f0fb43bb36dbce018486be9ba00a88121b838ac8ea47f8e3ddc9579a7391dda AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine@sha256:4f06e168669408b87e6e671a6fc6b78bf661f08ab8fafddb0e4615a2e5839f06 AS build
 WORKDIR /source
 
 COPY HexagonalArchitectureTemplateDocker.sln .
@@ -12,7 +12,7 @@ COPY ArchUnit.Tests/. ./ArchUnit.Tests/
 RUN dotnet publish -c release
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine@sha256:cb69be896f82e0d73f513c128ece501c7c1f1809c49415a69dc096e013d5314a
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine@sha256:53e4fe31c30a3aea383291d362c84ceb752d121bfab0e4ca1ba73a65945106e9
 WORKDIR /build
 COPY --from=build /source/API/API.Adapters/bin/Release/net8.0 ./
 ENTRYPOINT ["dotnet", "API.Adapters.dll"]
