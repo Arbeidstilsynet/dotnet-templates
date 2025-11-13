@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using Arbeidstilsynet.Common.AspNetCore.Extensions.Extensions;
 using Arbeidstilsynet.Common.FeatureFlags.DependencyInjection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters;
@@ -31,7 +32,7 @@ if (env.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.AddStandardApi();
+app.AddStandardApi(appSettings.ApiConfig);
 app.MapFeatureFlagEndpoint();
 
 // Apply migrations before running the application
