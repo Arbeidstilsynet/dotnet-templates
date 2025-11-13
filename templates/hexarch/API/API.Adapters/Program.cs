@@ -20,7 +20,7 @@ services.ConfigureStandardApi(
     appSettings.ApiConfig,
     env
 );
-services.AddFeatureFlags(builder.Environment, appSettings.ApiConfig.FeatureFlagSettings);
+services.AddFeatureFlags(appSettings.ApiConfig.FeatureFlagSettings);
 
 services.AddDomain(appSettings.DomainConfig);
 services.AddInfrastructure(appSettings.InfrastructureConfig);
