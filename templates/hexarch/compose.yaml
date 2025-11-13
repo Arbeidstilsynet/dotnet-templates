@@ -21,6 +21,7 @@ services:
       API__FeatureFlag__Url: http://unleash_web:4242/api/
       API__FeatureFlag__ApiKey: default:development.unleash-insecure-api-token
       API__FeatureFlag__AppName: HexagonalArchitectureTemplateDocker
+      API__FeatureFlag__Environment: development
       OTEL_EXPORTER_OTLP_ENDPOINT: http://monitoring_otel:4317
     depends_on:
       postgres_db:
