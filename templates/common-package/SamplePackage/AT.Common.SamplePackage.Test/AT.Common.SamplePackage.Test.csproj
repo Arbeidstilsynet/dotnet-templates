@@ -8,12 +8,13 @@
     <IsTestProject>true</IsTestProject>
     <IsPublishable>false</IsPublishable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Shouldly" Version="4.3.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
-    <PackageReference Include="xunit" Version="2.9.3" />
-    <PackageReference Include="Xunit.Microsoft.DependencyInjection" Version="8.2.2" />
+    <PackageReference Include="xunit.v3.core" Version="3.2.0" />
+    <PackageReference Include="Xunit.Microsoft.DependencyInjection" Version="10.0.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
