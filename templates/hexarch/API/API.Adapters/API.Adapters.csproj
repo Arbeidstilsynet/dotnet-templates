@@ -7,10 +7,10 @@
   <ItemGroup>
     <PackageReference Include="Arbeidstilsynet.Common.AspNetCore.Extensions" Version="1.4.2" />
     <PackageReference Include="Arbeidstilsynet.Common.FeatureFlags" Version="0.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.20" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.0" />
     <PackageReference
       Include="Microsoft.EntityFrameworkCore.Design"
-      Version="8.0.21"
+      Version="10.0.0"
     ></PackageReference>
   </ItemGroup>
   <PropertyGroup>
