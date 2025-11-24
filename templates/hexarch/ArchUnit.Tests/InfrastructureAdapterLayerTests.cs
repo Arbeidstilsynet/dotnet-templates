@@ -35,7 +35,7 @@ public class InfrastructureAdapterLayerTests
             .Are(Layers.InfrastructureAdapterLayer)
             .And()
             .DoNotResideInNamespaceMatching(
-                $"^({Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection\\..*|{Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.Migrations)$"
+                $"^({Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection\\..*|{Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.Db\\.Migrations)$"
             )
             .Should()
             .NotBePublic();
