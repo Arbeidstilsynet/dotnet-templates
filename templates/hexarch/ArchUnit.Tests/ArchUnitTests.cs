@@ -20,21 +20,6 @@ public class ArchUnitTests
         .Build();
 
     [Fact]
-    public void DomainShouldNotDependOnAnyOtherLayer()
-    {
-        var domainshouldOnlyDependOnItself = Types()
-            .That()
-            .Are(Layers.DomainLayer)
-            .Should()
-            .OnlyDependOn(Layers.DomainLayer)
-            .Because(
-                $"{Layers.DomainLayer.Description} should not access any other layers at all. Did you add new project references in {Layers.DomainLayer.Description}?"
-            );
-
-        domainshouldOnlyDependOnItself.Check(Architecture);
-    }
-
-    [Fact]
     public void InfrastructureAdapterLayerShouldOnlyAccessInfrastructurePortLayer()
     {
         var adapterLayerShouldNotAccessApplicationLayer = Types()

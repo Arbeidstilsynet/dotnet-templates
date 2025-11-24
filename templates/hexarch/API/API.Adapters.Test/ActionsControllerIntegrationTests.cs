@@ -25,11 +25,15 @@ public class ActionsControllerIntegrationTests(ApplicationFixture fixture)
         // Act
         var response = await _client.PostAsync(
             $"/actions/start-sak?sakId={fixture.SeededSak.Id}",
-            null
+            null,
+            TestContext.Current.CancellationToken
         );
 
         // Assert
-        var result = await response.Content.ReadFromJsonAsync<Sak>(_options);
+        var result = await response.Content.ReadFromJsonAsync<Sak>(
+            _options,
+            TestContext.Current.CancellationToken
+        );
         result?.ShouldBeEquivalentTo(
             fixture.SeededSak with
             {
@@ -46,7 +50,11 @@ public class ActionsControllerIntegrationTests(ApplicationFixture fixture)
         var nonExistentId = Guid.NewGuid();
 
         // Act
-        var response = await _client.PostAsync($"/actions/start-sak?sakId={nonExistentId}", null);
+        var response = await _client.PostAsync(
+            $"/actions/start-sak?sakId={nonExistentId}",
+            null,
+            TestContext.Current.CancellationToken
+        );
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
@@ -61,7 +69,11 @@ public class ActionsControllerIntegrationTests(ApplicationFixture fixture)
     public async Task ActionsStartSak_PostWithInvalidId_Returns400(string invalidId)
     {
         // Act
-        var response = await _client.PostAsync($"/actions/start-sak?sakId={invalidId}", null);
+        var response = await _client.PostAsync(
+            $"/actions/start-sak?sakId={invalidId}",
+            null,
+            TestContext.Current.CancellationToken
+        );
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
@@ -73,11 +85,15 @@ public class ActionsControllerIntegrationTests(ApplicationFixture fixture)
         // Act
         var response = await _client.PostAsync(
             $"/actions/end-sak?sakId={fixture.SeededSak.Id}",
-            null
+            null,
+            TestContext.Current.CancellationToken
         );
 
         // Assert
-        var result = await response.Content.ReadFromJsonAsync<Sak>(_options);
+        var result = await response.Content.ReadFromJsonAsync<Sak>(
+            _options,
+            TestContext.Current.CancellationToken
+        );
         result?.ShouldBeEquivalentTo(
             fixture.SeededSak with
             {
@@ -94,7 +110,11 @@ public class ActionsControllerIntegrationTests(ApplicationFixture fixture)
         var nonExistentId = Guid.NewGuid();
 
         // Act
-        var response = await _client.PostAsync($"/actions/end-sak?sakId={nonExistentId}", null);
+        var response = await _client.PostAsync(
+            $"/actions/end-sak?sakId={nonExistentId}",
+            null,
+            TestContext.Current.CancellationToken
+        );
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
@@ -109,7 +129,11 @@ public class ActionsControllerIntegrationTests(ApplicationFixture fixture)
     public async Task ActionsEndSak_PostWithInvalidId_Returns400(string invalidId)
     {
         // Act
-        var response = await _client.PostAsync($"/actions/end-sak?sakId={invalidId}", null);
+        var response = await _client.PostAsync(
+            $"/actions/end-sak?sakId={invalidId}",
+            null,
+            TestContext.Current.CancellationToken
+        );
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
@@ -121,11 +145,15 @@ public class ActionsControllerIntegrationTests(ApplicationFixture fixture)
         // Act
         var response = await _client.PostAsync(
             $"/actions/archive-sak?sakId={fixture.SeededSak.Id}",
-            null
+            null,
+            TestContext.Current.CancellationToken
         );
 
         // Assert
-        var result = await response.Content.ReadFromJsonAsync<Sak>(_options);
+        var result = await response.Content.ReadFromJsonAsync<Sak>(
+            _options,
+            TestContext.Current.CancellationToken
+        );
         result?.ShouldBeEquivalentTo(
             fixture.SeededSak with
             {
@@ -142,7 +170,11 @@ public class ActionsControllerIntegrationTests(ApplicationFixture fixture)
         var nonExistentId = Guid.NewGuid();
 
         // Act
-        var response = await _client.PostAsync($"/actions/archive-sak?sakId={nonExistentId}", null);
+        var response = await _client.PostAsync(
+            $"/actions/archive-sak?sakId={nonExistentId}",
+            null,
+            TestContext.Current.CancellationToken
+        );
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
@@ -157,7 +189,11 @@ public class ActionsControllerIntegrationTests(ApplicationFixture fixture)
     public async Task ActionsArchiveSak_PostWithInvalidId_Returns400(string invalidId)
     {
         // Act
-        var response = await _client.PostAsync($"/actions/archive-sak?sakId={invalidId}", null);
+        var response = await _client.PostAsync(
+            $"/actions/archive-sak?sakId={invalidId}",
+            null,
+            TestContext.Current.CancellationToken
+        );
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);

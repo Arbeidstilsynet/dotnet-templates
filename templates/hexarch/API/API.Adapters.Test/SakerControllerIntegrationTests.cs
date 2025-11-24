@@ -23,7 +23,7 @@ public class SakerControllerIntegrationTests(ApplicationFixture fixture)
     public async Task ScalarEndpoint_ReturnsOK()
     {
         // Act
-        var response = await _client.GetAsync("/scalar/v1");
+        var response = await _client.GetAsync("/scalar/v1", TestContext.Current.CancellationToken);
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -37,13 +37,17 @@ public class SakerControllerIntegrationTests(ApplicationFixture fixture)
         // Act
         var response = await _client.PostAsJsonAsync(
             "/saker",
-            new CreateSakDto { Organisajonsnummer = orgNr }
+            new CreateSakDto { Organisajonsnummer = orgNr },
+            TestContext.Current.CancellationToken
         );
 
         // Assert
-        (await response.Content.ReadFromJsonAsync<Sak>(_options))?.Organisajonsnummer.ShouldBe(
-            orgNr
-        );
+        (
+            await response.Content.ReadFromJsonAsync<Sak>(
+                _options,
+                TestContext.Current.CancellationToken
+            )
+        )?.Organisajonsnummer.ShouldBe(orgNr);
     }
 
     [Theory]
@@ -55,7 +59,8 @@ public class SakerControllerIntegrationTests(ApplicationFixture fixture)
         // Act
         var response = await _client.PostAsJsonAsync(
             "/saker",
-            new CreateSakDto { Organisajonsnummer = invalidOrgnummer }
+            new CreateSakDto { Organisajonsnummer = invalidOrgnummer },
+            TestContext.Current.CancellationToken
         );
 
         // Assert
@@ -66,7 +71,7 @@ public class SakerControllerIntegrationTests(ApplicationFixture fixture)
     public async Task Saker_Get_ReturnsOK()
     {
         // Act
-        var response = await _client.GetAsync("/saker");
+        var response = await _client.GetAsync("/saker", TestContext.Current.CancellationToken);
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -79,11 +84,16 @@ public class SakerControllerIntegrationTests(ApplicationFixture fixture)
         var createdSak = await (
             await _client.PostAsJsonAsync(
                 "/saker",
-                new CreateSakDto { Organisajonsnummer = "123456789" }
+                new CreateSakDto { Organisajonsnummer = "123456789" },
+                TestContext.Current.CancellationToken
             )
-        ).Content.ReadFromJsonAsync<Sak>(_options);
+        ).Content.ReadFromJsonAsync<Sak>(_options, TestContext.Current.CancellationToken);
         // Act
-        var response = await _client.GetFromJsonAsync<Sak>($"/saker/{createdSak!.Id}", _options);
+        var response = await _client.GetFromJsonAsync<Sak>(
+            $"/saker/{createdSak!.Id}",
+            _options,
+            TestContext.Current.CancellationToken
+        );
 
         // Assert
         response.ShouldBeEquivalentTo(createdSak);
@@ -93,7 +103,10 @@ public class SakerControllerIntegrationTests(ApplicationFixture fixture)
     public async Task Saker_GetByNotExistingId_Returns404()
     {
         // Act
-        var response = await _client.GetAsync($"/saker/{Guid.NewGuid()}");
+        var response = await _client.GetAsync(
+            $"/saker/{Guid.NewGuid()}",
+            TestContext.Current.CancellationToken
+        );
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
@@ -103,7 +116,7 @@ public class SakerControllerIntegrationTests(ApplicationFixture fixture)
     public async Task Saker_GetByMalformedId_Returns404()
     {
         // Act
-        var response = await _client.GetAsync("/saker/234}");
+        var response = await _client.GetAsync("/saker/234}", TestContext.Current.CancellationToken);
 
         // Assert
         response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
