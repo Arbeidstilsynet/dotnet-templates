@@ -37,6 +37,11 @@ public class InfrastructureAdapterTestFixture : TestBedFixture, IAsyncLifetime
         yield return new() { Filename = "appsettings.json", IsOptional = true };
     }
 
+    protected override ValueTask DisposeAsyncCore()
+    {
+        return ValueTask.CompletedTask;
+    }
+
     private async Task SeedDatabase()
     {
         var dbContext = GetService<SakDbContext>(_testOutputHelper)!;
@@ -52,8 +57,8 @@ public class InfrastructureAdapterTestFixture : TestBedFixture, IAsyncLifetime
         await SeedDatabase();
     }
 
-    protected override ValueTask DisposeAsyncCore()
+    async ValueTask IAsyncDisposable.DisposeAsync()
     {
-        return new ValueTask(_dbDemoFixture.DisposeAsync());
+        await _dbDemoFixture.DisposeAsync();
     }
 }

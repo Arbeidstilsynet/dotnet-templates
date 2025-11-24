@@ -56,4 +56,9 @@ public class ApplicationFixture : WebApplicationFactory<IAssemblyInfo>, IAsyncLi
         await _postgresDbDemoFixture.InitializeAsync();
         await SeedDatabase();
     }
+
+    async ValueTask IAsyncDisposable.DisposeAsync()
+    {
+        await _postgresDbDemoFixture.DisposeAsync();
+    }
 }

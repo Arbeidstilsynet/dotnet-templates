@@ -6,21 +6,19 @@
     <IsPackable>false</IsPackable>
     <IsPublishable>false</IsPublishable>
     <IsTestProject>true</IsTestProject>
+    <UseMicrosoftTestingPlatformRunner>true</UseMicrosoftTestingPlatformRunner>
     <RootNamespace>Arbeidstilsynet.HexagonalArchitectureTemplateDocker.ArchUnit.Tests</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.0.0" />
-    <PackageReference Include="xunit.v3.core" Version="3.2.0" />
+    <PackageReference Include="xunit.v3.mtp-v2" Version="3.2.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="coverlet.collector" Version="6.0.4">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
+    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.1.0" />
     <PackageReference Include="TngTech.ArchUnitNET" Version="0.12.3" />
     <PackageReference Include="TngTech.ArchUnitNET.xUnit" Version="0.12.3" />
   </ItemGroup>
@@ -31,5 +29,8 @@
     <ProjectReference Include="..\API\API.Adapters\API.Adapters.csproj" />
     <ProjectReference Include="..\Domain\Domain.Logic\Domain.Logic.csproj" />
     <ProjectReference Include="..\Domain\Domain.Data\Domain.Data.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
   </ItemGroup>
 </Project>
