@@ -39,7 +39,7 @@ public class InfrastructureAdapterTestFixture : TestBedFixture, IAsyncLifetime
 
     protected override ValueTask DisposeAsyncCore()
     {
-        return ValueTask.CompletedTask;
+        return _dbDemoFixture.DisposeAsync();
     }
 
     private async Task SeedDatabase()
@@ -59,6 +59,6 @@ public class InfrastructureAdapterTestFixture : TestBedFixture, IAsyncLifetime
 
     async ValueTask IAsyncDisposable.DisposeAsync()
     {
-        await _dbDemoFixture.DisposeAsync();
+        await DisposeAsyncCore();
     }
 }
