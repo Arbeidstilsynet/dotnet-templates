@@ -21,7 +21,7 @@ internal static class StartupExtensions
         });
         services.ConfigureApi();
         services.ConfigureOpenTelemetry(appName);
-        services.ConfigureSwagger();
+        services.ConfigureOpenApi();
 
         services.ConfigureCors(
             apiConfiguration.Cors.AllowedOrigins,

@@ -5,7 +5,6 @@ using System.Text.Json.Serialization;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Test.Fixture;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
 using Shouldly;
-using Xunit.Abstractions;
 using Xunit.Microsoft.DependencyInjection.Abstracts;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Test;

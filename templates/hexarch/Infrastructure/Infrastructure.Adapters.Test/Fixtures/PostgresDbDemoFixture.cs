@@ -2,7 +2,7 @@ using Testcontainers.PostgreSql;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test.Fixtures;
 
-public class PostgresDbDemoFixture : IAsyncLifetime
+public class PostgresDbDemoFixture
 {
     private readonly PostgreSqlContainer _sqlContainer = new PostgreSqlBuilder().Build();
 
