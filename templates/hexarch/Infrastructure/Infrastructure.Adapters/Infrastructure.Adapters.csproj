@@ -8,12 +8,9 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.0" />
     <PackageReference
       Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore"
-      Version="10.0.0-rc.2.25502.107"
+      Version="10.0.0"
     />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0-rc.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; compile; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.0" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
