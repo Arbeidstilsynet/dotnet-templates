@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- chore(deps): remove not longer required test dependencies
+- chore(deps): remove no longer required test dependencies
 
 ## 2.1.0
 
