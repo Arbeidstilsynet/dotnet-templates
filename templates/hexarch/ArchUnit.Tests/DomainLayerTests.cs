@@ -46,7 +46,7 @@ public class DomainLayerTests
                 Types()
                     .That()
                     .DoNotResideInNamespaceMatching(
-                        $"^(System.*|{Constants.NameSpacePrefix}\\.Domain\\.Data.*)$"
+                        $"^(System.*|{Constants.CoverageCollectorNamespace}|{Constants.NameSpacePrefix}\\.Domain\\.Data.*)$"
                     )
             );
 

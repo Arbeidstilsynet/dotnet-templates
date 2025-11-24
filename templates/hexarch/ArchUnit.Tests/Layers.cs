@@ -7,6 +7,9 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.ArchUnit.Tests
     {
         internal static string NameSpacePrefix =
             $"Arbeidstilsynet\\.{Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.IAssemblyInfo.AppName}";
+
+        internal static string CoverageCollectorNamespace =
+            "Microsoft.CodeCoverage.Instrumentation.Static.Tracker";
     }
 
     internal static class Layers
@@ -31,10 +34,8 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.ArchUnit.Tests
             .That()
             .ResideInAssembly(DomainLogicAssembly)
             .And()
-            .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
-            .And()
             .DoNotResideInNamespaceMatching(
-                $"^({Constants.NameSpacePrefix}\\.Domain\\.Logic\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Domain\\.Logic\\.DependencyInjection\\..*)$"
+                $"^({Constants.CoverageCollectorNamespace}|{Constants.NameSpacePrefix}\\.Domain\\.Logic\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Domain\\.Logic\\.DependencyInjection\\..*)$"
             )
             .As("Application Service Layer");
         internal static readonly IObjectProvider<IType> InfrastructureAdapterLayer = Types()
@@ -42,34 +43,32 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.ArchUnit.Tests
             .ResideInAssembly(InfrastructureAdapterAssembly)
             .And()
             .DoNotResideInNamespaceMatching(
-                $"^({Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection\\..*)$"
+                $"^({Constants.CoverageCollectorNamespace}|{Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection\\..*)$"
             )
-            .And()
-            .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
             .As("Infrastructure Adapter Layer");
         internal static readonly IObjectProvider<IType> InfrastructurePortLayer = Types()
             .That()
             .ResideInAssembly(InfrastructurePortAssembly)
             .And()
-            .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
+            .DoNotResideInNamespace(Constants.CoverageCollectorNamespace)
             .As("Infrastructure Port Layer");
         internal static readonly IObjectProvider<IType> ApiPortLayer = Types()
             .That()
             .ResideInAssembly(ApiPortAssembly)
             .And()
-            .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
+            .DoNotResideInNamespace(Constants.CoverageCollectorNamespace)
             .As("API Port Layer");
         internal static readonly IObjectProvider<IType> DomainLayer = Types()
             .That()
             .ResideInAssembly(DomainAssembly)
             .And()
-            .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
+            .DoNotResideInNamespace(Constants.CoverageCollectorNamespace)
             .As("Domain Layer");
         internal static readonly IObjectProvider<IType> ApiAdapterLayer = Types()
             .That()
             .ResideInAssembly(ApiAdapterAssembly)
             .And()
-            .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
+            .DoNotResideInNamespace(Constants.CoverageCollectorNamespace)
             .As("API Adapter Layer");
     }
 }
