@@ -4,7 +4,9 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ada
 
 public class PostgresDbDemoFixture : IAsyncLifetime
 {
-    private readonly PostgreSqlContainer _sqlContainer = new PostgreSqlBuilder().Build();
+    private readonly PostgreSqlContainer _sqlContainer = new PostgreSqlBuilder()
+        .WithCleanUp(true)
+        .Build();
 
     public string ConnectionString => _sqlContainer.GetConnectionString();
 
@@ -15,6 +17,6 @@ public class PostgresDbDemoFixture : IAsyncLifetime
 
     public ValueTask DisposeAsync()
     {
-        return new ValueTask(_sqlContainer.StopAsync());
+        return _sqlContainer.DisposeAsync();
     }
 }

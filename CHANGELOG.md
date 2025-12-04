@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.2.0
+
+### Added
+
+- chore(hexarch): Use two distinct health endpoints for readiness and liveness as default (`healthz/ready` and `healthz/live`) instead of just one for all. Also, add a default `StartupHealthCheck` which can be configured to run multiple startup tasks like e.g. a database migration before it will return a healthy state.
+
 ## 2.1.1
 
 ### Changed

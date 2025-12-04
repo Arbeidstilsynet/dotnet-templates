@@ -16,6 +16,7 @@ services:
       - HexagonalArchitectureTemplateDocker_network
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_HTTP_PORT: "8080"
       Infrastructure__ConnectionString: Host=postgres_db;Port=5432;Database=demo_db;Username=postgres;Password=postgres
       API__Authentication__DangerousDisableAuth: "true"
       API__FeatureFlag__Url: http://unleash_web:4242/api/

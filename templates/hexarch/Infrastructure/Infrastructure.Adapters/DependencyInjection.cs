@@ -36,11 +36,16 @@ public static class DependencyInjection
                 }
             );
         });
-
         services.AddMapper();
-        services.AddHealthChecks().AddDbContextCheck<SakDbContext>();
 
         return services;
+    }
+
+    public static IHealthChecksBuilder AddInfrastructureHealthChecks(
+        this IHealthChecksBuilder healthCheckBuilder
+    )
+    {
+        return healthCheckBuilder.AddDbContextCheck<SakDbContext>();
     }
 
     private static IServiceCollection AddMapper(this IServiceCollection services)

@@ -1,6 +1,8 @@
 using System.Net;
+using Arbeidstilsynet.Common.AspNetCore.Extensions.CrossCutting;
 using Arbeidstilsynet.Common.AspNetCore.Extensions.Extensions;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 
@@ -12,14 +14,18 @@ internal static class StartupExtensions
         this IServiceCollection services,
         string appName,
         ApiConfiguration apiConfiguration,
-        IWebHostEnvironment env
+        IWebHostEnvironment env,
+        StartupChecks? startupChecks = null
     )
     {
         services.AddLogging(configure =>
         {
             configure.SetMinimumLevel(LogLevel.Information);
         });
-        services.ConfigureApi();
+        services.ConfigureApi(
+            startupChecks: startupChecks,
+            buildHealthChecksAction: builder => builder.AddInfrastructureHealthChecks()
+        );
         services.ConfigureOpenTelemetry(appName);
         services.ConfigureOpenApi();
 

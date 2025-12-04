@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using Arbeidstilsynet.Common.AspNetCore.Extensions.Extensions;
 using Arbeidstilsynet.Common.FeatureFlags.DependencyInjection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters;
@@ -18,7 +17,8 @@ var appNameFromConfig = Environment.GetEnvironmentVariable("OTEL_SERVICE_NAME");
 services.ConfigureStandardApi(
     string.IsNullOrEmpty(appNameFromConfig) ? IAssemblyInfo.AppName : appNameFromConfig,
     appSettings.ApiConfig,
-    env
+    env,
+    (provider) => [provider.GetRequiredService<IDatabaseMigrationService>().RunMigrations()]
 );
 services.AddFeatureFlags(appSettings.ApiConfig.FeatureFlagSettings);
 
@@ -34,12 +34,5 @@ if (env.IsDevelopment())
 
 app.AddStandardApi(appSettings.ApiConfig);
 app.MapFeatureFlagEndpoint();
-
-// Apply migrations before running the application
-await using (var scope = app.Services.CreateAsyncScope())
-{
-    var migrationService = scope.ServiceProvider.GetRequiredService<IDatabaseMigrationService>();
-    await migrationService.RunMigrations();
-}
 
 await app.RunAsync();
