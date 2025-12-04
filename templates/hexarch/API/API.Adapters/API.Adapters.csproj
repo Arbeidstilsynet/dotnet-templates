@@ -5,7 +5,7 @@
     <ProjectReference Include="..\API.Ports\API.Ports.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Arbeidstilsynet.Common.AspNetCore.Extensions" Version="2.1.0" />
+    <PackageReference Include="Arbeidstilsynet.Common.AspNetCore.Extensions" Version="2.1.3" />
     <PackageReference Include="Arbeidstilsynet.Common.FeatureFlags" Version="1.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.0" />
