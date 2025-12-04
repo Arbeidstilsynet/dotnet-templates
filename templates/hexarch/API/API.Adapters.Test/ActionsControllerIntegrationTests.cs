@@ -9,8 +9,8 @@ using Xunit.Microsoft.DependencyInjection.Abstracts;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Test;
 
+[Collection("Application Collection")]
 public class ActionsControllerIntegrationTests(ApplicationFixture fixture)
-    : IClassFixture<ApplicationFixture>
 {
     private readonly HttpClient _client = fixture.CreateClient();
     private readonly JsonSerializerOptions _options = new()
