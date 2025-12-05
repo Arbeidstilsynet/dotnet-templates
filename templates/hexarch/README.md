@@ -42,10 +42,10 @@ dotnet ef migrations add InitDb --startup-project API/API.Adapters --project Inf
 
 If you have future migrations (changes in your entity model), run this command and replace `InitDb` with a meaningful migration name.
 
-Now, start the actual asp dotnet core application with the `Development` profile:
+Now, start the actual asp dotnet core application (by default, the default launch profile is used which sets the environment to `Development`):
 
 ```terminal
-dotnet run --project API/API.Adapters Environment=Development
+dotnet run --project API/API.Adapters
 ```
 
 ### Local Development in a complete dockerized environment (for e.g tester)
