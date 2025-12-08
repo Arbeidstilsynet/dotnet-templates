@@ -9,7 +9,7 @@ using Shouldly;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Test;
 
-[Collection("Application Collection")]
+[Collection("Application Fixture Collection")]
 public class SakerControllerIntegrationTests(ApplicationFixture fixture)
 {
     private readonly HttpClient _client = fixture.CreateClient();

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Test.Fixture;
 
@@ -26,6 +27,8 @@ public class ApplicationFixture : WebApplicationFactory<IAssemblyInfo>, IAsyncLi
     {
         builder.ConfigureTestServices(services =>
         {
+            // remove background jobs from startup
+            services.RemoveAll<IHostedService>();
             services.RemoveAll<InfrastructureConfiguration>();
             services.AddSingleton(
                 new InfrastructureConfiguration
@@ -37,13 +40,7 @@ public class ApplicationFixture : WebApplicationFactory<IAssemblyInfo>, IAsyncLi
             services.RemoveAll<DbContextOptions<SakDbContext>>();
             services.AddDbContext<SakDbContext>(opt =>
             {
-                opt.UseNpgsql(
-                    _postgresDbDemoFixture.ConnectionString,
-                    options =>
-                    {
-                        options.MigrationsHistoryTable("ef_migrations_history");
-                    }
-                );
+                opt.UseNpgsql(_postgresDbDemoFixture.ConnectionString);
             });
         });
     }
@@ -51,8 +48,9 @@ public class ApplicationFixture : WebApplicationFactory<IAssemblyInfo>, IAsyncLi
     private async Task RunMigrations()
     {
         using var scope = Services.CreateScope();
-        var dbContext = scope.ServiceProvider.GetRequiredService<SakDbContext>();
-        await dbContext.Database.MigrateAsync();
+        var migrationService =
+            scope.ServiceProvider.GetRequiredService<IDatabaseMigrationService>();
+        await migrationService.RunMigrations();
     }
 
     private async Task SeedDatabase()
