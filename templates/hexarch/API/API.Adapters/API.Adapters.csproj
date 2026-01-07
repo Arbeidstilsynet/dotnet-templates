@@ -17,5 +17,7 @@
     <EnableSdkContainerSupport>true</EnableSdkContainerSupport>
     <RootNamespace>Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <IsPublishable>true</IsPublishable>
+    <InterceptorsPreviewNamespaces>$(InterceptorsPreviewNamespaces);Microsoft.AspNetCore.OpenApi.Generated</InterceptorsPreviewNamespaces>
   </PropertyGroup>
 </Project>
