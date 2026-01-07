@@ -9,7 +9,7 @@ using Xunit.Microsoft.DependencyInjection.Abstracts;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Test;
 
-[Collection("Application Collection")]
+[Collection("Application Fixture Collection")]
 public class ActionsControllerIntegrationTests(ApplicationFixture fixture)
 {
     private readonly HttpClient _client = fixture.CreateClient();

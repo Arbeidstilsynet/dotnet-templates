@@ -2,5 +2,5 @@ using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Test.Fixt
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Test;
 
-[CollectionDefinition("Application Collection")]
+[CollectionDefinition("Application Fixture Collection")]
 public class ApplicationFixtureCollection : ICollectionFixture<ApplicationFixture> { }
