@@ -18,9 +18,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.1.0" />
-    <PackageReference Include="TngTech.ArchUnitNET" Version="0.12.3" />
-    <PackageReference Include="TngTech.ArchUnitNET.xUnit" Version="0.12.3" />
+    <PackageReference Include="Microsoft.Testing.Extensions.CodeCoverage" Version="18.3.1" />
+    <PackageReference Include="TngTech.ArchUnitNET" Version="0.13.1" />
+    <PackageReference Include="TngTech.ArchUnitNET.xUnit" Version="0.13.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.Adapters\Infrastructure.Adapters.csproj" />
