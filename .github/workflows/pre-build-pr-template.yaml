@@ -27,4 +27,7 @@ jobs:
           include: |
             templates/common-package
             templates/hexarch
+          exclude: |
+            templates/hexarch/compose.yaml
+            templates/hexarch/compose.infra.yaml
 
