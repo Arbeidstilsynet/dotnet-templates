@@ -11,6 +11,7 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.WebAp
 /// Saker related endpoints.
 /// </summary>
 /// <param name="sakService"></param>
+/// <param name="featureFlags"></param>
 [Authorize]
 [Route("[controller]")]
 [ApiController]

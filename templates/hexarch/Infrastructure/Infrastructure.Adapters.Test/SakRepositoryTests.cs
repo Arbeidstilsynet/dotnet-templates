@@ -24,6 +24,7 @@ public class SakRepositoryTests(
         var expectedSak = new Faker<Sak>().Generate()
             with
         {
+            Id = Guid.NewGuid(),
             Organisajonsnummer = SampleOrgNr
         };
         
