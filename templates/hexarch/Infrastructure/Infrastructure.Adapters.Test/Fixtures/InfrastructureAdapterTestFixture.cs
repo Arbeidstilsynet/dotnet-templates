@@ -5,7 +5,7 @@ using Bogus;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit.Microsoft.DependencyInjection;
 using Xunit.Microsoft.DependencyInjection.Abstracts;
-using Xunit.Sdk;
+using Xunit.v3;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test.Fixtures;
 
@@ -32,11 +32,14 @@ public class InfrastructureAdapterTestFixture : TestBedFixture, IAsyncLifetime
         );
     }
 
-    protected override ValueTask DisposeAsyncCore() => new();
-
     protected override IEnumerable<TestAppSettings> GetTestAppSettings()
     {
         yield return new() { Filename = "appsettings.json", IsOptional = true };
+    }
+
+    protected override ValueTask DisposeAsyncCore()
+    {
+        return _dbDemoFixture.DisposeAsync();
     }
 
     private async Task SeedDatabase()
@@ -48,14 +51,14 @@ public class InfrastructureAdapterTestFixture : TestBedFixture, IAsyncLifetime
         await dbContext.SaveChangesAsync();
     }
 
-    public async Task InitializeAsync()
+    async ValueTask IAsyncLifetime.InitializeAsync()
     {
         await _dbDemoFixture.InitializeAsync();
         await SeedDatabase();
     }
 
-    public new Task DisposeAsync()
+    async ValueTask IAsyncDisposable.DisposeAsync()
     {
-        return _dbDemoFixture.DisposeAsync();
+        await DisposeAsyncCore();
     }
 }

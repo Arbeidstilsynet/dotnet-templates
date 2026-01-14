@@ -10,9 +10,9 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checkout repository
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
       - name: Build and Test .NET solution
-        uses: Arbeidstilsynet/action-dotnet-build@46ba407f9370390d5b20f3d01f4bd9a191c78345 # v1
+        uses: Arbeidstilsynet/action-dotnet-build@a1f3f50f263efb55f38a48fa615e2cf77c4297fa # v3
         with:
           working-directory: "./templates/common-package/SamplePackage"
 
@@ -22,8 +22,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - name: Checkout repository
-        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
       - name: Build and Test .NET solution
-        uses: Arbeidstilsynet/action-dotnet-build@46ba407f9370390d5b20f3d01f4bd9a191c78345 # v1
+        uses: Arbeidstilsynet/action-dotnet-build@a1f3f50f263efb55f38a48fa615e2cf77c4297fa # v3
         with:
           working-directory: "./templates/hexarch"

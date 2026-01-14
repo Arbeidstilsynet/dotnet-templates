@@ -6,6 +6,9 @@ namespace Arbeidstilsynet.Common.SamplePackage.Test.ArchUnit
     internal static class Constants
     {
         internal static string NameSpacePrefix = @"Arbeidstilsynet\.Common\.SamplePackage";
+
+        internal static string CoverageCollectorNamespace =
+            "Microsoft.CodeCoverage.Instrumentation.Static.Tracker";
         internal static string RootNamespace = $"^({NameSpacePrefix}|{NameSpacePrefix}\\..*)$";
         internal static string ExtensionsNamespace = CreateNamespaceRegex("Extensions");
         internal static string DependencyInjectionNamespace = CreateNamespaceRegex(
@@ -31,7 +34,7 @@ namespace Arbeidstilsynet.Common.SamplePackage.Test.ArchUnit
             .That()
             .ResideInAssembly(SamplePackageAssembly)
             .And()
-            .DoNotResideInNamespaceMatching("Coverlet.Core.Instrumentation.Tracker")
+            .DoNotResideInNamespace(Constants.CoverageCollectorNamespace)
             .As("SamplePackage Layer");
 
         internal static readonly IObjectProvider<IType> PublicInterfaces = Interfaces()

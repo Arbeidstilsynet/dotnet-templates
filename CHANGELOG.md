@@ -5,6 +5,96 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.2.5
+
+### Changed
+
+- changed(deps): update all minor dependencies
+
+## 2.2.4
+
+### Changed
+
+- changed(hexarch): updated dockerfile to use latest sdk and updated layers for improved performance (caching)
+
+## 2.2.3
+
+### Changed
+
+- changed(hexarch): clean up test fixtures
+
+## 2.2.2
+
+### Changed
+
+- changed(hexarch): updated readme (dotnet run with default launch profile)
+
+## 2.2.1
+
+### Changed
+
+- changed(deps): update all minor dependencies
+
+## 2.2.0
+
+### Added
+
+- chore(hexarch): Use two distinct health endpoints for readiness and liveness as default (`healthz/ready` and `healthz/live`) instead of just one for all. Also, add a default `StartupHealthCheck` which can be configured to run multiple startup tasks like e.g. a database migration before it will return a healthy state.
+
+## 2.1.1
+
+### Changed
+
+- chore(deps): remove no longer required test dependencies
+
+## 2.1.0
+
+### Changed
+
+- chore(testing): use microsoft testing platform as default test runner
+
+## 2.0.0
+
+### Changed
+
+- chore: Updated dotnet runtime to v10
+
+## 1.6.1
+
+### Changed
+
+- chore(hexarch): Updated to latest feature flag client
+
+## 1.6.0
+
+### Added
+
+- feat(hexarch): Added authentication configuration for entra app registrations
+
+## 1.5.0
+
+### Added
+
+- feat(hexarch): Added feature flag integration to unleash
+
+## 1.4.3
+
+### Changed
+
+- changed(deps): update all minor dependencies
+
+## 1.4.2
+
+### Fixed
+
+- fix(hexarch): update (correct) nuget config within hexarch template to clear package sources before importing the required ones
+
+## 1.4.1
+
+### Added
+
+- feat(hexarch): Added `IDatabaseMigrationService` interface and implementation to handle database migrations
+
 ## 1.4.0
 
 ### Fixed

@@ -1,8 +1,10 @@
 using Arbeidstilsynet.Common.AspNetCore.Extensions.Extensions;
+using Arbeidstilsynet.Common.FeatureFlags.DependencyInjection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Extensions;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.DependencyInjection;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports;
 using IAssemblyInfo = Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.IAssemblyInfo;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,8 +17,10 @@ var appNameFromConfig = Environment.GetEnvironmentVariable("OTEL_SERVICE_NAME");
 services.ConfigureStandardApi(
     string.IsNullOrEmpty(appNameFromConfig) ? IAssemblyInfo.AppName : appNameFromConfig,
     appSettings.ApiConfig,
-    env
+    env,
+    (provider) => [provider.GetRequiredService<IDatabaseMigrationService>().RunMigrations()]
 );
+services.AddFeatureFlags(appSettings.ApiConfig.FeatureFlagSettings);
 
 services.AddDomain(appSettings.DomainConfig);
 services.AddInfrastructure(appSettings.InfrastructureConfig);
@@ -28,6 +32,7 @@ if (env.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.AddStandardApi();
+app.AddStandardApi(appSettings.ApiConfig);
+app.MapFeatureFlagEndpoint();
 
 await app.RunAsync();

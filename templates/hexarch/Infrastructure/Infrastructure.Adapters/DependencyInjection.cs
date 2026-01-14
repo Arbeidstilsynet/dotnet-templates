@@ -29,15 +29,27 @@ public static class DependencyInjection
     {
         services.AddScoped<ISakRepository, SakRepository>();
         services.AddSingleton(infrastructureConfiguration);
+        services.AddScoped<IDatabaseMigrationService, DatabaseMigrationService>();
         services.AddDbContext<SakDbContext>(opt =>
         {
-            opt.UseNpgsql(infrastructureConfiguration.ConnectionString);
+            opt.UseNpgsql(
+                infrastructureConfiguration.ConnectionString,
+                options =>
+                {
+                    options.MigrationsHistoryTable("ef_migrations_history");
+                }
+            );
         });
-
         services.AddMapper();
-        services.AddHealthChecks().AddDbContextCheck<SakDbContext>();
 
         return services;
+    }
+
+    public static IHealthChecksBuilder AddInfrastructureHealthChecks(
+        this IHealthChecksBuilder healthCheckBuilder
+    )
+    {
+        return healthCheckBuilder.AddDbContextCheck<SakDbContext>();
     }
 
     private static IServiceCollection AddMapper(this IServiceCollection services)

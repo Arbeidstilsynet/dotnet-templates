@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Arbeidstilsynet.Common.FeatureFlags.Model;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.DependencyInjection;
 
@@ -40,24 +41,12 @@ internal record ApiConfiguration
 {
     [ConfigurationKeyName("Cors")]
     public CorsConfiguration Cors { get; init; } = new();
-    
-    [ConfigurationKeyName("Auth")]
-    [Required]
-    public required AuthConfiguration Auth { get; init; }
-}
 
-internal record AuthConfiguration
-{
-    [ConfigurationKeyName("DangerousDisableAuth")]
-    public bool DangerousDisableAuth { get; init; } = false;
-    
-    [ConfigurationKeyName("Authority")]
-    [Required]
-    public required string Authority { get; init; }
+    [ConfigurationKeyName("Authentication")]
+    public AuthConfiguration AuthenticationConfiguration { get; init; } = new();
 
-    [ConfigurationKeyName("Audience")]
-    [Required]
-    public required string Audience { get; init; }
+    [ConfigurationKeyName("FeatureFlag")]
+    public FeatureFlagSettings FeatureFlagSettings { get; init; } = new();
 }
 
 internal record CorsConfiguration
@@ -67,4 +56,16 @@ internal record CorsConfiguration
 
     [Required]
     public bool AllowCredentials { get; init; } = false;
+}
+
+internal record AuthConfiguration
+{
+    [ConfigurationKeyName("DangerousDisableAuth")]
+    public bool DangerousDisableAuth { get; init; } = false;
+
+    [ConfigurationKeyName("TenantId")]
+    public string EntraTenantId { get; init; } = string.Empty;
+
+    [ConfigurationKeyName("ClientId")]
+    public string EntraClientId { get; init; } = string.Empty;
 }

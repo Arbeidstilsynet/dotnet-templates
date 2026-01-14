@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.WebApi.Controllers;
@@ -10,6 +11,7 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.WebAp
 /// Actions related to Sak management
 /// </summary>
 /// <param name="sakService"></param>
+[Authorize]
 [Route("[controller]")]
 [ApiController]
 public class ActionsController(ISakService sakService) : ControllerBase

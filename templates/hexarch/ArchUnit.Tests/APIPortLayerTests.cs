@@ -46,7 +46,7 @@ public class ApiPortLayerTests
                 Types()
                     .That()
                     .DoNotResideInNamespaceMatching(
-                        $"^(System.*|{Constants.NameSpacePrefix}\\.API\\.Ports|{Constants.NameSpacePrefix}\\.API\\.Ports\\..*|{Constants.NameSpacePrefix}\\.Domain\\.Data.*)$"
+                        $"^(System.*|{Constants.CoverageCollectorNamespace}|{Constants.NameSpacePrefix}\\.API\\.Ports|{Constants.NameSpacePrefix}\\.API\\.Ports\\..*|{Constants.NameSpacePrefix}\\.Domain\\.Data.*)$"
                     )
             );
 

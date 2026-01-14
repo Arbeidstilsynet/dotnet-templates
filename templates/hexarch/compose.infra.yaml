@@ -4,8 +4,8 @@ networks:
     external: false
 
 services:
-  postgres:
-    image: postgres:17-alpine@sha256:c5da6bc9da9e3a3b6dc85585078c05c002c2d4deeaca00479f5571e2d00ca5d2
+  postgres_db:
+    image: postgres:17-alpine@sha256:ff4ccc02b97e0ebb6b328ef9ff92522f95586f83be6801896b615088defc8ad2
     networks:
       - HexagonalArchitectureTemplateDocker_network
     ports:
@@ -22,9 +22,35 @@ services:
       timeout: 5s
       retries: 10
 
+  unleash_web:
+    image: unleashorg/unleash-server@sha256:4aadfc1a7366f5e7f5f9a4aa591ade7a3d1843ffd53b224ac58bf945442f4356
+    networks:
+      - HexagonalArchitectureTemplateDocker_network
+    ports:
+      - "4242:4242"
+    environment:
+      # This points Unleash to its backing database
+      DATABASE_URL: "postgres://postgres:postgres@postgres_db:5432/demo_db"
+      # Disable SSL for database connections.
+      DATABASE_SSL: "false"
+      # Changing log levels:
+      LOG_LEVEL: "warn"
+      INIT_FRONTEND_API_TOKENS: "default:development.unleash-insecure-frontend-api-token"
+      # The default API token is insecure and should not be used in production.
+      INIT_BACKEND_API_TOKENS: "default:development.unleash-insecure-api-token"
+    depends_on:
+      postgres_db:
+        condition: service_healthy
+    healthcheck:
+      test: wget --no-verbose --tries=1 --spider http://localhost:4242/health || exit 1
+      interval: 1s
+      timeout: 1m
+      retries: 5
+      start_period: 15s
+
   monitoring_otel:
     container_name: monitoring_otel
-    image: grafana/otel-lgtm@sha256:f9f6310025dc4e1ae1bd4f44dc24ffcbaa354c3daccdc1edf8d0d96d2bd972d2
+    image: grafana/otel-lgtm@sha256:72628a43fbd8574b066cd06273545ec9cc74314f360598ee8de27770bd904faa
     networks:
       - HexagonalArchitectureTemplateDocker_network
     restart: always

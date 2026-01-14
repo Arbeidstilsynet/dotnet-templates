@@ -4,7 +4,6 @@ using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapter
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports;
 using Bogus;
 using Shouldly;
-using Xunit.Abstractions;
 using Xunit.Microsoft.DependencyInjection.Abstracts;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test;
