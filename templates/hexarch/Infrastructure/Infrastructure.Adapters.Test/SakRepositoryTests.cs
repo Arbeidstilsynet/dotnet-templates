@@ -22,26 +22,38 @@ public class SakRepositoryTests(
     [Fact]
     public async Task CreateSak_WhenCalled_PersistsSakEntityAsync()
     {
+        var expectedSak = new Faker<Sak>().Generate()
+            with
+        {
+            Organisajonsnummer = SampleOrgNr
+        };
+        
         // act
-        var createdSak = await _sut.PersistSak(SampleOrgNr);
+        var createdSak = await _sut.PersistSak(expectedSak);
         // assert
         var result = await _sut.GetSak(createdSak.Id);
-        result?.Organisajonsnummer.ShouldBe(SampleOrgNr);
+        result.ShouldBeEquivalentTo(expectedSak);
     }
 
     [Fact]
     public async Task UpdateSakStatus_WhenCalled_PersistsSakEntityAsync()
     {
         // arrange
-        var createdSak = await _sut.PersistSak(SampleOrgNr);
+        var createdSak = new Faker<Sak>().Generate()
+            with
+        {
+            Organisajonsnummer = SampleOrgNr
+        };
+        await _sut.PersistSak(createdSak);
         // act
         var updatedSak = await _sut.UpdateSakStatus(createdSak.Id, SakStatus.InProgress);
         // assert
+        updatedSak.ShouldNotBeNull();
         updatedSak.ShouldBeEquivalentTo(
             createdSak with
             {
                 Status = SakStatus.InProgress,
-                LastUpdated = updatedSak!.LastUpdated,
+                LastUpdated = updatedSak.LastUpdated,
             }
         );
     }

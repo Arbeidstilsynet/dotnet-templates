@@ -10,12 +10,24 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic;
 internal class SakService(ISakRepository sakRepository, IOptions<DomainConfiguration> domainConfig)
     : ISakService
 {
-    private readonly string _someConfigValue = domainConfig.Value.SomeSetting;
-
     public async Task<Sak> CreateNewSak(CreateSakDto sakDto)
     {
         using var activity = Tracer.Source.StartActivity();
-        return await sakRepository.PersistSak(sakDto.Organisajonsnummer);
+        
+        var createdAt = DateTime.UtcNow;
+        var deadline = createdAt + new TimeSpan(domainConfig.Value.SakDeadlineDays);
+
+        var sak = new Sak
+        {
+            Id =  Guid.NewGuid(),
+            CreatedAt = createdAt,
+            LastUpdated = createdAt,
+            Organisajonsnummer = sakDto.Organisajonsnummer,
+            Status = SakStatus.New,
+            Deadline = deadline,
+        };
+        
+        return await sakRepository.PersistSak(sak);
     }
 
     public async Task<IEnumerable<Sak>> GetAllSaker()

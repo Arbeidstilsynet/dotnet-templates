@@ -15,11 +15,11 @@ public class SakServiceTests
     private readonly SakService _sut;
     private readonly ISakRepository _sakRepositoryMock = Substitute.For<ISakRepository>();
 
-    private static readonly string SampleOrgNr = "123456789";
+    private const string SampleOrgNr = "123456789";
 
     private readonly DomainConfiguration _domainConfiguration = new()
     {
-        SomeSetting = "SampleConfigValue",
+        SakDeadlineDays = 30,
     };
 
     public SakServiceTests()
@@ -35,7 +35,7 @@ public class SakServiceTests
         {
             Organisajonsnummer = SampleOrgNr,
         };
-        _sakRepositoryMock.PersistSak(SampleOrgNr).Returns(mockedSakResponse);
+        _sakRepositoryMock.PersistSak(default!).ReturnsForAnyArgs(mockedSakResponse);
         //act
         var result = await _sut.CreateNewSak(new CreateSakDto { Organisajonsnummer = SampleOrgNr });
         //assert
@@ -98,8 +98,7 @@ public class SakServiceTests
     {
         //arrange
         var testId = Guid.NewGuid();
-        Sak? mockedSakResponse = null;
-        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.InProgress).Returns(mockedSakResponse);
+        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.InProgress).Returns(default(Sak?));
         //act
         var act = () => _sut.StartSak(testId);
         //assert

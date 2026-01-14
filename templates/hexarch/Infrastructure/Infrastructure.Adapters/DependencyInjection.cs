@@ -10,6 +10,10 @@ using Microsoft.Extensions.DependencyInjection;
 // ReSharper disable once CheckNamespace
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.DependencyInjection;
 
+
+/// <summary>
+/// ConnectionStrings, BaseUrls, ApiKeys etc. go here. Any data that's required to access your infrastructure.
+/// </summary>
 public record InfrastructureConfiguration
 {
     [Required]

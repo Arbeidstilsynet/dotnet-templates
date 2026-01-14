@@ -43,7 +43,7 @@ Once installed, you can create new templates. We currently support `hexarch` and
 
 Our opinionated template for all applications which are going to expose an API. By adapting to this template, you will get:
 
-- Well-tested project structure, which follows the hexagonal architecture pattern
+- Well-tested project structure, which derives from the hexagonal architecture pattern
 - Observability
 - Structured Logging
 - Containerized setup, with a local test setup

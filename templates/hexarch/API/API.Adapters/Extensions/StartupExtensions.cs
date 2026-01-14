@@ -1,6 +1,7 @@
 using System.Net;
 using Arbeidstilsynet.Common.AspNetCore.Extensions.Extensions;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Extensions;
 
@@ -26,6 +27,50 @@ internal static class StartupExtensions
             apiConfiguration.Cors.AllowCredentials,
             env.IsDevelopment()
         );
+        
+        if (apiConfiguration.Auth.DangerousDisableAuth)
+        {
+            LoggerFactory
+                .Create(builder => builder.AddConsole())
+                .CreateLogger<Program>()
+                .LogWarning(
+                    "Authentication is disabled. Update AuthenticationConfiguration to require authentication."
+                );
+
+            // Register a permissive authorization policy that allows all requests
+            services.AddAuthorization(options =>
+            {
+                options.DefaultPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAssertion(_ => true)
+                    .Build();
+            });
+        }
+        else
+        {
+            var clientId = apiConfiguration.Auth.EntraClientId;
+            var tenantId = apiConfiguration.Auth.EntraTenantId;
+
+            if (string.IsNullOrEmpty(clientId))
+            {
+                throw new ArgumentException(
+                    "EntraClientId must be set either in appsettings when auth is enabled"
+                );
+            }
+            if (string.IsNullOrEmpty(tenantId))
+            {
+                throw new ArgumentException("EntraTenantId must be set when auth is enabled");
+            }
+
+            services
+                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(jwtOptions =>
+                {
+                    jwtOptions.Authority = $"https://login.microsoftonline.com/{tenantId}/v2.0";
+                    jwtOptions.Audience = clientId;
+                });
+
+            services.AddAuthorization();
+        }
 
         return services;
     }

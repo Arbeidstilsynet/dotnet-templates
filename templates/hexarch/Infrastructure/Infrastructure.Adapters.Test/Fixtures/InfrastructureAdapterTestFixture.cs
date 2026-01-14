@@ -15,7 +15,7 @@ public class InfrastructureAdapterTestFixture : TestBedFixture, IAsyncLifetime
     private readonly PostgresDbDemoFixture _dbDemoFixture = new();
 
     private readonly Faker<SakEntity> _sakEntityFaker = TestData.CreateSakEntityFaker();
-    internal List<SakEntity> SeededEntities { get; }
+    internal IReadOnlyList<SakEntity> SeededEntities { get; }
 
     public InfrastructureAdapterTestFixture()
     {

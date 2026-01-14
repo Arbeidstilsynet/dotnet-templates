@@ -19,15 +19,10 @@ internal class SakRepository(SakDbContext dbContext, IMapper mapper, ILogger<Sak
         }
     }
 
-    public async Task<Sak> PersistSak(string organisajonsnummer)
+    public async Task<Sak> PersistSak(Sak sak)
     {
         using var activity = Tracer.Source.StartActivity();
-        var sakEntity = new SakEntity
-        {
-            Id = Guid.NewGuid(),
-            Organisajonsnummer = organisajonsnummer,
-            Status = SakStatus.New,
-        };
+        var sakEntity = mapper.Map<SakEntity>(sak);
         var updatedEntity = await DbContext.Saker.AddAsync(sakEntity);
 
         await DbContext.SaveChangesAsync();
