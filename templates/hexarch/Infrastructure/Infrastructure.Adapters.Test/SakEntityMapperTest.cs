@@ -2,7 +2,6 @@ using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Mapper;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test.Fixtures;
 using Bogus;
-using MapsterMapper;
 using Shouldly;
 using SakEntity = Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db.Model.SakEntity;
 
