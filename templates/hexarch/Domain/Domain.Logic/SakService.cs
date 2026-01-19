@@ -7,26 +7,28 @@ using Microsoft.Extensions.Options;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic;
 
-internal class TilsynssakService(ITilsynssakRepository tilsynssakRepository, IOptions<DomainConfiguration> domainConfig)
-    : ITilsynssakService
+internal class TilsynssakService(
+    ITilsynssakRepository tilsynssakRepository,
+    IOptions<DomainConfiguration> domainConfig
+) : ITilsynssakService
 {
     public async Task<Tilsynssak> CreateNewSak(CreateTilsynssakDto tilsynssakDto)
     {
         using var activity = Tracer.Source.StartActivity();
-        
+
         var createdAt = DateTime.UtcNow;
         var deadline = createdAt + new TimeSpan(domainConfig.Value.SakDeadlineDays);
 
         var sak = new Tilsynssak
         {
-            Id =  Guid.NewGuid(),
+            Id = Guid.NewGuid(),
             CreatedAt = createdAt,
             LastUpdated = createdAt,
             Organisajonsnummer = tilsynssakDto.Organisajonsnummer,
             Status = SakStatus.New,
             Deadline = deadline,
         };
-        
+
         return await tilsynssakRepository.PersistSak(sak);
     }
 
