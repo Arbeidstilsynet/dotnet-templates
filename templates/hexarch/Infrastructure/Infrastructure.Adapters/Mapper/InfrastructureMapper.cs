@@ -9,7 +9,7 @@ internal class InfrastructureMapper : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config
-            .NewConfig<SakEntity, Sak>()
+            .NewConfig<TilsynssakEntity, Tilsynssak>()
             .NameMatchingStrategy(NameMatchingStrategy.Flexible)
             .TwoWays()
             .Map(target => target.LastUpdated, source => source.UpdatedAt);

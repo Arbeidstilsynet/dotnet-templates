@@ -7,54 +7,54 @@ using Microsoft.Extensions.Options;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic;
 
-internal class SakService(ISakRepository sakRepository, IOptions<DomainConfiguration> domainConfig)
-    : ISakService
+internal class TilsynssakService(ITilsynssakRepository tilsynssakRepository, IOptions<DomainConfiguration> domainConfig)
+    : ITilsynssakService
 {
-    public async Task<Sak> CreateNewSak(CreateSakDto sakDto)
+    public async Task<Tilsynssak> CreateNewSak(CreateTilsynssakDto tilsynssakDto)
     {
         using var activity = Tracer.Source.StartActivity();
         
         var createdAt = DateTime.UtcNow;
         var deadline = createdAt + new TimeSpan(domainConfig.Value.SakDeadlineDays);
 
-        var sak = new Sak
+        var sak = new Tilsynssak
         {
             Id =  Guid.NewGuid(),
             CreatedAt = createdAt,
             LastUpdated = createdAt,
-            Organisajonsnummer = sakDto.Organisajonsnummer,
+            Organisajonsnummer = tilsynssakDto.Organisajonsnummer,
             Status = SakStatus.New,
             Deadline = deadline,
         };
         
-        return await sakRepository.PersistSak(sak);
+        return await tilsynssakRepository.PersistSak(sak);
     }
 
-    public async Task<IEnumerable<Sak>> GetAllSaker()
+    public async Task<IEnumerable<Tilsynssak>> GetAllSaker()
     {
-        return await sakRepository.GetSaker();
+        return await tilsynssakRepository.GetSaker();
     }
 
-    public async Task<Sak> ArchiveSak(Guid sakId)
+    public async Task<Tilsynssak> ArchiveSak(Guid sakId)
     {
-        return await sakRepository.UpdateSakStatus(sakId, SakStatus.Archived)
+        return await tilsynssakRepository.UpdateSakStatus(sakId, SakStatus.Archived)
             ?? throw new SakNotFoundException(sakId);
     }
 
-    public async Task<Sak> EndSak(Guid sakId)
+    public async Task<Tilsynssak> EndSak(Guid sakId)
     {
-        return await sakRepository.UpdateSakStatus(sakId, SakStatus.Done)
+        return await tilsynssakRepository.UpdateSakStatus(sakId, SakStatus.Done)
             ?? throw new SakNotFoundException(sakId);
     }
 
-    public async Task<Sak> StartSak(Guid sakId)
+    public async Task<Tilsynssak> StartSak(Guid sakId)
     {
-        return await sakRepository.UpdateSakStatus(sakId, SakStatus.InProgress)
+        return await tilsynssakRepository.UpdateSakStatus(sakId, SakStatus.InProgress)
             ?? throw new SakNotFoundException(sakId);
     }
 
-    public async Task<Sak> GetSakById(Guid sakId)
+    public async Task<Tilsynssak> GetSakById(Guid sakId)
     {
-        return await sakRepository.GetSak(sakId) ?? throw new SakNotFoundException(sakId);
+        return await tilsynssakRepository.GetSak(sakId) ?? throw new SakNotFoundException(sakId);
     }
 }

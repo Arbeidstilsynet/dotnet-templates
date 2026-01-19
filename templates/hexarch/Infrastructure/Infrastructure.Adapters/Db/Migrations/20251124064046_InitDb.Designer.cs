@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db.Migrations
 {
-    [DbContext(typeof(SakDbContext))]
+    [DbContext(typeof(TilsynssakDbContext))]
     [Migration("20251124064046_InitDb")]
     partial class InitDb
     {

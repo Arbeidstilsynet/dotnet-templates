@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db;
 
 internal class DatabaseMigrationService(
-    SakDbContext dbContext,
+    TilsynssakDbContext dbContext,
     ILogger<DatabaseMigrationService> logger
 ) : IDatabaseMigrationService
 {

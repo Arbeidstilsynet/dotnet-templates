@@ -14,8 +14,8 @@ public class InfrastructureAdapterTestFixture : TestBedFixture, IAsyncLifetime
     private readonly TestOutputHelper _testOutputHelper = new();
     private readonly PostgresDbDemoFixture _dbDemoFixture = new();
 
-    private readonly Faker<SakEntity> _sakEntityFaker = TestData.CreateSakEntityFaker();
-    internal IReadOnlyList<SakEntity> SeededEntities { get; }
+    private readonly Faker<TilsynssakEntity> _sakEntityFaker = TestData.CreateSakEntityFaker();
+    internal IReadOnlyList<TilsynssakEntity> SeededEntities { get; }
 
     public InfrastructureAdapterTestFixture()
     {
@@ -44,7 +44,7 @@ public class InfrastructureAdapterTestFixture : TestBedFixture, IAsyncLifetime
 
     private async Task SeedDatabase()
     {
-        var dbContext = GetService<SakDbContext>(_testOutputHelper)!;
+        var dbContext = GetService<TilsynssakDbContext>(_testOutputHelper)!;
 
         await dbContext.Database.EnsureCreatedAsync();
         await dbContext.Saker.AddRangeAsync(SeededEntities);

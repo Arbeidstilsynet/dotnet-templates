@@ -1,0 +1,8 @@
+﻿{
+  Id: 95c69371-b924-6fe3-7c38-98b7dd200bc1,
+  Organisajonsnummer: 123456789,
+  CreatedAt: DateTime_1,
+  Deadline: DateTime_2,
+  LastUpdated: DateTime_3,
+  Status: InProgress
+}

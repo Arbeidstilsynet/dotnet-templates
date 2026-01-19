@@ -10,23 +10,23 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.WebAp
 /// <summary>
 /// Saker related endpoints.
 /// </summary>
-/// <param name="sakService"></param>
+/// <param name="tilsynssakService"></param>
 /// <param name="featureFlags"></param>
 [Authorize]
 [Route("[controller]")]
 [ApiController]
-public class SakerController(ISakService sakService, IFeatureFlags featureFlags) : ControllerBase
+public class SakerController(ITilsynssakService tilsynssakService, IFeatureFlags featureFlags) : ControllerBase
 {
     /// <summary>
     /// Create a new Sak.
     /// </summary>
-    /// <param name="sakDto"></param>
+    /// <param name="tilsynssakDto"></param>
     /// <returns></returns>
     [HttpPost()]
-    public async Task<ActionResult<Sak>> CreateSak([FromBody] CreateSakDto sakDto)
+    public async Task<ActionResult<Tilsynssak>> CreateSak([FromBody] CreateTilsynssakDto tilsynssakDto)
     {
         using var activity = Tracer.Source.StartActivity();
-        var result = await sakService.CreateNewSak(sakDto);
+        var result = await tilsynssakService.CreateNewSak(tilsynssakDto);
         return Ok(result);
     }
 
@@ -35,9 +35,9 @@ public class SakerController(ISakService sakService, IFeatureFlags featureFlags)
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public async Task<ActionResult<List<Sak>>> Get()
+    public async Task<ActionResult<List<Tilsynssak>>> Get()
     {
-        var saker = await sakService.GetAllSaker();
+        var saker = await tilsynssakService.GetAllSaker();
         if (featureFlags.IsEnabled("newestFirst"))
         {
             saker = saker.OrderByDescending(s => s.CreatedAt);
@@ -51,8 +51,8 @@ public class SakerController(ISakService sakService, IFeatureFlags featureFlags)
     /// <param name="sakId"></param>
     /// <returns></returns>
     [HttpGet("{sakId:guid}")]
-    public async Task<ActionResult<Sak>> GetById([FromRoute] Guid sakId)
+    public async Task<ActionResult<Tilsynssak>> GetById([FromRoute] Guid sakId)
     {
-        return Ok(await sakService.GetSakById(sakId));
+        return Ok(await tilsynssakService.GetSakById(sakId));
     }
 }

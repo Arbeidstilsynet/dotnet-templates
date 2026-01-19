@@ -6,8 +6,8 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ada
 
 internal static class TestData
 {
-    public static Faker<SakEntity> CreateSakEntityFaker(int seed=1337) =>
-        new Faker<SakEntity>()
+    public static Faker<TilsynssakEntity> CreateSakEntityFaker(int seed=1337) =>
+        new Faker<TilsynssakEntity>()
             .UseSeed(seed)
             .RuleFor(sak => sak.Id, f => f.Random.Guid())
             .RuleFor(sak => sak.Organisajonsnummer, f => string.Join("", f.Random.Digits( 9)))
@@ -16,8 +16,8 @@ internal static class TestData
             .RuleFor(sak => sak.UpdatedAt, (f, e) => e.CreatedAt + f.Date.Timespan()) // UpdatedAt is after CreatedAt
             .RuleFor(sak => sak.Deadline, (f, e) => e.CreatedAt + TimeSpan.FromDays(30)); // Deadline is 30 days after CreatedAt
     
-    public static Faker<Sak> CreateSakFaker(int seed=1337) =>
-        new Faker<Sak>()
+    public static Faker<Tilsynssak> CreateSakFaker(int seed=1337) =>
+        new Faker<Tilsynssak>()
             .UseSeed(seed)
             .RuleFor(sak => sak.Id, f => f.Random.Guid())
             .RuleFor(sak => sak.Organisajonsnummer, f => string.Join("", f.Random.Digits( 9)))

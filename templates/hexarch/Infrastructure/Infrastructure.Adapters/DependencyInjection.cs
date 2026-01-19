@@ -12,7 +12,7 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ada
 
 
 /// <summary>
-/// ConnectionStrings, BaseUrls, ApiKeys etc. go here. Any data that's required to access your infrastructure.
+/// Holds the details that your Domain.Logic needs in order to access the infrastructure. ConnectionStrings, BaseUrls, ApiKeys etc. go here.
 /// </summary>
 public record InfrastructureConfiguration
 {
@@ -27,10 +27,10 @@ public static class DependencyInjection
         InfrastructureConfiguration infrastructureConfiguration
     )
     {
-        services.AddScoped<ISakRepository, SakRepository>();
+        services.AddScoped<ITilsynssakRepository, TilsynssakRepository>();
         services.AddSingleton(infrastructureConfiguration);
         services.AddScoped<IDatabaseMigrationService, DatabaseMigrationService>();
-        services.AddDbContext<SakDbContext>(opt =>
+        services.AddDbContext<TilsynssakDbContext>(opt =>
         {
             opt.UseNpgsql(
                 infrastructureConfiguration.ConnectionString,
@@ -49,7 +49,7 @@ public static class DependencyInjection
         this IHealthChecksBuilder healthCheckBuilder
     )
     {
-        return healthCheckBuilder.AddDbContextCheck<SakDbContext>();
+        return healthCheckBuilder.AddDbContextCheck<TilsynssakDbContext>();
     }
 
     private static IServiceCollection AddMapper(this IServiceCollection services)

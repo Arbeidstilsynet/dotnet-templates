@@ -4,7 +4,7 @@ using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db.Model;
 
 [Table("Saker")]
-internal class SakEntity : BaseEntity
+internal class TilsynssakEntity : BaseEntity
 {
     public required Guid Id { get; set; }
 

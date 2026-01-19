@@ -17,7 +17,7 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.Depen
 public class DomainConfiguration
 {
     /// <summary>
-    /// The length of time before a <see cref="Sak"/> deadline is reached.
+    /// The length of time before a <see cref="Tilsynssak"/> deadline is reached.
     /// </summary>
     [Required]
     public required int SakDeadlineDays { get; init; }
@@ -41,7 +41,7 @@ public static class DependencyInjection
     )
     {
         services.AddSingleton(Options.Create(domainConfiguration));
-        services.AddScoped<ISakService, SakService>();
+        services.AddScoped<ITilsynssakService, TilsynssakService>();
         return services;
     }
 }

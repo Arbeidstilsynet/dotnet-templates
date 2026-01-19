@@ -24,18 +24,18 @@ public class ActionsControllerIntegrationTests(ApplicationFixture fixture)
     {
         // Act
         var response = await _client.PostAsync(
-            $"/actions/start-sak?sakId={fixture.SeededSak.Id}",
+            $"/actions/start-sak?sakId={fixture.SeededTilsynssak.Id}",
             null,
             TestContext.Current.CancellationToken
         );
 
         // Assert
-        var result = await response.Content.ReadFromJsonAsync<Sak>(
+        var result = await response.Content.ReadFromJsonAsync<Tilsynssak>(
             _options,
             TestContext.Current.CancellationToken
         );
         result?.ShouldBeEquivalentTo(
-            fixture.SeededSak with
+            fixture.SeededTilsynssak with
             {
                 Status = SakStatus.InProgress,
                 LastUpdated = result.LastUpdated,
@@ -84,18 +84,18 @@ public class ActionsControllerIntegrationTests(ApplicationFixture fixture)
     {
         // Act
         var response = await _client.PostAsync(
-            $"/actions/end-sak?sakId={fixture.SeededSak.Id}",
+            $"/actions/end-sak?sakId={fixture.SeededTilsynssak.Id}",
             null,
             TestContext.Current.CancellationToken
         );
 
         // Assert
-        var result = await response.Content.ReadFromJsonAsync<Sak>(
+        var result = await response.Content.ReadFromJsonAsync<Tilsynssak>(
             _options,
             TestContext.Current.CancellationToken
         );
         result?.ShouldBeEquivalentTo(
-            fixture.SeededSak with
+            fixture.SeededTilsynssak with
             {
                 Status = SakStatus.Done,
                 LastUpdated = result.LastUpdated,
@@ -144,18 +144,18 @@ public class ActionsControllerIntegrationTests(ApplicationFixture fixture)
     {
         // Act
         var response = await _client.PostAsync(
-            $"/actions/archive-sak?sakId={fixture.SeededSak.Id}",
+            $"/actions/archive-sak?sakId={fixture.SeededTilsynssak.Id}",
             null,
             TestContext.Current.CancellationToken
         );
 
         // Assert
-        var result = await response.Content.ReadFromJsonAsync<Sak>(
+        var result = await response.Content.ReadFromJsonAsync<Tilsynssak>(
             _options,
             TestContext.Current.CancellationToken
         );
         result?.ShouldBeEquivalentTo(
-            fixture.SeededSak with
+            fixture.SeededTilsynssak with
             {
                 Status = SakStatus.Archived,
                 LastUpdated = result.LastUpdated,

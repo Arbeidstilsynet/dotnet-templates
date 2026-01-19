@@ -15,12 +15,13 @@ internal static class StartupExtensions
         string appName,
         ApiConfiguration apiConfiguration,
         IWebHostEnvironment env,
+        IConfiguration configurationRoot,
         StartupChecks? startupChecks = null
     )
     {
         services.AddLogging(configure =>
         {
-            configure.SetMinimumLevel(LogLevel.Information);
+            configure.AddConfiguration(configurationRoot);
         });
         services.ConfigureApi(
             startupChecks: startupChecks,
@@ -34,50 +35,6 @@ internal static class StartupExtensions
             apiConfiguration.Cors.AllowCredentials,
             env.IsDevelopment()
         );
-        
-        if (apiConfiguration.AuthenticationConfiguration.DangerousDisableAuth)
-        {
-            LoggerFactory
-                .Create(builder => builder.AddConsole())
-                .CreateLogger<Program>()
-                .LogWarning(
-                    "Authentication is disabled. Update AuthenticationConfiguration to require authentication."
-                );
-
-            // Register a permissive authorization policy that allows all requests
-            services.AddAuthorization(options =>
-            {
-                options.DefaultPolicy = new AuthorizationPolicyBuilder()
-                    .RequireAssertion(_ => true)
-                    .Build();
-            });
-        }
-        else
-        {
-            var clientId = apiConfiguration.AuthenticationConfiguration.EntraClientId;
-            var tenantId = apiConfiguration.AuthenticationConfiguration.EntraTenantId;
-
-            if (string.IsNullOrEmpty(clientId))
-            {
-                throw new ArgumentException(
-                    "EntraClientId must be set either in appsettings when auth is enabled"
-                );
-            }
-            if (string.IsNullOrEmpty(tenantId))
-            {
-                throw new ArgumentException("EntraTenantId must be set when auth is enabled");
-            }
-
-            services
-                .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(jwtOptions =>
-                {
-                    jwtOptions.Authority = $"https://login.microsoftonline.com/{tenantId}/v2.0";
-                    jwtOptions.Audience = clientId;
-                });
-
-            services.AddAuthorization();
-        }
 
         if (apiConfiguration.AuthenticationConfiguration.DangerousDisableAuth)
         {

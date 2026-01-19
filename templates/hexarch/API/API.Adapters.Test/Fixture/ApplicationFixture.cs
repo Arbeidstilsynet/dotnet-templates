@@ -19,8 +19,8 @@ public class ApplicationFixture : WebApplicationFactory<IAssemblyInfo>, IAsyncLi
 {
     private readonly PostgresDbDemoFixture _postgresDbDemoFixture = new();
 
-    private Sak? _seededSak;
-    internal Sak SeededSak =>
+    private Tilsynssak? _seededSak;
+    internal Tilsynssak SeededTilsynssak =>
         _seededSak ?? throw new InvalidOperationException("Database not seeded yet");
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -36,9 +36,9 @@ public class ApplicationFixture : WebApplicationFactory<IAssemblyInfo>, IAsyncLi
                     ConnectionString = _postgresDbDemoFixture.ConnectionString,
                 }
             );
-            services.RemoveAll<SakDbContext>();
-            services.RemoveAll<DbContextOptions<SakDbContext>>();
-            services.AddDbContext<SakDbContext>(opt =>
+            services.RemoveAll<TilsynssakDbContext>();
+            services.RemoveAll<DbContextOptions<TilsynssakDbContext>>();
+            services.AddDbContext<TilsynssakDbContext>(opt =>
             {
                 opt.UseNpgsql(_postgresDbDemoFixture.ConnectionString);
             });
@@ -56,10 +56,10 @@ public class ApplicationFixture : WebApplicationFactory<IAssemblyInfo>, IAsyncLi
     private async Task SeedDatabase()
     {
         using var scope = Services.CreateScope();
-        var sakService = scope.ServiceProvider.GetRequiredService<ISakService>();
+        var sakService = scope.ServiceProvider.GetRequiredService<ITilsynssakService>();
 
         _seededSak = await sakService.CreateNewSak(
-            new CreateSakDto() { Organisajonsnummer = "123456789" }
+            new CreateTilsynssakDto() { Organisajonsnummer = "123456789" }
         );
     }
 
