@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.WebApi.Controllers;
 
-
 /// <summary>
 /// Actions related to Sak management
 /// </summary>
@@ -22,7 +21,9 @@ public class ActionsController(ITilsynssakService tilsynssakService) : Controlle
     /// <param name="sakId">Id of the sak</param>
     /// <returns></returns>
     [HttpPost("start-sak")]
-    public async Task<ActionResult<Tilsynssak>> StartSak([FromQuery(Name = "SakId")] [Required] Guid sakId)
+    public async Task<ActionResult<Tilsynssak>> StartSak(
+        [FromQuery(Name = "SakId")] [Required] Guid sakId
+    )
     {
         var result = await tilsynssakService.StartSak(sakId);
         return Ok(result);
@@ -34,7 +35,9 @@ public class ActionsController(ITilsynssakService tilsynssakService) : Controlle
     /// <param name="sakId">Id of the sak</param>
     /// <returns></returns>
     [HttpPost("end-sak")]
-    public async Task<ActionResult<Tilsynssak>> EndSak([FromQuery(Name = "SakId")] [Required] Guid sakId)
+    public async Task<ActionResult<Tilsynssak>> EndSak(
+        [FromQuery(Name = "SakId")] [Required] Guid sakId
+    )
     {
         var result = await tilsynssakService.EndSak(sakId);
         return Ok(result);

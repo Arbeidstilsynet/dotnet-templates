@@ -14,12 +14,12 @@ public record Tilsynssak
     /// The organization number associated with the case. It refers to a Norwegian organization.
     /// </summary>
     public required string Organisajonsnummer { get; init; }
-    
+
     /// <summary>
     /// The timestamp of case creation.
     /// </summary>
     public required DateTime CreatedAt { get; init; }
-    
+
     /// <summary>
     /// The deadline for finishing the case.
     /// </summary>

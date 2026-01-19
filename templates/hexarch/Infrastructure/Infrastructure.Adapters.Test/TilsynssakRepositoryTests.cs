@@ -14,11 +14,16 @@ public class TilsynssakRepositoryTests : TestBed<InfrastructureAdapterTestFixtur
 
     private readonly VerifySettings _verifierSettings = new();
 
-    public TilsynssakRepositoryTests(ITestOutputHelper testOutputHelper,
-        InfrastructureAdapterTestFixture infrastractureAdapterTestFixture) : base(testOutputHelper, infrastractureAdapterTestFixture)
+    public TilsynssakRepositoryTests(
+        ITestOutputHelper testOutputHelper,
+        InfrastructureAdapterTestFixture infrastractureAdapterTestFixture
+    )
+        : base(testOutputHelper, infrastractureAdapterTestFixture)
     {
-        _sut = infrastractureAdapterTestFixture.GetService<ITilsynssakRepository>(testOutputHelper)!;
-        
+        _sut = infrastractureAdapterTestFixture.GetService<ITilsynssakRepository>(
+            testOutputHelper
+        )!;
+
         _verifierSettings.DontScrubGuids();
         _verifierSettings.UseDirectory("Snapshots");
     }
@@ -27,12 +32,11 @@ public class TilsynssakRepositoryTests : TestBed<InfrastructureAdapterTestFixtur
     public async Task CreateSak_WhenCalled_PersistsSakEntityAsync()
     {
         // arrange
-        var newSak = TestData.CreateSakFaker(1).Generate()
-            with
+        var newSak = TestData.CreateSakFaker(1).Generate() with
         {
-            Organisajonsnummer = SampleOrgNr
+            Organisajonsnummer = SampleOrgNr,
         };
-        
+
         // act
         var createdSak = await _sut.PersistSak(newSak);
         // assert
@@ -44,10 +48,9 @@ public class TilsynssakRepositoryTests : TestBed<InfrastructureAdapterTestFixtur
     public async Task UpdateSakStatus_WhenCalled_PersistsSakEntityAsync()
     {
         // arrange
-        var createdSak = TestData.CreateSakFaker(2).Generate()
-            with
+        var createdSak = TestData.CreateSakFaker(2).Generate() with
         {
-            Organisajonsnummer = SampleOrgNr
+            Organisajonsnummer = SampleOrgNr,
         };
         await _sut.PersistSak(createdSak);
         // act

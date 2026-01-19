@@ -10,7 +10,6 @@ using Microsoft.Extensions.Options;
 // ReSharper disable once CheckNamespace
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;
 
-
 /// <summary>
 /// Domain specific configuration, e.g. business rules, limits etc.
 /// </summary>
@@ -28,7 +27,6 @@ public class DomainConfiguration
 /// </summary>
 public static class DependencyInjection
 {
-    
     /// <summary>
     /// Adds domain functionality to the application. This usually includes domain logic, and sometimes configuration.
     /// </summary>

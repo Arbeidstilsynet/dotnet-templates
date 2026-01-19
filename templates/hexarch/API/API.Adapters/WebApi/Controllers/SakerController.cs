@@ -15,7 +15,8 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.WebAp
 [Authorize]
 [Route("[controller]")]
 [ApiController]
-public class SakerController(ITilsynssakService tilsynssakService, IFeatureFlags featureFlags) : ControllerBase
+public class SakerController(ITilsynssakService tilsynssakService, IFeatureFlags featureFlags)
+    : ControllerBase
 {
     /// <summary>
     /// Create a new Sak.
@@ -23,7 +24,9 @@ public class SakerController(ITilsynssakService tilsynssakService, IFeatureFlags
     /// <param name="tilsynssakDto"></param>
     /// <returns></returns>
     [HttpPost()]
-    public async Task<ActionResult<Tilsynssak>> CreateSak([FromBody] CreateTilsynssakDto tilsynssakDto)
+    public async Task<ActionResult<Tilsynssak>> CreateSak(
+        [FromBody] CreateTilsynssakDto tilsynssakDto
+    )
     {
         using var activity = Tracer.Source.StartActivity();
         var result = await tilsynssakService.CreateNewSak(tilsynssakDto);

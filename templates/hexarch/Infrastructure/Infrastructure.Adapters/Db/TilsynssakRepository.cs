@@ -7,8 +7,11 @@ using Microsoft.Extensions.Logging;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db;
 
-internal class TilsynssakRepository(TilsynssakDbContext dbContext, IMapper mapper, ILogger<TilsynssakRepository> logger)
-    : Ports.ITilsynssakRepository
+internal class TilsynssakRepository(
+    TilsynssakDbContext dbContext,
+    IMapper mapper,
+    ILogger<TilsynssakRepository> logger
+) : Ports.ITilsynssakRepository
 {
     private TilsynssakDbContext DbContext
     {

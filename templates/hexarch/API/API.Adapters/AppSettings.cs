@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters;
 
-
 /// <summary>
 /// This is the root configuration object for the application. It is bound from <see cref="IConfiguration"/>.
 /// It should contain all configuration required for the application to run.
@@ -40,7 +39,6 @@ internal record AppSettings
     [ConfigurationKeyName("Domain")]
     public required DomainConfiguration DomainConfig { get; init; }
 }
-
 
 /// <summary>
 /// Configures the user-facing interface of the application, e.g. CORS, Auth, rate limiting etc.

@@ -14,7 +14,7 @@ public enum SakStatus
     /// The case is currently in progress. Work is ongoing.
     /// </summary>
     InProgress,
-    
+
     /// <summary>
     /// The case has been completed. It has to be done by the deadline.
     /// </summary>

@@ -13,18 +13,19 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.Test;
 public class SakServiceTests
 {
     private readonly TilsynssakService _sut; // System Under Test
-    private readonly ITilsynssakRepository _tilsynssakRepositoryMock = Substitute.For<ITilsynssakRepository>();
+    private readonly ITilsynssakRepository _tilsynssakRepositoryMock =
+        Substitute.For<ITilsynssakRepository>();
 
     private const string SampleOrgNr = "123456789";
 
-    private readonly DomainConfiguration _domainConfiguration = new()
-    {
-        SakDeadlineDays = 30,
-    };
+    private readonly DomainConfiguration _domainConfiguration = new() { SakDeadlineDays = 30 };
 
     public SakServiceTests()
     {
-        _sut = new TilsynssakService(_tilsynssakRepositoryMock, Options.Create(_domainConfiguration));
+        _sut = new TilsynssakService(
+            _tilsynssakRepositoryMock,
+            Options.Create(_domainConfiguration)
+        );
     }
 
     [Fact]
@@ -37,7 +38,9 @@ public class SakServiceTests
         };
         _tilsynssakRepositoryMock.PersistSak(default!).ReturnsForAnyArgs(mockedSakResponse);
         //act
-        var result = await _sut.CreateNewSak(new CreateTilsynssakDto { Organisajonsnummer = SampleOrgNr });
+        var result = await _sut.CreateNewSak(
+            new CreateTilsynssakDto { Organisajonsnummer = SampleOrgNr }
+        );
         //assert
         result.ShouldBeEquivalentTo(mockedSakResponse);
     }
@@ -86,7 +89,9 @@ public class SakServiceTests
         //arrange
         var testId = Guid.NewGuid();
         var mockedSakResponse = new Faker<Tilsynssak>().Generate() with { Id = testId };
-        _tilsynssakRepositoryMock.UpdateSakStatus(testId, SakStatus.InProgress).Returns(mockedSakResponse);
+        _tilsynssakRepositoryMock
+            .UpdateSakStatus(testId, SakStatus.InProgress)
+            .Returns(mockedSakResponse);
         //act
         var result = await _sut.StartSak(testId);
         //assert
@@ -98,7 +103,9 @@ public class SakServiceTests
     {
         //arrange
         var testId = Guid.NewGuid();
-        _tilsynssakRepositoryMock.UpdateSakStatus(testId, SakStatus.InProgress).Returns(default(Tilsynssak?));
+        _tilsynssakRepositoryMock
+            .UpdateSakStatus(testId, SakStatus.InProgress)
+            .Returns(default(Tilsynssak?));
         //act
         var act = () => _sut.StartSak(testId);
         //assert
@@ -111,7 +118,9 @@ public class SakServiceTests
         //arrange
         var testId = Guid.NewGuid();
         var mockedSakResponse = new Faker<Tilsynssak>().Generate() with { Id = testId };
-        _tilsynssakRepositoryMock.UpdateSakStatus(testId, SakStatus.Done).Returns(mockedSakResponse);
+        _tilsynssakRepositoryMock
+            .UpdateSakStatus(testId, SakStatus.Done)
+            .Returns(mockedSakResponse);
         //act
         var result = await _sut.EndSak(testId);
         //assert
@@ -124,7 +133,9 @@ public class SakServiceTests
         //arrange
         var testId = Guid.NewGuid();
         Tilsynssak? mockedSakResponse = null;
-        _tilsynssakRepositoryMock.UpdateSakStatus(testId, SakStatus.Done).Returns(mockedSakResponse);
+        _tilsynssakRepositoryMock
+            .UpdateSakStatus(testId, SakStatus.Done)
+            .Returns(mockedSakResponse);
         //act
         var act = () => _sut.EndSak(testId);
         //assert
@@ -137,7 +148,9 @@ public class SakServiceTests
         //arrange
         var testId = Guid.NewGuid();
         var mockedSakResponse = new Faker<Tilsynssak>().Generate() with { Id = testId };
-        _tilsynssakRepositoryMock.UpdateSakStatus(testId, SakStatus.Archived).Returns(mockedSakResponse);
+        _tilsynssakRepositoryMock
+            .UpdateSakStatus(testId, SakStatus.Archived)
+            .Returns(mockedSakResponse);
         //act
         var result = await _sut.ArchiveSak(testId);
         //assert
@@ -150,7 +163,9 @@ public class SakServiceTests
         //arrange
         var testId = Guid.NewGuid();
         Tilsynssak? mockedSakResponse = null;
-        _tilsynssakRepositoryMock.UpdateSakStatus(testId, SakStatus.Archived).Returns(mockedSakResponse);
+        _tilsynssakRepositoryMock
+            .UpdateSakStatus(testId, SakStatus.Archived)
+            .Returns(mockedSakResponse);
         //act
         var act = () => _sut.ArchiveSak(testId);
         //assert
