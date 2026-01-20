@@ -15,7 +15,7 @@ internal class SakService(ISakRepository sakRepository, IOptions<DomainConfigura
         using var activity = Tracer.Source.StartActivity();
 
         var createdAt = DateTime.UtcNow;
-        var deadline = createdAt + new TimeSpan(domainConfig.Value.SakDeadlineDays);
+        var deadline = createdAt + TimeSpan.FromDays(domainConfig.Value.SakDeadlineDays);
 
         var sak = new Sak
         {
