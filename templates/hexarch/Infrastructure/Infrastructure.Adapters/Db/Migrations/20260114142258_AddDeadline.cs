@@ -32,24 +32,25 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ada
                 type: "timestamp with time zone",
                 nullable: false
             );
-            
+
             // Fix typo in column name
             migrationBuilder.RenameColumn(
                 name: "Organisajonsnummer",
                 table: "Saker",
-                newName: "Organisasjonsnummer");
-            
+                newName: "Organisasjonsnummer"
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(name: "Deadline", table: "Saker");
-            
+
             migrationBuilder.RenameColumn(
                 name: "Organisasjonsnummer",
                 table: "Saker",
-                newName: "Organisajonsnummer");
+                newName: "Organisajonsnummer"
+            );
         }
     }
 }
