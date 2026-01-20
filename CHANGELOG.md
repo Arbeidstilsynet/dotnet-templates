@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - added(hexarch): added more doc strings to the public classes
-- added(hexarch): added deadline to the tilsynssak 
+- added(hexarch): added deadline to the tilsynssak (example domain)
 
 ## 2.2.5
 
