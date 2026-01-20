@@ -4,6 +4,7 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports.Requests
 
 public record CreateSakDto
 {
+    [Required]
     [RegularExpression(@"^\d{9}$")]
     public required string Organisasjonsnummer { get; init; }
 }
