@@ -15,20 +15,23 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ada
                 name: "Deadline",
                 table: "Saker",
                 type: "timestamp with time zone",
-                nullable: true);
-            
+                nullable: true
+            );
+
             // Make sure existing rows have a sensible deadline
             migrationBuilder.Sql(
                 @"UPDATE ""Saker"" 
                   SET ""Deadline"" = ""CreatedAt"" + INTERVAL '30 days' 
-                  WHERE ""Deadline"" IS NULL");
-            
+                  WHERE ""Deadline"" IS NULL"
+            );
+
             // Make column non-nullable after populating
             migrationBuilder.AlterColumn<DateTime>(
                 name: "Deadline",
                 table: "Saker",
                 type: "timestamp with time zone",
-                nullable: false);
+                nullable: false
+            );
         }
 
         /// <inheritdoc />
