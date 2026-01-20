@@ -13,7 +13,7 @@ public record Sak
     /// <summary>
     /// The organization number associated with the case. It refers to a Norwegian organization.
     /// </summary>
-    public required string Organisajonsnummer { get; init; }
+    public required string Organisasjonsnummer { get; init; }
 
     /// <summary>
     /// The timestamp of case creation.

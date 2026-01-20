@@ -34,7 +34,7 @@ public class InfrastructureMapperTests
             {
                 Id = sakEntity.Id,
                 Deadline = sakEntity.Deadline,
-                Organisajonsnummer = sakEntity.Organisajonsnummer,
+                Organisasjonsnummer = sakEntity.Organisasjonsnummer,
                 Status = sakEntity.Status,
                 CreatedAt = sakEntity.CreatedAt,
                 LastUpdated = sakEntity.UpdatedAt,

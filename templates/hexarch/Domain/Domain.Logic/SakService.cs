@@ -22,7 +22,7 @@ internal class SakService(ISakRepository sakRepository, IOptions<DomainConfigura
             Id = Guid.NewGuid(),
             CreatedAt = createdAt,
             LastUpdated = createdAt,
-            Organisajonsnummer = sakDto.Organisajonsnummer,
+            Organisasjonsnummer = sakDto.Organisasjonsnummer,
             Status = SakStatus.New,
             Deadline = deadline,
         };

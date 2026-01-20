@@ -34,7 +34,7 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ada
                     b.Property<DateTime>("Deadline")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Organisajonsnummer")
+                    b.Property<string>("Organisasjonsnummer")
                         .IsRequired()
                         .HasColumnType("varchar(9)");
 

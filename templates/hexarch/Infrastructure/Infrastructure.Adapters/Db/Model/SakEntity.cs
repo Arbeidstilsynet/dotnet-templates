@@ -9,7 +9,7 @@ internal class SakEntity : BaseEntity
     public required Guid Id { get; set; }
 
     [Column(TypeName = "varchar(9)")]
-    public required string Organisajonsnummer { get; set; }
+    public required string Organisasjonsnummer { get; set; }
 
     [Column(TypeName = "varchar(24)")]
     public required SakStatus Status { get; set; }

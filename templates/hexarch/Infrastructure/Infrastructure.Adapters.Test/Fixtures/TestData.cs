@@ -10,7 +10,7 @@ internal static class TestData
         new Faker<SakEntity>()
             .UseSeed(seed)
             .RuleFor(sak => sak.Id, f => f.Random.Guid())
-            .RuleFor(sak => sak.Organisajonsnummer, f => string.Join("", f.Random.Digits(9)))
+            .RuleFor(sak => sak.Organisasjonsnummer, f => string.Join("", f.Random.Digits(9)))
             .RuleFor(sak => sak.Status, f => f.PickRandom<SakStatus>())
             .RuleFor(sak => sak.CreatedAt, f => f.Date.Recent().ToUniversalTime()) // CreatedAt is set to a recent date
             .RuleFor(sak => sak.UpdatedAt, (f, e) => e.CreatedAt + f.Date.Timespan()) // UpdatedAt is after CreatedAt
@@ -20,7 +20,7 @@ internal static class TestData
         new Faker<Sak>()
             .UseSeed(seed)
             .RuleFor(sak => sak.Id, f => f.Random.Guid())
-            .RuleFor(sak => sak.Organisajonsnummer, f => string.Join("", f.Random.Digits(9)))
+            .RuleFor(sak => sak.Organisasjonsnummer, f => string.Join("", f.Random.Digits(9)))
             .RuleFor(sak => sak.Status, f => f.PickRandom<SakStatus>())
             .RuleFor(sak => sak.CreatedAt, f => f.Date.Recent().ToUniversalTime()) // CreatedAt is set to a recent date
             .RuleFor(sak => sak.LastUpdated, (f, e) => e.CreatedAt + f.Date.Timespan()) // LastUpdated is after CreatedAt

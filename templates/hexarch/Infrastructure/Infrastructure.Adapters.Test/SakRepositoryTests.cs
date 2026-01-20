@@ -32,7 +32,7 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
         // arrange
         var newSak = TestData.CreateSakFaker(1).Generate() with
         {
-            Organisajonsnummer = SampleOrgNr,
+            Organisasjonsnummer = SampleOrgNr,
         };
 
         // act
@@ -48,7 +48,7 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
         // arrange
         var createdSak = TestData.CreateSakFaker(2).Generate() with
         {
-            Organisajonsnummer = SampleOrgNr,
+            Organisasjonsnummer = SampleOrgNr,
         };
         await _sut.PersistSak(createdSak);
         // act

@@ -30,11 +30,11 @@ public class SakServiceTests
         //arrange
         var mockedSakResponse = new Faker<Sak>().Generate() with
         {
-            Organisajonsnummer = SampleOrgNr,
+            Organisasjonsnummer = SampleOrgNr,
         };
         _sakRepositoryMock.PersistSak(default!).ReturnsForAnyArgs(mockedSakResponse);
         //act
-        var result = await _sut.CreateNewSak(new CreateSakDto { Organisajonsnummer = SampleOrgNr });
+        var result = await _sut.CreateNewSak(new CreateSakDto { Organisasjonsnummer = SampleOrgNr });
         //assert
         result.ShouldBeEquivalentTo(mockedSakResponse);
     }

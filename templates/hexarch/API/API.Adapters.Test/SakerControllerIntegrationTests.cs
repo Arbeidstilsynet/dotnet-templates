@@ -37,7 +37,7 @@ public class SakerControllerIntegrationTests(ApplicationFixture fixture)
         // Act
         var response = await _client.PostAsJsonAsync(
             "/saker",
-            new CreateSakDto { Organisajonsnummer = orgNr },
+            new CreateSakDto { Organisasjonsnummer = orgNr },
             TestContext.Current.CancellationToken
         );
 
@@ -47,7 +47,7 @@ public class SakerControllerIntegrationTests(ApplicationFixture fixture)
                 _options,
                 TestContext.Current.CancellationToken
             )
-        )?.Organisajonsnummer.ShouldBe(orgNr);
+        )?.Organisasjonsnummer.ShouldBe(orgNr);
     }
 
     [Theory]
@@ -59,7 +59,7 @@ public class SakerControllerIntegrationTests(ApplicationFixture fixture)
         // Act
         var response = await _client.PostAsJsonAsync(
             "/saker",
-            new CreateSakDto { Organisajonsnummer = invalidOrgnummer },
+            new CreateSakDto { Organisasjonsnummer = invalidOrgnummer },
             TestContext.Current.CancellationToken
         );
 
@@ -84,7 +84,7 @@ public class SakerControllerIntegrationTests(ApplicationFixture fixture)
         var createdSak = await (
             await _client.PostAsJsonAsync(
                 "/saker",
-                new CreateSakDto { Organisajonsnummer = "123456789" },
+                new CreateSakDto { Organisasjonsnummer = "123456789" },
                 TestContext.Current.CancellationToken
             )
         ).Content.ReadFromJsonAsync<Sak>(_options, TestContext.Current.CancellationToken);
