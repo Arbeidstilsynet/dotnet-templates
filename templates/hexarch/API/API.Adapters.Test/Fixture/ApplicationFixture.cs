@@ -59,7 +59,7 @@ public class ApplicationFixture : WebApplicationFactory<IAssemblyInfo>, IAsyncLi
         var sakService = scope.ServiceProvider.GetRequiredService<ISakService>();
 
         _seededSak = await sakService.CreateNewSak(
-            new CreateSakDto() { Organisajonsnummer = "123456789" }
+            new CreateSakDto() { Organisasjonsnummer = "123456789" }
         );
     }
 

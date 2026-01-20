@@ -6,12 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.WebApi.Controllers;
 
+/// <summary>
+/// Actions related to Sak management
+/// </summary>
+/// <param name="sakService"></param>
 [Authorize]
 [Route("[controller]")]
 [ApiController]
 public class ActionsController(ISakService sakService) : ControllerBase
 {
-    // POST actions/start-sak
+    /// <summary>
+    /// Start a Sak
+    /// </summary>
+    /// <param name="sakId">Id of the sak</param>
+    /// <returns></returns>
     [HttpPost("start-sak")]
     public async Task<ActionResult<Sak>> StartSak([FromQuery(Name = "SakId")] [Required] Guid sakId)
     {
@@ -19,7 +27,11 @@ public class ActionsController(ISakService sakService) : ControllerBase
         return Ok(result);
     }
 
-    // POST actions/archive-sak
+    /// <summary>
+    /// End a Sak
+    /// </summary>
+    /// <param name="sakId">Id of the sak</param>
+    /// <returns></returns>
     [HttpPost("end-sak")]
     public async Task<ActionResult<Sak>> EndSak([FromQuery(Name = "SakId")] [Required] Guid sakId)
     {
@@ -27,7 +39,11 @@ public class ActionsController(ISakService sakService) : ControllerBase
         return Ok(result);
     }
 
-    // POST actions/archive-sak
+    /// <summary>
+    /// Archive a Sak
+    /// </summary>
+    /// <param name="sakId">Id of the sak</param>
+    /// <returns></returns>
     [HttpPost("archive-sak")]
     public async Task<ActionResult<Sak>> ArchiveSak(
         [FromQuery(Name = "SakId")] [Required] Guid sakId

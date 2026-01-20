@@ -15,12 +15,13 @@ internal static class StartupExtensions
         string appName,
         ApiConfiguration apiConfiguration,
         IWebHostEnvironment env,
+        IConfiguration configurationRoot,
         StartupChecks? startupChecks = null
     )
     {
         services.AddLogging(configure =>
         {
-            configure.SetMinimumLevel(LogLevel.Information);
+            configure.AddConfiguration(configurationRoot);
         });
         services.ConfigureApi(
             startupChecks: startupChecks,

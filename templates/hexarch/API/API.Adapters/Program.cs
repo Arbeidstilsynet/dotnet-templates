@@ -18,6 +18,7 @@ services.ConfigureStandardApi(
     string.IsNullOrEmpty(appNameFromConfig) ? IAssemblyInfo.AppName : appNameFromConfig,
     appSettings.ApiConfig,
     env,
+    builder.Configuration,
     (provider) => [provider.GetRequiredService<IDatabaseMigrationService>().RunMigrations()]
 );
 services.AddFeatureFlags(appSettings.ApiConfig.FeatureFlagSettings);

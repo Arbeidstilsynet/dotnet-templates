@@ -11,6 +11,7 @@ internal class InfrastructureMapper : IRegister
         config
             .NewConfig<SakEntity, Sak>()
             .NameMatchingStrategy(NameMatchingStrategy.Flexible)
+            .TwoWays()
             .Map(target => target.LastUpdated, source => source.UpdatedAt);
     }
 }

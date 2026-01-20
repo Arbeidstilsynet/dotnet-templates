@@ -1,9 +1,9 @@
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db.Model;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Extensions;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using SakEntity = Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db.Model.SakEntity;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db;
 
@@ -19,15 +19,10 @@ internal class SakRepository(SakDbContext dbContext, IMapper mapper, ILogger<Sak
         }
     }
 
-    public async Task<Sak> PersistSak(string organisajonsnummer)
+    public async Task<Sak> PersistSak(Sak sak)
     {
         using var activity = Tracer.Source.StartActivity();
-        var sakEntity = new SakEntity
-        {
-            Id = Guid.NewGuid(),
-            Organisajonsnummer = organisajonsnummer,
-            Status = SakStatus.New,
-        };
+        var sakEntity = mapper.Map<SakEntity>(sak);
         var updatedEntity = await DbContext.Saker.AddAsync(sakEntity);
 
         await DbContext.SaveChangesAsync();

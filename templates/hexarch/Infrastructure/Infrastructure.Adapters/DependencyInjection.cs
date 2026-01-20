@@ -10,6 +10,9 @@ using Microsoft.Extensions.DependencyInjection;
 // ReSharper disable once CheckNamespace
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.DependencyInjection;
 
+/// <summary>
+/// Holds the details that your Domain.Logic needs in order to access the infrastructure. ConnectionStrings, BaseUrls, ApiKeys etc. go here.
+/// </summary>
 public record InfrastructureConfiguration
 {
     [Required]

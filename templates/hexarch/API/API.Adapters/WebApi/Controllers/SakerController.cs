@@ -7,12 +7,21 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.WebApi.Controllers;
 
+/// <summary>
+/// Saker related endpoints.
+/// </summary>
+/// <param name="sakService"></param>
+/// <param name="featureFlags"></param>
 [Authorize]
 [Route("[controller]")]
 [ApiController]
 public class SakerController(ISakService sakService, IFeatureFlags featureFlags) : ControllerBase
 {
-    // POST
+    /// <summary>
+    /// Create a new Sak.
+    /// </summary>
+    /// <param name="sakDto"></param>
+    /// <returns></returns>
     [HttpPost()]
     public async Task<ActionResult<Sak>> CreateSak([FromBody] CreateSakDto sakDto)
     {
@@ -21,7 +30,10 @@ public class SakerController(ISakService sakService, IFeatureFlags featureFlags)
         return Ok(result);
     }
 
-    // GET saker
+    /// <summary>
+    /// Get all Saker.
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     public async Task<ActionResult<List<Sak>>> Get()
     {
@@ -33,7 +45,11 @@ public class SakerController(ISakService sakService, IFeatureFlags featureFlags)
         return Ok(saker);
     }
 
-    // GET saker/{sakId}
+    /// <summary>
+    /// Get a Sak by Id.
+    /// </summary>
+    /// <param name="sakId"></param>
+    /// <returns></returns>
     [HttpGet("{sakId:guid}")]
     public async Task<ActionResult<Sak>> GetById([FromRoute] Guid sakId)
     {

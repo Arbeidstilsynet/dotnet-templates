@@ -1,10 +1,9 @@
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db.Model;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Mapper;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test.Fixtures;
 using Bogus;
-using MapsterMapper;
 using Shouldly;
-using SakEntity = Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db.Model.SakEntity;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test;
 
@@ -12,7 +11,7 @@ public class InfrastructureMapperTests
 {
     private readonly Faker<SakEntity> _sakEntityFaker = TestData.CreateSakEntityFaker();
 
-    private readonly InfrastructureMapper _sut = new();
+    private readonly InfrastructureMapper _sut = new(); // System Under Test
     private readonly MapsterMapper.Mapper _mapper = new();
 
     public InfrastructureMapperTests()
@@ -34,7 +33,8 @@ public class InfrastructureMapperTests
             new Sak()
             {
                 Id = sakEntity.Id,
-                Organisajonsnummer = sakEntity.Organisajonsnummer,
+                Deadline = sakEntity.Deadline,
+                Organisasjonsnummer = sakEntity.Organisasjonsnummer,
                 Status = sakEntity.Status,
                 CreatedAt = sakEntity.CreatedAt,
                 LastUpdated = sakEntity.UpdatedAt,
