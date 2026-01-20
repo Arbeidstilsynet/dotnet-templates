@@ -37,13 +37,13 @@ public class SakerControllerIntegrationTests(ApplicationFixture fixture)
         // Act
         var response = await _client.PostAsJsonAsync(
             "/saker",
-            new CreateTilsynssakDto { Organisajonsnummer = orgNr },
+            new CreateSakDto { Organisajonsnummer = orgNr },
             TestContext.Current.CancellationToken
         );
 
         // Assert
         (
-            await response.Content.ReadFromJsonAsync<Tilsynssak>(
+            await response.Content.ReadFromJsonAsync<Sak>(
                 _options,
                 TestContext.Current.CancellationToken
             )
@@ -59,7 +59,7 @@ public class SakerControllerIntegrationTests(ApplicationFixture fixture)
         // Act
         var response = await _client.PostAsJsonAsync(
             "/saker",
-            new CreateTilsynssakDto { Organisajonsnummer = invalidOrgnummer },
+            new CreateSakDto { Organisajonsnummer = invalidOrgnummer },
             TestContext.Current.CancellationToken
         );
 
@@ -84,12 +84,12 @@ public class SakerControllerIntegrationTests(ApplicationFixture fixture)
         var createdSak = await (
             await _client.PostAsJsonAsync(
                 "/saker",
-                new CreateTilsynssakDto { Organisajonsnummer = "123456789" },
+                new CreateSakDto { Organisajonsnummer = "123456789" },
                 TestContext.Current.CancellationToken
             )
-        ).Content.ReadFromJsonAsync<Tilsynssak>(_options, TestContext.Current.CancellationToken);
+        ).Content.ReadFromJsonAsync<Sak>(_options, TestContext.Current.CancellationToken);
         // Act
-        var response = await _client.GetFromJsonAsync<Tilsynssak>(
+        var response = await _client.GetFromJsonAsync<Sak>(
             $"/saker/{createdSak!.Id}",
             _options,
             TestContext.Current.CancellationToken

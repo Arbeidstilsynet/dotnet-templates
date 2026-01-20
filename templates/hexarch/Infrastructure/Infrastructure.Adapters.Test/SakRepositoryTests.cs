@@ -6,23 +6,21 @@ using Xunit.Microsoft.DependencyInjection.Abstracts;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test;
 
-public class TilsynssakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
+public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
 {
-    private readonly ITilsynssakRepository _sut; // System Under Test
+    private readonly ISakRepository _sut; // System Under Test
 
     private static readonly string SampleOrgNr = "123456789";
 
     private readonly VerifySettings _verifierSettings = new();
 
-    public TilsynssakRepositoryTests(
+    public SakRepositoryTests(
         ITestOutputHelper testOutputHelper,
         InfrastructureAdapterTestFixture infrastractureAdapterTestFixture
     )
         : base(testOutputHelper, infrastractureAdapterTestFixture)
     {
-        _sut = infrastractureAdapterTestFixture.GetService<ITilsynssakRepository>(
-            testOutputHelper
-        )!;
+        _sut = infrastractureAdapterTestFixture.GetService<ISakRepository>(testOutputHelper)!;
 
         _verifierSettings.DontScrubGuids();
         _verifierSettings.UseDirectory("Snapshots");

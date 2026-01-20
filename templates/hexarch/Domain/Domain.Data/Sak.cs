@@ -3,7 +3,7 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
 /// <summary>
 /// Represents a case in this domain.
 /// </summary>
-public record Tilsynssak
+public record Sak
 {
     /// <summary>
     /// Unique identifier for the case.

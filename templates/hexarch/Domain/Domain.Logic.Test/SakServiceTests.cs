@@ -12,9 +12,8 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.Test;
 
 public class SakServiceTests
 {
-    private readonly TilsynssakService _sut; // System Under Test
-    private readonly ITilsynssakRepository _tilsynssakRepositoryMock =
-        Substitute.For<ITilsynssakRepository>();
+    private readonly SakService _sut; // System Under Test
+    private readonly ISakRepository _sakRepositoryMock = Substitute.For<ISakRepository>();
 
     private const string SampleOrgNr = "123456789";
 
@@ -22,25 +21,20 @@ public class SakServiceTests
 
     public SakServiceTests()
     {
-        _sut = new TilsynssakService(
-            _tilsynssakRepositoryMock,
-            Options.Create(_domainConfiguration)
-        );
+        _sut = new SakService(_sakRepositoryMock, Options.Create(_domainConfiguration));
     }
 
     [Fact]
     public async Task CreateNewSak_WhenCalledWithCreateSakDto_ReturnsMockedSak()
     {
         //arrange
-        var mockedSakResponse = new Faker<Tilsynssak>().Generate() with
+        var mockedSakResponse = new Faker<Sak>().Generate() with
         {
             Organisajonsnummer = SampleOrgNr,
         };
-        _tilsynssakRepositoryMock.PersistSak(default!).ReturnsForAnyArgs(mockedSakResponse);
+        _sakRepositoryMock.PersistSak(default!).ReturnsForAnyArgs(mockedSakResponse);
         //act
-        var result = await _sut.CreateNewSak(
-            new CreateTilsynssakDto { Organisajonsnummer = SampleOrgNr }
-        );
+        var result = await _sut.CreateNewSak(new CreateSakDto { Organisajonsnummer = SampleOrgNr });
         //assert
         result.ShouldBeEquivalentTo(mockedSakResponse);
     }
@@ -49,8 +43,8 @@ public class SakServiceTests
     public async Task GetAllSaker_WhenCalled_ReturnsAllMockedSaker()
     {
         //arrange
-        var mockedSakerResponse = new Faker<Tilsynssak>().Generate(10);
-        _tilsynssakRepositoryMock.GetSaker().Returns(mockedSakerResponse);
+        var mockedSakerResponse = new Faker<Sak>().Generate(10);
+        _sakRepositoryMock.GetSaker().Returns(mockedSakerResponse);
         //act
         var result = await _sut.GetAllSaker();
         //assert
@@ -62,8 +56,8 @@ public class SakServiceTests
     {
         //arrange
         var testId = Guid.NewGuid();
-        var mockedSakResponse = new Faker<Tilsynssak>().Generate() with { Id = testId };
-        _tilsynssakRepositoryMock.GetSak(testId).Returns(mockedSakResponse);
+        var mockedSakResponse = new Faker<Sak>().Generate() with { Id = testId };
+        _sakRepositoryMock.GetSak(testId).Returns(mockedSakResponse);
         //act
         var result = await _sut.GetSakById(testId);
         //assert
@@ -75,8 +69,8 @@ public class SakServiceTests
     {
         //arrange
         var testId = Guid.NewGuid();
-        Tilsynssak? mockedSakResponse = null;
-        _tilsynssakRepositoryMock.GetSak(testId).Returns(mockedSakResponse);
+        Sak? mockedSakResponse = null;
+        _sakRepositoryMock.GetSak(testId).Returns(mockedSakResponse);
         //act
         var act = () => _sut.GetSakById(testId);
         //assert
@@ -88,10 +82,8 @@ public class SakServiceTests
     {
         //arrange
         var testId = Guid.NewGuid();
-        var mockedSakResponse = new Faker<Tilsynssak>().Generate() with { Id = testId };
-        _tilsynssakRepositoryMock
-            .UpdateSakStatus(testId, SakStatus.InProgress)
-            .Returns(mockedSakResponse);
+        var mockedSakResponse = new Faker<Sak>().Generate() with { Id = testId };
+        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.InProgress).Returns(mockedSakResponse);
         //act
         var result = await _sut.StartSak(testId);
         //assert
@@ -103,9 +95,7 @@ public class SakServiceTests
     {
         //arrange
         var testId = Guid.NewGuid();
-        _tilsynssakRepositoryMock
-            .UpdateSakStatus(testId, SakStatus.InProgress)
-            .Returns(default(Tilsynssak?));
+        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.InProgress).Returns(default(Sak?));
         //act
         var act = () => _sut.StartSak(testId);
         //assert
@@ -117,10 +107,8 @@ public class SakServiceTests
     {
         //arrange
         var testId = Guid.NewGuid();
-        var mockedSakResponse = new Faker<Tilsynssak>().Generate() with { Id = testId };
-        _tilsynssakRepositoryMock
-            .UpdateSakStatus(testId, SakStatus.Done)
-            .Returns(mockedSakResponse);
+        var mockedSakResponse = new Faker<Sak>().Generate() with { Id = testId };
+        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.Done).Returns(mockedSakResponse);
         //act
         var result = await _sut.EndSak(testId);
         //assert
@@ -132,10 +120,8 @@ public class SakServiceTests
     {
         //arrange
         var testId = Guid.NewGuid();
-        Tilsynssak? mockedSakResponse = null;
-        _tilsynssakRepositoryMock
-            .UpdateSakStatus(testId, SakStatus.Done)
-            .Returns(mockedSakResponse);
+        Sak? mockedSakResponse = null;
+        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.Done).Returns(mockedSakResponse);
         //act
         var act = () => _sut.EndSak(testId);
         //assert
@@ -147,10 +133,8 @@ public class SakServiceTests
     {
         //arrange
         var testId = Guid.NewGuid();
-        var mockedSakResponse = new Faker<Tilsynssak>().Generate() with { Id = testId };
-        _tilsynssakRepositoryMock
-            .UpdateSakStatus(testId, SakStatus.Archived)
-            .Returns(mockedSakResponse);
+        var mockedSakResponse = new Faker<Sak>().Generate() with { Id = testId };
+        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.Archived).Returns(mockedSakResponse);
         //act
         var result = await _sut.ArchiveSak(testId);
         //assert
@@ -162,10 +146,8 @@ public class SakServiceTests
     {
         //arrange
         var testId = Guid.NewGuid();
-        Tilsynssak? mockedSakResponse = null;
-        _tilsynssakRepositoryMock
-            .UpdateSakStatus(testId, SakStatus.Archived)
-            .Returns(mockedSakResponse);
+        Sak? mockedSakResponse = null;
+        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.Archived).Returns(mockedSakResponse);
         //act
         var act = () => _sut.ArchiveSak(testId);
         //assert

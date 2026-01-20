@@ -9,11 +9,11 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.WebAp
 /// <summary>
 /// Actions related to Sak management
 /// </summary>
-/// <param name="tilsynssakService"></param>
+/// <param name="sakService"></param>
 [Authorize]
 [Route("[controller]")]
 [ApiController]
-public class ActionsController(ITilsynssakService tilsynssakService) : ControllerBase
+public class ActionsController(ISakService sakService) : ControllerBase
 {
     /// <summary>
     /// Start a Sak
@@ -21,11 +21,9 @@ public class ActionsController(ITilsynssakService tilsynssakService) : Controlle
     /// <param name="sakId">Id of the sak</param>
     /// <returns></returns>
     [HttpPost("start-sak")]
-    public async Task<ActionResult<Tilsynssak>> StartSak(
-        [FromQuery(Name = "SakId")] [Required] Guid sakId
-    )
+    public async Task<ActionResult<Sak>> StartSak([FromQuery(Name = "SakId")] [Required] Guid sakId)
     {
-        var result = await tilsynssakService.StartSak(sakId);
+        var result = await sakService.StartSak(sakId);
         return Ok(result);
     }
 
@@ -35,11 +33,9 @@ public class ActionsController(ITilsynssakService tilsynssakService) : Controlle
     /// <param name="sakId">Id of the sak</param>
     /// <returns></returns>
     [HttpPost("end-sak")]
-    public async Task<ActionResult<Tilsynssak>> EndSak(
-        [FromQuery(Name = "SakId")] [Required] Guid sakId
-    )
+    public async Task<ActionResult<Sak>> EndSak([FromQuery(Name = "SakId")] [Required] Guid sakId)
     {
-        var result = await tilsynssakService.EndSak(sakId);
+        var result = await sakService.EndSak(sakId);
         return Ok(result);
     }
 
@@ -49,11 +45,11 @@ public class ActionsController(ITilsynssakService tilsynssakService) : Controlle
     /// <param name="sakId">Id of the sak</param>
     /// <returns></returns>
     [HttpPost("archive-sak")]
-    public async Task<ActionResult<Tilsynssak>> ArchiveSak(
+    public async Task<ActionResult<Sak>> ArchiveSak(
         [FromQuery(Name = "SakId")] [Required] Guid sakId
     )
     {
-        var result = await tilsynssakService.ArchiveSak(sakId);
+        var result = await sakService.ArchiveSak(sakId);
         return Ok(result);
     }
 }

@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db.Migrations
 {
-    [DbContext(typeof(TilsynssakDbContext))]
+    [DbContext(typeof(SakDbContext))]
     [Migration("20260114142258_AddDeadline")]
     partial class AddDeadline
     {

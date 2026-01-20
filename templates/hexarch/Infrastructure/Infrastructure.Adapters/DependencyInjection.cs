@@ -26,10 +26,10 @@ public static class DependencyInjection
         InfrastructureConfiguration infrastructureConfiguration
     )
     {
-        services.AddScoped<ITilsynssakRepository, TilsynssakRepository>();
+        services.AddScoped<ISakRepository, SakRepository>();
         services.AddSingleton(infrastructureConfiguration);
         services.AddScoped<IDatabaseMigrationService, DatabaseMigrationService>();
-        services.AddDbContext<TilsynssakDbContext>(opt =>
+        services.AddDbContext<SakDbContext>(opt =>
         {
             opt.UseNpgsql(
                 infrastructureConfiguration.ConnectionString,
@@ -48,7 +48,7 @@ public static class DependencyInjection
         this IHealthChecksBuilder healthCheckBuilder
     )
     {
-        return healthCheckBuilder.AddDbContextCheck<TilsynssakDbContext>();
+        return healthCheckBuilder.AddDbContextCheck<SakDbContext>();
     }
 
     private static IServiceCollection AddMapper(this IServiceCollection services)

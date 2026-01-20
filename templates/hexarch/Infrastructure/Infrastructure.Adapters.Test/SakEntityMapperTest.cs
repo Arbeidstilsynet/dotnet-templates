@@ -9,7 +9,7 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ada
 
 public class InfrastructureMapperTests
 {
-    private readonly Faker<TilsynssakEntity> _sakEntityFaker = TestData.CreateSakEntityFaker();
+    private readonly Faker<SakEntity> _sakEntityFaker = TestData.CreateSakEntityFaker();
 
     private readonly InfrastructureMapper _sut = new(); // System Under Test
     private readonly MapsterMapper.Mapper _mapper = new();
@@ -26,11 +26,11 @@ public class InfrastructureMapperTests
         var sakEntity = _sakEntityFaker.Generate();
 
         //act
-        var mappedSak = _mapper.Map<Tilsynssak>(sakEntity);
+        var mappedSak = _mapper.Map<Sak>(sakEntity);
 
         //assert
         mappedSak.ShouldBeEquivalentTo(
-            new Tilsynssak()
+            new Sak()
             {
                 Id = sakEntity.Id,
                 Deadline = sakEntity.Deadline,

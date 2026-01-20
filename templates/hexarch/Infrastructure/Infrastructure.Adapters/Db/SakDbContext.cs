@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db;
 
-internal class TilsynssakDbContext(DbContextOptions<TilsynssakDbContext> dbContextOption)
+internal class SakDbContext(DbContextOptions<SakDbContext> dbContextOption)
     : DbContext(dbContextOption)
 {
-    public required DbSet<TilsynssakEntity> Saker { get; init; }
+    public required DbSet<SakEntity> Saker { get; init; }
 
     public override int SaveChanges()
     {

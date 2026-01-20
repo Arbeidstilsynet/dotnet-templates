@@ -1,7 +1,7 @@
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
 
 /// <summary>
-/// Enumerates the possible statuses of a case <see cref="Tilsynssak"/>.
+/// Enumerates the possible statuses of a case <see cref="Sak"/>.
 /// </summary>
 public enum SakStatus
 {
