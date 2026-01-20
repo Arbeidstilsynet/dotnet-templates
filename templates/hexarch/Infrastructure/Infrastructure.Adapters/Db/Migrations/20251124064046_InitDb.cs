@@ -16,7 +16,7 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ada
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
-                    Organisasjonsnummer = table.Column<string>(type: "varchar(9)", nullable: false),
+                    Organisajonsnummer = table.Column<string>(type: "varchar(9)", nullable: false),
                     Status = table.Column<string>(type: "varchar(24)", nullable: false),
                     CreatedAt = table.Column<DateTime>(
                         type: "timestamp with time zone",

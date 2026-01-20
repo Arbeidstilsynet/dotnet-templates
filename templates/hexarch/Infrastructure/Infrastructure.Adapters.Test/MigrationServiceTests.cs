@@ -81,7 +81,7 @@ public class MigrationServiceTests : IAsyncLifetime
 #pragma warning disable EF1002
             await dbContext.Database.ExecuteSqlRawAsync(
                 $"""
-                INSERT INTO "Saker" ("Id", "CreatedAt", "UpdatedAt", "Organisasjonsnummer", "Status") 
+                INSERT INTO "Saker" ("Id", "CreatedAt", "UpdatedAt", "Organisajonsnummer", "Status") 
                               VALUES ('{_oldSakId}', TIMESTAMP '{_createdTime:yyyy-MM-dd HH:mm:ss}', TIMESTAMP '{_createdTime:yyyy-MM-dd HH:mm:ss}', '123456789', 'New')
                 """
 #pragma warning restore EF1002

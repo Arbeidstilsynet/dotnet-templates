@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - added(hexarch): added more doc strings to the public classes
 - added(hexarch): added deadline to the sak (example domain)
+- changed(hexarch): fixed typo in Sak.Organisa**s**jonsnummer
 
 ## 2.2.5
 
