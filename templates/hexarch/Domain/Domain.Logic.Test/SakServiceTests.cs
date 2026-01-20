@@ -34,7 +34,9 @@ public class SakServiceTests
         };
         _sakRepositoryMock.PersistSak(default!).ReturnsForAnyArgs(mockedSakResponse);
         //act
-        var result = await _sut.CreateNewSak(new CreateSakDto { Organisasjonsnummer = SampleOrgNr });
+        var result = await _sut.CreateNewSak(
+            new CreateSakDto { Organisasjonsnummer = SampleOrgNr }
+        );
         //assert
         result.ShouldBeEquivalentTo(mockedSakResponse);
     }
