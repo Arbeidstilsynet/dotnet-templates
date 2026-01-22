@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
       - name: Build and Test .NET solution
-        uses: Arbeidstilsynet/action-dotnet-build@a1f3f50f263efb55f38a48fa615e2cf77c4297fa # v3
+        uses: Arbeidstilsynet/action-dotnet-build@15ae7705f61363abe7797d87644105a3814f77d0 # v4
         with:
           working-directory: "./templates/common-package/SamplePackage"
 
@@ -24,6 +24,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6
       - name: Build and Test .NET solution
-        uses: Arbeidstilsynet/action-dotnet-build@a1f3f50f263efb55f38a48fa615e2cf77c4297fa # v3
+        uses: Arbeidstilsynet/action-dotnet-build@15ae7705f61363abe7797d87644105a3814f77d0 # v4
         with:
           working-directory: "./templates/hexarch"
