@@ -3,6 +3,9 @@ using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
 
+/// <summary>
+/// Service interface for managing <see cref="Sak"/> entities.
+/// </summary>
 public interface ISakService
 {
     /// <summary>
