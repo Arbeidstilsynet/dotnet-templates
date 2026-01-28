@@ -5,7 +5,7 @@ networks:
 
 services:
   postgres_db:
-    image: postgres:17-alpine@sha256:820d67c4428ef2b8a8644ccba24116268c9f705369484042bec5cba2004cdca7
+    image: postgres:17-alpine@sha256:1bccc8c252a75675342061917af942ee08ed54b6ee69da34f9f463d866b3c1e8
     networks:
       - HexagonalArchitectureTemplateDocker_network
     ports:
