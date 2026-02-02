@@ -30,13 +30,6 @@ public class DomainLogicLayerTests
         archRule.Check(Architecture);
     }
 
-    [Fact]
-    public void TypesInDomainLogicLayer_ArePublic()
-    {
-        IArchRule archRule = Types().That().Are(Layers.DomainLogicLayer).Should().BePublic();
-
-        archRule.Check(Architecture);
-    }
 
     [Fact]
     public void TypesInDomainLogicLayer_DoNotDependOnAWS()

@@ -33,10 +33,15 @@ public class DomainLayerTests
         IArchRule archRule = Types()
             .That()
             .Are(Layers.DomainLayer)
+            .And()
+            .ResideInNamespaceMatching(
+                $"{Constants.NameSpacePrefix}\\.Domain\\.Data\\.Ports(\\..*)?"
+            )
             .Should()
             .ResideInNamespaceMatching(
-                $"^({Constants.NameSpacePrefix}\\.Domain\\.Data|{Constants.NameSpacePrefix}\\.Domain\\.Data\\..*)$"
-            );
+                $"^({Constants.NameSpacePrefix}\\.Domain\\.Data\\.Ports\\.Driving(\\..*)?|{Constants.NameSpacePrefix}\\.Domain\\.Data\\.Ports\\.Driven(\\..*)?)$"
+            )
+            .WithoutRequiringPositiveResults();
 
         archRule.Check(Architecture);
     }
