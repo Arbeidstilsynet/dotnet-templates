@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Driving;
 using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +25,7 @@ public static class DependencyInjection
     {
         services.AddMapper();
         services.AddSingleton(Options.Create(domainConfiguration));
-        services.AddScoped<ISakService, SakService>();
+        services.AddScoped<IProcessSakEvents, SakService>();
         return services;
     }
 

@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports.Requests;
+namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Driving.Requests;
 
 public record CreateSakDto
 {

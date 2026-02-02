@@ -1,6 +1,6 @@
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports.Requests;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Driving;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Driving.Requests;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.DependencyInjection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test.Fixtures;
@@ -44,7 +44,7 @@ public class ApplicationFixture : WebApplicationFactory<IAssemblyInfo>, IAsyncLi
     private async Task SeedDatabase()
     {
         using var scope = Services.CreateScope();
-        var sakService = scope.ServiceProvider.GetRequiredService<ISakService>();
+        var sakService = scope.ServiceProvider.GetRequiredService<IProcessSakEvents>();
 
         _seededSak = await sakService.CreateNewSak(
             new CreateSakDto() { Organisajonsnummer = "123456789" }

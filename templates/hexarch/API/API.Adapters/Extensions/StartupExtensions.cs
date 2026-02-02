@@ -1,6 +1,6 @@
 using System.Net;
 using Arbeidstilsynet.Common.AspNetCore.Extensions.Extensions;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.Exceptions;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 

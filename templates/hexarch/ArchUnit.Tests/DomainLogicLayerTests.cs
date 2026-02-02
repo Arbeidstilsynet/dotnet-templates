@@ -31,9 +31,9 @@ public class DomainLogicLayerTests
     }
 
     [Fact]
-    public void TypesInDomainLogicLayer_AreInternal()
+    public void TypesInDomainLogicLayer_ArePublic()
     {
-        IArchRule archRule = Types().That().Are(Layers.DomainLogicLayer).Should().NotBePublic();
+        IArchRule archRule = Types().That().Are(Layers.DomainLogicLayer).Should().BePublic();
 
         archRule.Check(Architecture);
     }

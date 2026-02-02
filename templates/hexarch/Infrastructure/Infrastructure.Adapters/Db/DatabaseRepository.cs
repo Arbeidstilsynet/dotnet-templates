@@ -1,5 +1,7 @@
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Extensions;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports.Driven;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -7,8 +9,8 @@ using SakEntity = Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastruc
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db;
 
-internal class SakRepository(SakDbContext dbContext, IMapper mapper, ILogger<SakRepository> logger)
-    : Ports.ISakRepository
+internal class DatabaseRepository(SakDbContext dbContext, IMapper mapper, ILogger<DatabaseRepository> logger)
+    : ISaveSaker, IGetSaker
 {
     private SakDbContext DbContext
     {

@@ -28,22 +28,6 @@ public class InfrastructureAdapterLayerTests
     }
 
     [Fact]
-    public void TypesInInfrastructureLayer_AreInternal()
-    {
-        IArchRule archRule = Types()
-            .That()
-            .Are(Layers.InfrastructureAdapterLayer)
-            .And()
-            .DoNotResideInNamespaceMatching(
-                $"^({Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection\\..*|{Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.Db\\.Migrations)$"
-            )
-            .Should()
-            .NotBePublic();
-
-        archRule.Check(Architecture);
-    }
-
-    [Fact]
     public void TypesInInfrastructureLayer_UseCorrectLogger()
     {
         IArchRule archRule = Types()

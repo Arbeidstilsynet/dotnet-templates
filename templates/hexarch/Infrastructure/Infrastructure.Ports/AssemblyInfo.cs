@@ -1,3 +1,3 @@
-﻿namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports;
+﻿namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports;
 
 public interface IAssemblyInfo { }

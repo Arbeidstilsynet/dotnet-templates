@@ -1,8 +1,10 @@
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports.Requests;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.Exceptions;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Driving;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Driving.Requests;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports.Driven;
 using Bogus;
 using Microsoft.Extensions.Options;
 using NSubstitute;
@@ -12,8 +14,9 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.Test;
 
 public class SakServiceTests
 {
-    private readonly SakService _sut;
-    private readonly ISakRepository _sakRepositoryMock = Substitute.For<ISakRepository>();
+    private readonly IProcessSakEvents _sut;
+    private readonly ISaveSaker _saveRepositoryMock = Substitute.For<ISaveSaker>();
+    private readonly IGetSaker _getRepositoryMock = Substitute.For<IGetSaker>();
 
     private static readonly string SampleOrgNr = "123456789";
 
@@ -24,7 +27,7 @@ public class SakServiceTests
 
     public SakServiceTests()
     {
-        _sut = new SakService(_sakRepositoryMock, Options.Create(_domainConfiguration));
+        _sut = new SakService(_saveRepositoryMock, _getRepositoryMock, Options.Create(_domainConfiguration));
     }
 
     [Fact]
@@ -35,7 +38,7 @@ public class SakServiceTests
         {
             Organisajonsnummer = SampleOrgNr,
         };
-        _sakRepositoryMock.PersistSak(SampleOrgNr).Returns(mockedSakResponse);
+        _saveRepositoryMock.PersistSak(SampleOrgNr).Returns(mockedSakResponse);
         //act
         var result = await _sut.CreateNewSak(new CreateSakDto { Organisajonsnummer = SampleOrgNr });
         //assert
@@ -47,7 +50,7 @@ public class SakServiceTests
     {
         //arrange
         var mockedSakerResponse = new Faker<Sak>().Generate(10);
-        _sakRepositoryMock.GetSaker().Returns(mockedSakerResponse);
+        _getRepositoryMock.GetSaker().Returns(mockedSakerResponse);
         //act
         var result = await _sut.GetAllSaker();
         //assert
@@ -60,7 +63,7 @@ public class SakServiceTests
         //arrange
         var testId = Guid.NewGuid();
         var mockedSakResponse = new Faker<Sak>().Generate() with { Id = testId };
-        _sakRepositoryMock.GetSak(testId).Returns(mockedSakResponse);
+        _getRepositoryMock.GetSak(testId).Returns(mockedSakResponse);
         //act
         var result = await _sut.GetSakById(testId);
         //assert
@@ -73,7 +76,7 @@ public class SakServiceTests
         //arrange
         var testId = Guid.NewGuid();
         Sak? mockedSakResponse = null;
-        _sakRepositoryMock.GetSak(testId).Returns(mockedSakResponse);
+        _getRepositoryMock.GetSak(testId).Returns(mockedSakResponse);
         //act
         var act = () => _sut.GetSakById(testId);
         //assert
@@ -86,7 +89,7 @@ public class SakServiceTests
         //arrange
         var testId = Guid.NewGuid();
         var mockedSakResponse = new Faker<Sak>().Generate() with { Id = testId };
-        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.InProgress).Returns(mockedSakResponse);
+        _saveRepositoryMock.UpdateSakStatus(testId, SakStatus.InProgress).Returns(mockedSakResponse);
         //act
         var result = await _sut.StartSak(testId);
         //assert
@@ -99,7 +102,7 @@ public class SakServiceTests
         //arrange
         var testId = Guid.NewGuid();
         Sak? mockedSakResponse = null;
-        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.InProgress).Returns(mockedSakResponse);
+        _saveRepositoryMock.UpdateSakStatus(testId, SakStatus.InProgress).Returns(mockedSakResponse);
         //act
         var act = () => _sut.StartSak(testId);
         //assert
@@ -112,7 +115,7 @@ public class SakServiceTests
         //arrange
         var testId = Guid.NewGuid();
         var mockedSakResponse = new Faker<Sak>().Generate() with { Id = testId };
-        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.Done).Returns(mockedSakResponse);
+        _saveRepositoryMock.UpdateSakStatus(testId, SakStatus.Done).Returns(mockedSakResponse);
         //act
         var result = await _sut.EndSak(testId);
         //assert
@@ -125,7 +128,7 @@ public class SakServiceTests
         //arrange
         var testId = Guid.NewGuid();
         Sak? mockedSakResponse = null;
-        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.Done).Returns(mockedSakResponse);
+        _saveRepositoryMock.UpdateSakStatus(testId, SakStatus.Done).Returns(mockedSakResponse);
         //act
         var act = () => _sut.EndSak(testId);
         //assert
@@ -138,7 +141,7 @@ public class SakServiceTests
         //arrange
         var testId = Guid.NewGuid();
         var mockedSakResponse = new Faker<Sak>().Generate() with { Id = testId };
-        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.Archived).Returns(mockedSakResponse);
+        _saveRepositoryMock.UpdateSakStatus(testId, SakStatus.Archived).Returns(mockedSakResponse);
         //act
         var result = await _sut.ArchiveSak(testId);
         //assert
@@ -151,7 +154,7 @@ public class SakServiceTests
         //arrange
         var testId = Guid.NewGuid();
         Sak? mockedSakResponse = null;
-        _sakRepositoryMock.UpdateSakStatus(testId, SakStatus.Archived).Returns(mockedSakResponse);
+        _saveRepositoryMock.UpdateSakStatus(testId, SakStatus.Archived).Returns(mockedSakResponse);
         //act
         var act = () => _sut.ArchiveSak(testId);
         //assert

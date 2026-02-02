@@ -28,6 +28,20 @@ public class DomainLayerTests
     }
 
     [Fact]
+    public void TypesInDomainLayer_HaveDomainNamespace_NoPortsOutsideFolders()
+    {
+        IArchRule archRule = Types()
+            .That()
+            .Are(Layers.DomainLayer)
+            .Should()
+            .ResideInNamespaceMatching(
+                $"^({Constants.NameSpacePrefix}\\.Domain\\.Data|{Constants.NameSpacePrefix}\\.Domain\\.Data\\..*)$"
+            );
+
+        archRule.Check(Architecture);
+    }
+
+    [Fact]
     public void TypesInDomainLayer_ArePublic()
     {
         IArchRule archRule = Types().That().Are(Layers.DomainLayer).Should().BePublic();

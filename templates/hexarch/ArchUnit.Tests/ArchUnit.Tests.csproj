@@ -24,8 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Infrastructure\Infrastructure.Adapters\Infrastructure.Adapters.csproj" />
-    <ProjectReference Include="..\Infrastructure\Infrastructure.Ports\Infrastructure.Ports.csproj" />
-    <ProjectReference Include="..\API\API.Ports\API.Ports.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.Ports\Domain.Ports.csproj" />
     <ProjectReference Include="..\API\API.Adapters\API.Adapters.csproj" />
     <ProjectReference Include="..\Domain\Domain.Logic\Domain.Logic.csproj" />
     <ProjectReference Include="..\Domain\Domain.Data\Domain.Data.csproj" />

@@ -1,4 +1,4 @@
-namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
+namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.Exceptions;
 
 public class SakNotFoundException(Guid sakId)
     : Exception(

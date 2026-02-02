@@ -1,4 +1,4 @@
-namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports;
+﻿namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db;
 
 public interface IDatabaseMigrationService
 {
