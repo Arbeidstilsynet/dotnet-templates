@@ -1,8 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports.Driven;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Driven;
 using Mapster;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;

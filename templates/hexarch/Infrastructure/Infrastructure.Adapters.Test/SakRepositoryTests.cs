@@ -1,10 +1,8 @@
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test.Fixtures;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports;
 using Shouldly;
 using Xunit.Microsoft.DependencyInjection.Abstracts;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Driving;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports.Driven;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Driven;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Test;
 

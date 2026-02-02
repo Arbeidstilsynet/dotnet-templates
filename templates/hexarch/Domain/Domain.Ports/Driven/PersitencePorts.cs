@@ -1,6 +1,6 @@
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
 
-namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports.Driven;
+namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Driven;
 
 public interface ISaveSaker
 {

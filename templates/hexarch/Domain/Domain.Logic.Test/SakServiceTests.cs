@@ -1,10 +1,9 @@
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.Exceptions;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Driving;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Driving.Requests;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports.Driven;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Driven;
 using Bogus;
 using Microsoft.Extensions.Options;
 using NSubstitute;

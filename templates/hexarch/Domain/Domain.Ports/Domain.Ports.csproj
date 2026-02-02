@@ -6,7 +6,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports</RootNamespace>
+    <RootNamespace>Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports</RootNamespace>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
 </Project>

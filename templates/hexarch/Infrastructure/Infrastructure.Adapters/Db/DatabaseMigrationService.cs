@@ -1,4 +1,3 @@
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 

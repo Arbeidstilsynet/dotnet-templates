@@ -6,7 +6,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Infrastructure\Infrastructure.Ports\Domain.Ports.csproj" />
+    <ProjectReference Include="..\Domain.Ports\Domain.Ports.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>

@@ -6,7 +6,6 @@ using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Extension
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Db;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.DependencyInjection;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports;
 using IAssemblyInfo = Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.IAssemblyInfo;
 
 var builder = WebApplication.CreateBuilder(args);

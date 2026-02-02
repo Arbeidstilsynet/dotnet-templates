@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\Infrastructure.Ports\Domain.Ports.csproj" />
+    <ProjectReference Include="..\..\Domain\Domain.Ports\Domain.Ports.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Mapster" Version="7.4.0" />

@@ -3,7 +3,7 @@ using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.Dependenc
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.Exceptions;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Driving;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Driving.Requests;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports.Driven;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Driven;
 using Microsoft.Extensions.Options;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic;

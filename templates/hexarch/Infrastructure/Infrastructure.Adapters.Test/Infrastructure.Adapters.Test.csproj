@@ -25,6 +25,7 @@
     <Using Include="Xunit" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Domain\Domain.Ports\Domain.Ports.csproj" />
     <ProjectReference Include="..\Infrastructure.Adapters\Infrastructure.Adapters.csproj" />
   </ItemGroup>
 </Project>

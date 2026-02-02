@@ -1,7 +1,6 @@
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.Extensions;
-using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports.Driven;
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Driven;
 using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
