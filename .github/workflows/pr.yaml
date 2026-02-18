@@ -3,10 +3,6 @@ name: Build (PR)
 on:
   pull_request:
 
-permissions:
-  contents: read
-  packages: write
-
 jobs:
   pre-build:
     name: Check if build is needed
