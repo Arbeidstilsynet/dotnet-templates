@@ -23,6 +23,10 @@ jobs:
     needs: build
     uses: ./.github/workflows/post-build-pr-template.yaml
     secrets: inherit
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
     with:
       package-path: "./"
 

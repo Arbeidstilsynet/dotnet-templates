@@ -31,10 +31,10 @@ jobs:
 
       - name: Publish package if not already published
         if: steps.nuget_version_check.outputs.published == 'false'
-        uses: Arbeidstilsynet/action-dotnet-publish@8d282653fd85f9a26e80d4f6a4c660eb5d6c8896 # v2
+        uses: Arbeidstilsynet/action-dotnet-publish@d1cc7810946ae13e76f109fab16a07bf75ec5917 # v3
         with:
           working-directory: ${{ inputs.package-path }}
-          nuget-auth-token: ${{ secrets.AZURE_DEVOPS_PACKAGING_WRITE_PAT }}
+          nuget-username: ${{ vars.NUGET_BOT_USERNAME }}
 
       - name: Extract changelog section for current version
         id: changelog
@@ -55,6 +55,7 @@ jobs:
           else
             echo 'changelog=No changelog found.' >> $GITHUB_OUTPUT
           fi
+
       - name: Create GitHub Release
         if: steps.nuget_version_check.outputs.published == 'false'
         uses: actions/create-release@0cb9c9b65d5d1901c1f53e5e66eaf4afd303e70e # v1.1.4
