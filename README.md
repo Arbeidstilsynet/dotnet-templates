@@ -9,7 +9,7 @@ The package `Arbeidstilsynet.Templates` is published to our [organization in nug
 
 ## 🏃‍♂️ Getting Started
 
-Install our template package by running the following command. If you get an exeption, make sure you updated the `nuget.config` as described in [Prerequisites](#-prerequisites).
+Install our template package by running the following command.
 
 ```console
 dotnet new install Arbeidstilsynet.Templates
