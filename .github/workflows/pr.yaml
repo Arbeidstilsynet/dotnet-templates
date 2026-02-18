@@ -18,7 +18,6 @@ jobs:
     name: Post Build Checks
     needs: build
     uses: ./.github/workflows/post-build-pr-template.yaml
-    secrets: inherit
     permissions:
       contents: read
       packages: write
