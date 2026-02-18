@@ -5,7 +5,7 @@ Consider previewing the README before uploading (https://learn.microsoft.com/en-
 
 This is a mono repo for dotnet templates, for internal use in Arbeidstilsynet.
 
-The packages are published to our [organization in nuget.org](https://www.nuget.org/profiles/Arbeidstilsynet)
+The package `Arbeidstilsynet.Templates` is published to our [organization in nuget.org](https://www.nuget.org/profiles/Arbeidstilsynet)
 
 ## 🏃‍♂️ Getting Started
 
