@@ -20,7 +20,6 @@ jobs:
     uses: ./.github/workflows/post-build-pr-template.yaml
     permissions:
       contents: read
-      packages: write
       id-token: write
     with:
       package-path: "./"
