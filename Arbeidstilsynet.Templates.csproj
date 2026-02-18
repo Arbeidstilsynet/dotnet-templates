@@ -4,7 +4,7 @@
     <!-- Follow the instructions on
     https://learn.microsoft.com/en-us/nuget/create-packages/package-authoring-best-practices -->
     <PackageId>Arbeidstilsynet.Templates</PackageId>
-    <Version>2.3.4-beta1</Version>
+    <Version>2.3.4-beta2</Version>
     <Title>Templates for internal use at Arbeidstilsynet</Title>
     <Authors>Arbeidstilsynet</Authors>
     <Description>Templates to get started with dotnet projects. To see the different types, refer to
@@ -39,4 +39,13 @@
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="" />
   </ItemGroup>
+  <Target
+    Name="InjectPackageReleaseNotesFromFile"
+    BeforeTargets="GenerateNuspec"
+    Condition="Exists('CHANGELOG.md')"
+  >
+    <PropertyGroup>
+      <PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(MSBuildProjectDirectory)/CHANGELOG.md"))</PackageReleaseNotes>
+    </PropertyGroup>
+  </Target>
 </Project>
