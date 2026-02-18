@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.20@sha256:26147acbda4f14c5add9946e2fd2ed543fc402884fd75146bd342a7f6271dc1d
 # https://hub.docker.com/_/microsoft-dotnet
-FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine@sha256:0fba99926e4f12405c78f37941312f00c1aadb178bd63616f5d96fc2af5a26a9 AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine@sha256:9b4b31da5246f575086b1901e9871b189ae2a80eb42fe9234e9d000b51febd4b AS build
 WORKDIR /source
 
 # Improves restore speed by skipping XML docs.
@@ -27,7 +27,7 @@ COPY Infrastructure/ ./Infrastructure/
 RUN dotnet publish ./API/API.Adapters/API.Adapters.csproj -c Release -f net10.0 -o /app --no-restore
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/aspnet:10.0-alpine@sha256:1be14b20e4ec3dad26aa4932ae16c2193cc990c5499239492e9b697f0cba4e04
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-alpine@sha256:258b939d6d684ff05ad7ea16782b4bee55260de4acc6f99bec897fd11de7640c
 WORKDIR /app
 COPY --from=build /app ./
 ENTRYPOINT ["dotnet", "API.Adapters.dll"]
