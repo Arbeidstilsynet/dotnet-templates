@@ -20,6 +20,7 @@
     <NoWarn>$(NoWarn);NU5128</NoWarn>
     <NoDefaultExcludes>true</NoDefaultExcludes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageProjectUrl>https://github.com/Arbeidstilsynet/dotnet-templates</PackageProjectUrl>
   </PropertyGroup>
   <PropertyGroup>
     <LocalizeTemplates>false</LocalizeTemplates>
