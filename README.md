@@ -5,33 +5,11 @@ Consider previewing the README before uploading (https://learn.microsoft.com/en-
 
 This is a mono repo for dotnet templates, for internal use in Arbeidstilsynet.
 
-## 🔧 Prerequisites
-
-Per today, we published all our templates in our Public `AT.Public.NuGet` Nuget feed which is hosted on Azure. Even though it is public, you need to have the feed in your `nuget.config` to be able to execute the provided cli commands.
-
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<configuration>
-  <packageSources>
-    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
-    <add
-      key="AT.Public.NuGet"
-      value="https://pkgs.dev.azure.com/Atil-utvikling/Public/_packaging/AT.Public.NuGet/nuget/v3/index.json"
-      protocolVersion="3"
-    />
-  </packageSources>
-</configuration>
-```
-
-You can add the feed to your global NuGet configuration by running the following command:
-
-```bash
-dotnet nuget add source https://pkgs.dev.azure.com/Atil-utvikling/Public/_packaging/AT.Public.NuGet/nuget/v3/index.json --name "AT.Public.NuGet" --configfile ~/AppData/Roaming/NuGet/NuGet.Config
-```
+The package `Arbeidstilsynet.Templates` is published to our [organization in nuget.org](https://www.nuget.org/profiles/Arbeidstilsynet)
 
 ## 🏃‍♂️ Getting Started
 
-Install our template package by running the following command. If you get an exeption, make sure you updated the `nuget.config` as described in [Prerequisites](#-prerequisites).
+Install our template package by running the following command.
 
 ```console
 dotnet new install Arbeidstilsynet.Templates

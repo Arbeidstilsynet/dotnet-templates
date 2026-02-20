@@ -3,10 +3,6 @@ name: Build (PR)
 on:
   pull_request:
 
-permissions:
-  contents: read
-  packages: write
-
 jobs:
   pre-build:
     name: Check if build is needed
@@ -22,7 +18,9 @@ jobs:
     name: Post Build Checks
     needs: build
     uses: ./.github/workflows/post-build-pr-template.yaml
-    secrets: inherit
+    permissions:
+      contents: read
+      id-token: write
     with:
       package-path: "./"
 

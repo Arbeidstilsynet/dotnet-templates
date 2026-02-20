@@ -16,6 +16,6 @@ jobs:
     secrets: inherit
     permissions:
       contents: write
-      packages: write
+      id-token: write
     with:
       package-path: "./"
