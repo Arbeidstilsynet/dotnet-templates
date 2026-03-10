@@ -12,17 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - chore(hexarch): apply new naming strategies (`API.Adapters` --> `App`, `API.Ports` -> `Domain.Ports.App`, `Infrastructure.Ports` -> `Domain.Ports.Infrastructure`, `Infrastructure.Adapters` --> `Infrastructure`)
 - chore(hexarch): apply new file structure (see ``README.md``)
 - chore(hexarch): use new slnx format
-
-## 2.3.7
-
-### Added
-
-- chore: added openapi document transformer to define title and auth options
-
-## 2.3.6
-
-### Changed
-
+- chore(hexarch): added openapi document transformer to define title and auth options
 - changed(deps): update all minor dependencies
 
 ## 2.3.5
