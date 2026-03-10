@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.22@sha256:4a43a54dd1fedceb30ba47e76cfcf2b47304f4161c0caeac2db1c61804ea3c91
 # https://hub.docker.com/_/microsoft-dotnet
-FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine@sha256:9b4b31da5246f575086b1901e9871b189ae2a80eb42fe9234e9d000b51febd4b AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0-alpine@sha256:a0116e63beedf9197c3d491eb224aea9ae7d1692079eda9eebe2809f06d580e3 AS build
 WORKDIR /source
 
 # Improves restore speed by skipping XML docs.
