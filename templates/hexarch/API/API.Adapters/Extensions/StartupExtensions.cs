@@ -3,8 +3,10 @@ using Arbeidstilsynet.Common.AspNetCore.Extensions.CrossCutting;
 using Arbeidstilsynet.Common.AspNetCore.Extensions.Extensions;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.DependencyInjection;
+using Google.FlatBuffers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.OpenApi;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Extensions;
 
@@ -28,7 +30,62 @@ internal static class StartupExtensions
             buildHealthChecksAction: builder => builder.AddInfrastructureHealthChecks()
         );
         services.ConfigureOpenTelemetry(appName);
-        services.ConfigureOpenApi();
+        services.ConfigureOpenApi(
+            documentName: "v1",
+            openApiOptions: openApiOptions =>
+            {
+                openApiOptions.AddDocumentTransformer(
+                    (document, context, cancellationToken) =>
+                    {
+                        document.Info = new OpenApiInfo
+                        {
+                            Title = appName,
+                            Version = "v1",
+                            Description = $"Common entrypoints to interact with {appName}.",
+                        };
+                        if (!apiConfiguration.AuthenticationConfiguration.DangerousDisableAuth)
+                        {
+                            document.Components ??= new OpenApiComponents();
+                            document.Components.SecuritySchemes ??= new Dictionary<
+                                string,
+                                IOpenApiSecurityScheme
+                            >()
+                            {
+                                ["Bearer"] = new OpenApiSecurityScheme
+                                {
+                                    Type = SecuritySchemeType.Http,
+                                    Scheme = "bearer",
+                                    BearerFormat = "JWT",
+                                },
+                                ["OAuth2"] = new OpenApiSecurityScheme
+                                {
+                                    Type = SecuritySchemeType.OAuth2,
+                                    Flows = new OpenApiOAuthFlows
+                                    {
+                                        ClientCredentials = new OpenApiOAuthFlow
+                                        {
+                                            TokenUrl = new Uri(
+                                                $"https://login.microsoftonline.com/{apiConfiguration.AuthenticationConfiguration.EntraTenantId}/oauth2/v2.0/token"
+                                            ),
+                                            Scopes = new Dictionary<string, string>
+                                            {
+                                                {
+                                                    apiConfiguration
+                                                        .AuthenticationConfiguration
+                                                        .EntraScope,
+                                                    "Access API"
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
+                            };
+                        }
+                        return Task.CompletedTask;
+                    }
+                );
+            }
+        );
 
         services.ConfigureCors(
             apiConfiguration.Cors.AllowedOrigins,

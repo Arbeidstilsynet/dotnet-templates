@@ -74,4 +74,7 @@ internal record AuthConfiguration
 
     [ConfigurationKeyName("ClientId")]
     public string EntraClientId { get; init; } = string.Empty;
+
+    [ConfigurationKeyName("Scope")]
+    public string EntraScope { get; init; } = string.Empty;
 }
