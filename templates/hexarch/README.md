@@ -22,7 +22,7 @@ The application exposes a scalar ui, which is locally accesible on [http://local
 Prerequisites:
 
 - Docker installed
-- dotnet SDK installed (v8)
+- dotnet SDK installed (v10)
 
 To test and debug locally, you need to run the following commands:
 
