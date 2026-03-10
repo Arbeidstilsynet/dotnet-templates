@@ -3,7 +3,6 @@ using Arbeidstilsynet.Common.AspNetCore.Extensions.CrossCutting;
 using Arbeidstilsynet.Common.AspNetCore.Extensions.Extensions;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.DependencyInjection;
-using Google.FlatBuffers;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi;
@@ -46,18 +45,17 @@ internal static class StartupExtensions
                         if (!apiConfiguration.AuthenticationConfiguration.DangerousDisableAuth)
                         {
                             document.Components ??= new OpenApiComponents();
-                            document.Components.SecuritySchemes ??= new Dictionary<
-                                string,
-                                IOpenApiSecurityScheme
-                            >()
-                            {
-                                ["Bearer"] = new OpenApiSecurityScheme
+                            document.Components.SecuritySchemes ??=
+                                new Dictionary<string, IOpenApiSecurityScheme>();
+                            document.Components.SecuritySchemes["Bearer"] =
+                                new OpenApiSecurityScheme
                                 {
                                     Type = SecuritySchemeType.Http,
                                     Scheme = "bearer",
                                     BearerFormat = "JWT",
-                                },
-                                ["OAuth2"] = new OpenApiSecurityScheme
+                                };
+                            document.Components.SecuritySchemes["OAuth2"] =
+                                new OpenApiSecurityScheme
                                 {
                                     Type = SecuritySchemeType.OAuth2,
                                     Flows = new OpenApiOAuthFlows
@@ -78,8 +76,7 @@ internal static class StartupExtensions
                                             },
                                         },
                                     },
-                                },
-                            };
+                                };
                         }
                         return Task.CompletedTask;
                     }
@@ -114,6 +111,7 @@ internal static class StartupExtensions
         {
             var clientId = apiConfiguration.AuthenticationConfiguration.EntraClientId;
             var tenantId = apiConfiguration.AuthenticationConfiguration.EntraTenantId;
+            var scope = apiConfiguration.AuthenticationConfiguration.EntraScope;
 
             if (string.IsNullOrEmpty(clientId))
             {
@@ -124,6 +122,12 @@ internal static class StartupExtensions
             if (string.IsNullOrEmpty(tenantId))
             {
                 throw new ArgumentException("EntraTenantId must be set when auth is enabled");
+            }
+            if (string.IsNullOrEmpty(scope))
+            {
+                throw new ArgumentException(
+                    "(Default) EntraScope must be set when auth is enabled, e.g. api://<my.app>/.default"
+                );
             }
 
             services
