@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 3.0.0
+
+### Changed
+
+- chore(hexarch): apply new naming strategies (`API.Adapters` --> `App`, `API.Ports` -> `Domain.Ports.App`, `Infrastructure.Ports` -> `Domain.Ports.Infrastructure`, `Infrastructure.Adapters` --> `Infrastructure`)
+- chore(hexarch): apply new file structure (see ``README.md``)
+- chore(hexarch): use new slnx format
+
 ## 2.3.7
 
 ### Added
@@ -19,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2.3.5
 
-- added(hexarch): added doc generation to the API.Ports project
+- added(hexarch): added doc generation to the Domain.Ports.App project
 
 ## 2.3.4
 
@@ -221,7 +229,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- changed(hexarch): Domain section is no longer required in appsettings.json for API.Adapters
+- changed(hexarch): Domain section is no longer required in appsettings.json for App
 
 ## 1.2.1
 

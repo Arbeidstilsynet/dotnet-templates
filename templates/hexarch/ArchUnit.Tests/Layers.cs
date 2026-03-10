@@ -6,7 +6,7 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.ArchUnit.Tests
     internal static class Constants
     {
         internal static string NameSpacePrefix =
-            $"Arbeidstilsynet\\.{Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.IAssemblyInfo.AppName}";
+            $"Arbeidstilsynet\\.{Arbeidstilsynet.HexagonalArchitectureTemplateDocker.App.IAssemblyInfo.AppName}";
 
         internal static string CoverageCollectorNamespace =
             "Microsoft.CodeCoverage.Instrumentation.Static.Tracker";
@@ -17,15 +17,15 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.ArchUnit.Tests
         internal static readonly System.Reflection.Assembly DomainLogicAssembly =
             typeof(Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.IAssemblyInfo).Assembly;
         internal static readonly System.Reflection.Assembly ApiPortAssembly =
-            typeof(Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports.IAssemblyInfo).Assembly;
+            typeof(Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.App.IAssemblyInfo).Assembly;
         internal static readonly System.Reflection.Assembly InfrastructureAdapterAssembly =
-            typeof(Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.IAssemblyInfo).Assembly;
+            typeof(Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.IAssemblyInfo).Assembly;
         internal static readonly System.Reflection.Assembly InfrastructurePortAssembly =
-            typeof(Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Ports.IAssemblyInfo).Assembly;
+            typeof(Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Infrastructure.IAssemblyInfo).Assembly;
         internal static readonly System.Reflection.Assembly DomainAssembly =
             typeof(Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data.IAssemblyInfo).Assembly;
         internal static readonly System.Reflection.Assembly ApiAdapterAssembly =
-            typeof(Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.IAssemblyInfo).Assembly;
+            typeof(Arbeidstilsynet.HexagonalArchitectureTemplateDocker.App.IAssemblyInfo).Assembly;
 
         internal static readonly System.Reflection.Assembly SystemConsoleAssembly =
             typeof(Console).Assembly;
@@ -43,7 +43,7 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.ArchUnit.Tests
             .ResideInAssembly(InfrastructureAdapterAssembly)
             .And()
             .DoNotResideInNamespaceMatching(
-                $"^({Constants.CoverageCollectorNamespace}|{Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Infrastructure\\.Adapters\\.DependencyInjection\\..*)$"
+                $"^({Constants.CoverageCollectorNamespace}|{Constants.NameSpacePrefix}\\.Infrastructure\\.DependencyInjection|{Constants.NameSpacePrefix}\\.Infrastructure\\.DependencyInjection\\..*)$"
             )
             .As("Infrastructure Adapter Layer");
         internal static readonly IObjectProvider<IType> InfrastructurePortLayer = Types()
