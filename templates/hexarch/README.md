@@ -11,7 +11,7 @@ Intend [by the author Alistair Cockburn](https://alistair.cockburn.us/hexagonal-
 
 Idea/concept in a picture:
 
-![Infrastructure Arkitektur](hexagonal.webp)
+![Infrastructure Arkitektur](hexarch.webp)
 
 ## 🚀 Start the show case application
 
