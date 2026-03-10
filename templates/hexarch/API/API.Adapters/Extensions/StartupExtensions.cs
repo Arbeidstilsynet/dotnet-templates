@@ -5,6 +5,7 @@ using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Ports;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Adapters.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.OpenApi;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.API.Adapters.Extensions;
 
@@ -28,7 +29,11 @@ internal static class StartupExtensions
             buildHealthChecksAction: builder => builder.AddInfrastructureHealthChecks()
         );
         services.ConfigureOpenTelemetry(appName);
-        services.ConfigureOpenApi();
+        services.ConfigureOpenApi(
+            documentName: "v1",
+            openApiOptions: openApiOptions =>
+                openApiOptions.ConfigureDocumentTransformer(appName, apiConfiguration)
+        );
 
         services.ConfigureCors(
             apiConfiguration.Cors.AllowedOrigins,
@@ -57,6 +62,7 @@ internal static class StartupExtensions
         {
             var clientId = apiConfiguration.AuthenticationConfiguration.EntraClientId;
             var tenantId = apiConfiguration.AuthenticationConfiguration.EntraTenantId;
+            var scope = apiConfiguration.AuthenticationConfiguration.EntraScope;
 
             if (string.IsNullOrEmpty(clientId))
             {
@@ -67,6 +73,12 @@ internal static class StartupExtensions
             if (string.IsNullOrEmpty(tenantId))
             {
                 throw new ArgumentException("EntraTenantId must be set when auth is enabled");
+            }
+            if (string.IsNullOrEmpty(scope))
+            {
+                throw new ArgumentException(
+                    "(Default) EntraScope must be set when auth is enabled, e.g. api://<my.app>/.default"
+                );
             }
 
             services
@@ -100,5 +112,60 @@ internal static class StartupExtensions
         app.AddScalar();
 
         return app;
+    }
+}
+
+file static class Extensions
+{
+    internal static Microsoft.AspNetCore.OpenApi.OpenApiOptions ConfigureDocumentTransformer(
+        this Microsoft.AspNetCore.OpenApi.OpenApiOptions openApiOptions,
+        string appName,
+        ApiConfiguration apiConfiguration
+    )
+    {
+        return openApiOptions.AddDocumentTransformer(
+            (document, context, cancellationToken) =>
+            {
+                document.Info = new OpenApiInfo
+                {
+                    Title = appName,
+                    Version = "v1",
+                    Description = $"Common entrypoints to interact with {appName}.",
+                };
+                if (!apiConfiguration.AuthenticationConfiguration.DangerousDisableAuth)
+                {
+                    document.Components ??= new OpenApiComponents();
+                    document.Components.SecuritySchemes ??=
+                        new Dictionary<string, IOpenApiSecurityScheme>();
+                    document.Components.SecuritySchemes["Bearer"] = new OpenApiSecurityScheme
+                    {
+                        Type = SecuritySchemeType.Http,
+                        Scheme = "bearer",
+                        BearerFormat = "JWT",
+                    };
+                    document.Components.SecuritySchemes["OAuth2"] = new OpenApiSecurityScheme
+                    {
+                        Type = SecuritySchemeType.OAuth2,
+                        Flows = new OpenApiOAuthFlows
+                        {
+                            ClientCredentials = new OpenApiOAuthFlow
+                            {
+                                TokenUrl = new Uri(
+                                    $"https://login.microsoftonline.com/{apiConfiguration.AuthenticationConfiguration.EntraTenantId}/oauth2/v2.0/token"
+                                ),
+                                Scopes = new Dictionary<string, string>
+                                {
+                                    {
+                                        apiConfiguration.AuthenticationConfiguration.EntraScope,
+                                        "Access API"
+                                    },
+                                },
+                            },
+                        },
+                    };
+                }
+                return Task.CompletedTask;
+            }
+        );
     }
 }
