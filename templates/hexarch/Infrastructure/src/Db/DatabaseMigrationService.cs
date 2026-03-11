@@ -1,0 +1,18 @@
+using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Infrastructure;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+
+namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Db;
+
+internal class DatabaseMigrationService(
+    SakDbContext dbContext,
+    ILogger<DatabaseMigrationService> logger
+) : IDatabaseMigrationService
+{
+    public async Task RunMigrations()
+    {
+        logger.LogInformation("Applying database migrations...");
+        await dbContext.Database.MigrateAsync();
+        logger.LogInformation("Database migrations applied successfully");
+    }
+}

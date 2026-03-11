@@ -6,28 +6,28 @@ WORKDIR /source
 # Improves restore speed by skipping XML docs.
 ENV NUGET_XMLDOC_MODE=skip
 
-COPY HexagonalArchitectureTemplateDocker.sln .
+COPY HexagonalArchitectureTemplateDocker.slnx .
 COPY nuget.config .
 
 # Copy project files first to maximize Docker layer caching for restore.
-COPY API/API.Adapters/API.Adapters.csproj ./API/API.Adapters/
-COPY API/API.Ports/API.Ports.csproj ./API/API.Ports/
-COPY Domain/Domain.Data/Domain.Data.csproj ./Domain/Domain.Data/
-COPY Domain/Domain.Logic/Domain.Logic.csproj ./Domain/Domain.Logic/
-COPY Infrastructure/Infrastructure.Adapters/Infrastructure.Adapters.csproj ./Infrastructure/Infrastructure.Adapters/
-COPY Infrastructure/Infrastructure.Ports/Infrastructure.Ports.csproj ./Infrastructure/Infrastructure.Ports/
+COPY App/src/App.csproj ./App/src/
+COPY Domain/Ports/App/Domain.Ports.App.csproj ./Domain/Ports/App/
+COPY Domain/Data/Domain.Data.csproj ./Domain/Data/
+COPY Domain/Logic/src/Domain.Logic.csproj ./Domain/Logic/src/
+COPY Domain/Ports/Infrastructure/Domain.Ports.Infrastructure.csproj ./Domain/Ports/Infrastructure/
+COPY Infrastructure/src/Infrastructure.csproj ./Infrastructure/src/
 
-RUN dotnet restore ./API/API.Adapters/API.Adapters.csproj
+RUN dotnet restore ./App/src/App.csproj
 
 # Copy the remaining source code.
 COPY Domain/ ./Domain/
-COPY API/ ./API/
+COPY App/ ./App/
 COPY Infrastructure/ ./Infrastructure/
 
-RUN dotnet publish ./API/API.Adapters/API.Adapters.csproj -c Release -f net10.0 -o /app --no-restore
+RUN dotnet publish ./App/src/App.csproj -c Release -f net10.0 -o /app --no-restore
 
 # final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:10.0-alpine@sha256:258b939d6d684ff05ad7ea16782b4bee55260de4acc6f99bec897fd11de7640c
 WORKDIR /app
 COPY --from=build /app ./
-ENTRYPOINT ["dotnet", "API.Adapters.dll"]
+ENTRYPOINT ["dotnet", "App.dll"]
