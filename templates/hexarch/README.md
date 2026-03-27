@@ -226,7 +226,7 @@ This template includes automated TypeScript client generation from your OpenAPI 
    - Modify the [`ConfigureOpenApiSpec()`](./App/src/Extensions/OpenApiExtensions.cs#L9) method to adjust schema transformations
 
 3. **Adjust TypeScript generation options** in [nswag.json](./nswag.json):
-   - Adjust [code generation](https://github.com/RicoSuter/NSwag/wiki/NSwag-Configuration-Document) settings as needed
+   - Adjust [code generation settings](https://github.com/RicoSuter/NSwag/wiki/NSwag-Configuration-Document) as needed
 
 4. **Configure TypeScript compiler options** in [tsconfig.client.json](./tsconfig.client.json):
    - Adjust [compiler settings](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) for your needs
