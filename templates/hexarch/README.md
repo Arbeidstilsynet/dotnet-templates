@@ -243,20 +243,22 @@ This will:
 
 For CI pipelines, run `pnpm generate:types` before build/test/publish steps to ensure generated types are up to date.
 
-### Using the Generated Types
+### Using the generated types with openapi-fetch
 
-Import and use the generated types in your TypeScript code:
+The generated `types.d.ts` can be used directly with [openapi-fetch](https://openapi-ts.dev/openapi-fetch/).
 
 ```typescript
-import type { paths, components } from '@your-package-name';
+import createClient from 'openapi-fetch';
+import type { paths } from '@your-package-name';
 
-type GetSakerResponse =
-  paths['/Saker']['get']['responses']['200']['content']['application/json'];
+const client = createClient<paths>({
+  baseUrl: 'http://localhost:8080',
+});
 
-type Sak = components['schemas']['Sak'];
+const { data, error } = await client.GET('/Saker');
 ```
 
-The generated type declarations provide typed request/response payloads, enums, and DTOs based on the OpenAPI document.
+This gives you fully typed request and response handling for your endpoints.
 
 ## 📝 Further reads
 
