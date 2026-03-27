@@ -450,6 +450,8 @@ $RECYCLE.BIN/
 !.vscode/launch.json
 !.vscode/extensions.json
 
-
 # Verify shapshots
 *.received.*
+
+# TypeScript API client
+generated/

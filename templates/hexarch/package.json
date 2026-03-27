@@ -1,0 +1,21 @@
+{
+  "name": "@HexagonalArchitectureTemplateDocker",
+  "version": "0.0.0",
+  "private": true,
+  "types": "./generated/client.d.ts",
+  "exports": {
+    ".": {
+      "types": "./generated/client.d.ts",
+      "default": "./generated/client.ts"
+    }
+  },
+  "scripts": {
+    "generate:openapi": "dotnet build App/App.GenerateOpenApi/App.GenerateOpenApi.csproj",
+    "generate:ts": "dotnet tool restore && dotnet tool run nswag run nswag.json",
+    "generate:dts": "pnpm install && pnpm exec tsc -p tsconfig.client.json",
+    "generate:client": "pnpm generate:openapi && pnpm generate:ts && pnpm generate:dts"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}
