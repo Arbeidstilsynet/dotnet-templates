@@ -2,16 +2,16 @@
   "name": "@HexagonalArchitectureTemplateDocker",
   "version": "0.0.0",
   "private": true,
-  "types": "./generated/client.d.ts",
+  "types": "./generated/types.d.ts",
   "exports": {
     ".": {
-      "types": "./generated/client.d.ts"
+      "types": "./generated/types.d.ts"
     }
   },
   "scripts": {
     "generate:openapi": "dotnet clean App/App.GenerateOpenApi/App.GenerateOpenApi.csproj && dotnet build App/App.GenerateOpenApi/App.GenerateOpenApi.csproj",
-    "generate:ts": "pnpm install && pnpm exec openapi-typescript generated/openApi.json -o generated/client.d.ts",
-    "generate:client": "pnpm generate:openapi && pnpm generate:ts"
+    "generate:ts": "pnpm install && pnpm exec openapi-typescript generated/openApi.json -o generated/types.d.ts",
+    "generate:types": "pnpm generate:openapi && pnpm generate:ts"
   },
   "devDependencies": {
     "openapi-typescript": "7.10.1",

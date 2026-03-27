@@ -233,15 +233,15 @@ This template includes automated TypeScript client generation from your OpenAPI 
 Generate types on-demand:
 
 ```terminal
-pnpm generate:client
+pnpm generate:types
 ```
 
 This will:
 
 1. Generate the OpenAPI specification in `generated/openApi.json`
-2. Generate TypeScript type definitions in `generated/client.d.ts`
+2. Generate TypeScript type definitions in `generated/types.d.ts`
 
-For CI pipelines, run `pnpm generate:client` before build/test/publish steps to ensure generated types are up to date.
+For CI pipelines, run `pnpm generate:types` before build/test/publish steps to ensure generated types are up to date.
 
 ### Using the Generated Types
 
