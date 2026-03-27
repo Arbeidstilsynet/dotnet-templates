@@ -225,15 +225,12 @@ This template includes automated TypeScript client generation from your OpenAPI 
 2. **Customize the OpenAPI specification** in [App/src/Extensions/OpenApiExtensions.cs](./App/src/Extensions/OpenApiExtensions.cs):
    - Modify the [`ConfigureOpenApiSpec()`](./App/src/Extensions/OpenApiExtensions.cs#L9) method to adjust schema transformations
 
-3. **Adjust TypeScript generation options** in [nswag.json](./nswag.json):
-   - Adjust [code generation settings](https://github.com/RicoSuter/NSwag/wiki/NSwag-Configuration-Document) as needed
+3. **Adjust TypeScript generation options** in [package.json](./package.json):
+   - Update the `generate:ts` script to customize [openapi-typescript](https://openapi-ts.dev/cli) behavior as needed
 
-4. **Configure TypeScript compiler options** in [tsconfig.client.json](./tsconfig.client.json):
-   - Adjust [compiler settings](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) for your needs
+### Generate TypeScript Types
 
-### Generate the TypeScript Client
-
-Run the following command to generate the OpenAPI spec and TypeScript client:
+Generate types on-demand:
 
 ```terminal
 pnpm generate:client
@@ -242,24 +239,24 @@ pnpm generate:client
 This will:
 
 1. Generate the OpenAPI specification in `generated/openApi.json`
-2. Generate the TypeScript client in `generated/client.ts`
-3. Generate TypeScript type definitions in `generated/client.d.ts`
+2. Generate TypeScript type definitions in `generated/client.d.ts`
 
-### Using the TypeScript Client
+For CI pipelines, run `pnpm generate:client` before build/test/publish steps to ensure generated types are up to date.
 
-Import and use the generated client in your TypeScript code:
+### Using the Generated Types
+
+Import and use the generated types in your TypeScript code:
 
 ```typescript
-import { Client } from '@your-package-name';
+import type { paths, components } from '@your-package-name';
 
-// Create a client instance
-const client = new Client('http://localhost:8080');
+type GetSakerResponse =
+  paths['/Saker']['get']['responses']['200']['content']['application/json'];
 
-// Use the typed API methods
-const result = await client.getSaker();
+type Sak = components['schemas']['Sak'];
 ```
 
-The generated client provides fully typed methods for all your API endpoints, including request/response types, enums, and DTOs.
+The generated type declarations provide typed request/response payloads, enums, and DTOs based on the OpenAPI document.
 
 ## 📝 Further reads
 

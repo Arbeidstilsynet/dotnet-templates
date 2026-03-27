@@ -5,17 +5,16 @@
   "types": "./generated/client.d.ts",
   "exports": {
     ".": {
-      "types": "./generated/client.d.ts",
-      "default": "./generated/client.ts"
+      "types": "./generated/client.d.ts"
     }
   },
   "scripts": {
-    "generate:openapi": "dotnet build App/App.GenerateOpenApi/App.GenerateOpenApi.csproj",
-    "generate:ts": "dotnet tool restore && dotnet tool run nswag run nswag.json",
-    "generate:dts": "pnpm install && pnpm exec tsc -p tsconfig.client.json",
-    "generate:client": "pnpm generate:openapi && pnpm generate:ts && pnpm generate:dts"
+    "generate:openapi": "dotnet clean App/App.GenerateOpenApi/App.GenerateOpenApi.csproj && dotnet build App/App.GenerateOpenApi/App.GenerateOpenApi.csproj",
+    "generate:ts": "pnpm install && pnpm exec openapi-typescript generated/openApi.json -o generated/client.d.ts",
+    "generate:client": "pnpm generate:openapi && pnpm generate:ts"
   },
   "devDependencies": {
+    "openapi-typescript": "7.10.1",
     "typescript": "5.9.3"
   }
 }

@@ -452,6 +452,3 @@ $RECYCLE.BIN/
 
 # Verify shapshots
 *.received.*
-
-# TypeScript API client
-generated/
