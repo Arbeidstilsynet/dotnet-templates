@@ -213,6 +213,54 @@ services.AddOpenTelemetry()
             });
 ```
 
+## 📦 TypeScript Client Generation
+
+This template includes automated TypeScript client generation from your OpenAPI specification. The generated client can be consumed by frontend applications or other TypeScript projects.
+
+### Setup and Customization
+
+1. **Update the package name** in [package.json](./package.json):
+   - Change `"name": "@HexagonalArchitectureTemplateDocker"` to match your application name
+
+2. **Customize the OpenAPI specification** in [App/src/Extensions/OpenApiExtensions.cs](./App/src/Extensions/OpenApiExtensions.cs):
+   - Modify the [`ConfigureOpenApiSpec()`](./App/src/Extensions/OpenApiExtensions.cs#L9) method to adjust schema transformations
+
+3. **Adjust TypeScript generation options** in [nswag.json](./nswag.json):
+   - Adjust [code generation](https://github.com/RicoSuter/NSwag/wiki/NSwag-Configuration-Document) settings as needed
+
+4. **Configure TypeScript compiler options** in [tsconfig.client.json](./tsconfig.client.json):
+   - Adjust [compiler settings](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) for your needs
+
+### Generate the TypeScript Client
+
+Run the following command to generate the OpenAPI spec and TypeScript client:
+
+```terminal
+pnpm generate:client
+```
+
+This will:
+
+1. Generate the OpenAPI specification in `generated/openApi.json`
+2. Generate the TypeScript client in `generated/client.ts`
+3. Generate TypeScript type definitions in `generated/client.d.ts`
+
+### Using the TypeScript Client
+
+Import and use the generated client in your TypeScript code:
+
+```typescript
+import { Client } from '@your-package-name';
+
+// Create a client instance
+const client = new Client('http://localhost:8080');
+
+// Use the typed API methods
+const result = await client.getSaker();
+```
+
+The generated client provides fully typed methods for all your API endpoints, including request/response types, enums, and DTOs.
+
 ## 📝 Further reads
 
 [Medium: Hexagonal Architecture, there are always two sides to every story](https://medium.com/ssense-tech/hexagonal-architecture-there-are-always-two-sides-to-every-story-bc0780ed7d9c)
