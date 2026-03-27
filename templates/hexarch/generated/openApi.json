@@ -1,8 +1,9 @@
 {
   "openapi": "3.1.1",
   "info": {
-    "title": "App.GenerateOpenApi | v1",
-    "version": "1.0.0"
+    "title": "HexagonalArchitectureTemplateDocker API",
+    "description": "Common entrypoints to interact with HexagonalArchitectureTemplateDocker.",
+    "version": "v1"
   },
   "paths": {
     "/Actions/start-sak": {

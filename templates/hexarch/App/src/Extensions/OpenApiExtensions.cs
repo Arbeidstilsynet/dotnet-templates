@@ -8,15 +8,26 @@ internal static class OpenApiExtensions
     {
         public Microsoft.AspNetCore.OpenApi.OpenApiOptions ConfigureOpenApiSpec()
         {
-            return openApiOptions.AddSchemaTransformer(
+            return openApiOptions
+                .AddDocumentTransformer(
+                    (document, context, cancellationToken) =>
+                    {
+                        var appName = IAssemblyInfo.AppName;
+                        document.Info = new OpenApiInfo
+                        {
+                            Title = $"{appName} API",
+                            Version = "v1",
+                            Description = $"Common entrypoints to interact with {appName}.",
+                        };
+                        
+                        return Task.CompletedTask;
+                    }
+                )
+                .AddSchemaTransformer(
                 (schema, context, ct) =>
                 {
                     schema.AdditionalPropertiesAllowed = false;
 
-                    // Remove null from enum value lists. Nullability is already
-                    // expressed via oneOf at the property level; the null in
-                    // enum values is a .NET OpenAPI generator quirk that breaks
-                    // NSwag TypeScript code generation.
                     if (schema.Enum is { Count: > 0 })
                     {
                         for (var i = schema.Enum.Count - 1; i >= 0; i--)
@@ -47,12 +58,6 @@ internal static class OpenApiExtensions
             return openApiOptions.AddDocumentTransformer(
                 (document, context, cancellationToken) =>
                 {
-                    document.Info = new OpenApiInfo
-                    {
-                        Title = appName,
-                        Version = "v1",
-                        Description = $"Common entrypoints to interact with {appName}.",
-                    };
                     if (!authConfiguration.DangerousDisableAuth)
                     {
                         document.Components ??= new OpenApiComponents();
