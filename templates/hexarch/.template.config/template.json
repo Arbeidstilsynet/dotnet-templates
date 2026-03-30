@@ -37,7 +37,8 @@
                         "**/*.lock.json",
                         ".idea/**",
                         "pipelines/**",
-                        "**/volume/**"
+                        "**/volume/**",
+                        "generated/**"
                     ]
                 }
             ]

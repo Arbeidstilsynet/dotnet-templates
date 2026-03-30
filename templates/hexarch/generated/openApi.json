@@ -1,0 +1,351 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "HexagonalArchitectureTemplateDocker API",
+    "description": "Common entrypoints to interact with HexagonalArchitectureTemplateDocker.",
+    "version": "v1"
+  },
+  "paths": {
+    "/Actions/start-sak": {
+      "post": {
+        "tags": [
+          "Actions"
+        ],
+        "summary": "Start a Sak",
+        "parameters": [
+          {
+            "name": "SakId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "additionalProperties": false,
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sak"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sak"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sak"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Actions/end-sak": {
+      "post": {
+        "tags": [
+          "Actions"
+        ],
+        "summary": "End a Sak",
+        "parameters": [
+          {
+            "name": "SakId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "additionalProperties": false,
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sak"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sak"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sak"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Actions/archive-sak": {
+      "post": {
+        "tags": [
+          "Actions"
+        ],
+        "summary": "Archive a Sak",
+        "parameters": [
+          {
+            "name": "SakId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "additionalProperties": false,
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sak"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sak"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sak"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Saker": {
+      "post": {
+        "tags": [
+          "Saker"
+        ],
+        "summary": "Create a new Sak.",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSakDto"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSakDto"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSakDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sak"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sak"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sak"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Saker"
+        ],
+        "summary": "Get all Saker.",
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Sak"
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Sak"
+                  },
+                  "additionalProperties": false
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Sak"
+                  },
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Saker/{sakId}": {
+      "get": {
+        "tags": [
+          "Saker"
+        ],
+        "summary": "Get a Sak by Id.",
+        "parameters": [
+          {
+            "name": "sakId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "additionalProperties": false,
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sak"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sak"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sak"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CreateSakDto": {
+        "required": [
+          "organisasjonsnummer"
+        ],
+        "type": "object",
+        "properties": {
+          "organisasjonsnummer": {
+            "pattern": "^\\d{9}$",
+            "type": "string",
+            "additionalProperties": false,
+            "description": "A reference to the organization number associated with the case."
+          }
+        },
+        "additionalProperties": false,
+        "description": "Data Transfer Object for creating a new Sak."
+      },
+      "Sak": {
+        "required": [
+          "id",
+          "organisasjonsnummer",
+          "createdAt",
+          "deadline",
+          "lastUpdated",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "additionalProperties": false,
+            "description": "Unique identifier for the case.",
+            "format": "uuid"
+          },
+          "organisasjonsnummer": {
+            "type": "string",
+            "additionalProperties": false,
+            "description": "The organization number associated with the case. It refers to a Norwegian organization."
+          },
+          "createdAt": {
+            "type": "string",
+            "additionalProperties": false,
+            "description": "The timestamp of case creation.",
+            "format": "date-time"
+          },
+          "deadline": {
+            "type": "string",
+            "additionalProperties": false,
+            "description": "The deadline for finishing the case.",
+            "format": "date-time"
+          },
+          "lastUpdated": {
+            "type": "string",
+            "additionalProperties": false,
+            "description": "The timestamp of the last update.",
+            "format": "date-time"
+          },
+          "status": {
+            "description": "The current status of the case.",
+            "$ref": "#/components/schemas/SakStatus"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Represents a case in this domain."
+      },
+      "SakStatus": {
+        "type": "integer",
+        "additionalProperties": false,
+        "description": "Enumerates the possible statuses of a case Sak."
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Actions"
+    },
+    {
+      "name": "Saker"
+    }
+  ]
+}

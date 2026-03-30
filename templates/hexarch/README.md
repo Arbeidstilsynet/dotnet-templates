@@ -213,9 +213,9 @@ services.AddOpenTelemetry()
             });
 ```
 
-## 📦 TypeScript Client Generation
+## 📦 TypeScript Type Generation
 
-This template includes automated TypeScript client generation from your OpenAPI specification. The generated client can be consumed by frontend applications or other TypeScript projects.
+This template includes automated TypeScript type generation from your OpenAPI specification. The generated types can be used to create clients or for type-safe interactions with your API.
 
 ### Setup and Customization
 
@@ -235,6 +235,7 @@ This template includes automated TypeScript client generation from your OpenAPI 
 Generate types on-demand:
 
 ```terminal
+pnpm setup # Run this once to install dependencies
 pnpm generate:types
 ```
 
@@ -251,7 +252,7 @@ The generated `types.d.ts` can be used directly with [openapi-fetch](https://ope
 
 ```typescript
 import createClient from 'openapi-fetch';
-import type { paths } from '@your-package-name';
+import type { paths } from '@your-package-name/types';
 
 const client = createClient<paths>({
   baseUrl: 'http://localhost:8080',
