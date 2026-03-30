@@ -1,5 +1,5 @@
 {
-  "name": "@HexagonalArchitectureTemplateDocker",
+  "name": "@__NPM_PACKAGE_NAME_SLUG__/types",
   "version": "0.0.0",
   "private": true,
   "types": "./generated/types.d.ts",

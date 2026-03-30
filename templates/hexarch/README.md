@@ -219,8 +219,10 @@ This template includes automated TypeScript client generation from your OpenAPI 
 
 ### Setup and Customization
 
-1. **Update the package name** in [package.json](./package.json):
-   - Change `"name": "@HexagonalArchitectureTemplateDocker"` to match your application name
+1. **NPM package name** is automatically derived from your project name:
+   - When you create a template with `dotnet new hexarch -n MyAwesomeService`, the npm package name becomes `@my-awesome-service/types`
+   - The package name follows the pattern: `@{your-project-name-slugified}/types`
+   - To override with a custom name, edit the `name` field in [package.json](./package.json) after template generation
 
 2. **Customize the OpenAPI specification** in [App/src/Extensions/OpenApiExtensions.cs](./App/src/Extensions/OpenApiExtensions.cs):
    - Modify the [`ConfigureOpenApiSpec()`](./App/src/Extensions/OpenApiExtensions.cs#L9) method to adjust schema transformations
