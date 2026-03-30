@@ -19,35 +19,35 @@ internal static class OpenApiExtensions
                             Version = "v1",
                             Description = $"Common entrypoints to interact with {appName}.",
                         };
-                        
+
                         return Task.CompletedTask;
                     }
                 )
                 .AddSchemaTransformer(
-                (schema, context, ct) =>
-                {
-                    schema.AdditionalPropertiesAllowed = false;
-
-                    if (schema.Enum is { Count: > 0 })
+                    (schema, context, ct) =>
                     {
-                        for (var i = schema.Enum.Count - 1; i >= 0; i--)
-                        {
-                            var value = schema.Enum[i];
-                            if (
-                                value is null
-                                || string.Equals(
-                                    value.ToString(),
-                                    "null",
-                                    StringComparison.OrdinalIgnoreCase
-                                )
-                            )
-                                schema.Enum.RemoveAt(i);
-                        }
-                    }
+                        schema.AdditionalPropertiesAllowed = false;
 
-                    return Task.CompletedTask;
-                }
-            );
+                        if (schema.Enum is { Count: > 0 })
+                        {
+                            for (var i = schema.Enum.Count - 1; i >= 0; i--)
+                            {
+                                var value = schema.Enum[i];
+                                if (
+                                    value is null
+                                    || string.Equals(
+                                        value.ToString(),
+                                        "null",
+                                        StringComparison.OrdinalIgnoreCase
+                                    )
+                                )
+                                    schema.Enum.RemoveAt(i);
+                            }
+                        }
+
+                        return Task.CompletedTask;
+                    }
+                );
         }
 
         public Microsoft.AspNetCore.OpenApi.OpenApiOptions ConfigureAuthSpec(
