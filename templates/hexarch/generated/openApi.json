@@ -6,7 +6,7 @@
     "version": "v1"
   },
   "paths": {
-    "/Actions/start-sak": {
+    "/actions/start-sak": {
       "post": {
         "tags": [
           "Actions"
@@ -19,7 +19,6 @@
             "required": true,
             "schema": {
               "type": "string",
-              "additionalProperties": false,
               "format": "uuid"
             }
           }
@@ -48,7 +47,7 @@
         }
       }
     },
-    "/Actions/end-sak": {
+    "/actions/end-sak": {
       "post": {
         "tags": [
           "Actions"
@@ -61,7 +60,6 @@
             "required": true,
             "schema": {
               "type": "string",
-              "additionalProperties": false,
               "format": "uuid"
             }
           }
@@ -90,7 +88,7 @@
         }
       }
     },
-    "/Actions/archive-sak": {
+    "/actions/archive-sak": {
       "post": {
         "tags": [
           "Actions"
@@ -103,7 +101,6 @@
             "required": true,
             "schema": {
               "type": "string",
-              "additionalProperties": false,
               "format": "uuid"
             }
           }
@@ -132,7 +129,7 @@
         }
       }
     },
-    "/Saker": {
+    "/saker": {
       "post": {
         "tags": [
           "Saker"
@@ -196,8 +193,7 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Sak"
-                  },
-                  "additionalProperties": false
+                  }
                 }
               },
               "application/json": {
@@ -205,8 +201,7 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Sak"
-                  },
-                  "additionalProperties": false
+                  }
                 }
               },
               "text/json": {
@@ -214,8 +209,7 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Sak"
-                  },
-                  "additionalProperties": false
+                  }
                 }
               }
             }
@@ -223,7 +217,7 @@
         }
       }
     },
-    "/Saker/{sakId}": {
+    "/saker/{sakId}": {
       "get": {
         "tags": [
           "Saker"
@@ -237,7 +231,6 @@
             "required": true,
             "schema": {
               "type": "string",
-              "additionalProperties": false,
               "format": "uuid"
             }
           }
@@ -278,11 +271,9 @@
           "organisasjonsnummer": {
             "pattern": "^\\d{9}$",
             "type": "string",
-            "additionalProperties": false,
             "description": "A reference to the organization number associated with the case."
           }
         },
-        "additionalProperties": false,
         "description": "Data Transfer Object for creating a new Sak."
       },
       "Sak": {
@@ -298,30 +289,25 @@
         "properties": {
           "id": {
             "type": "string",
-            "additionalProperties": false,
             "description": "Unique identifier for the case.",
             "format": "uuid"
           },
           "organisasjonsnummer": {
             "type": "string",
-            "additionalProperties": false,
             "description": "The organization number associated with the case. It refers to a Norwegian organization."
           },
           "createdAt": {
             "type": "string",
-            "additionalProperties": false,
             "description": "The timestamp of case creation.",
             "format": "date-time"
           },
           "deadline": {
             "type": "string",
-            "additionalProperties": false,
             "description": "The deadline for finishing the case.",
             "format": "date-time"
           },
           "lastUpdated": {
             "type": "string",
-            "additionalProperties": false,
             "description": "The timestamp of the last update.",
             "format": "date-time"
           },
@@ -330,12 +316,16 @@
             "$ref": "#/components/schemas/SakStatus"
           }
         },
-        "additionalProperties": false,
         "description": "Represents a case in this domain."
       },
       "SakStatus": {
-        "type": "integer",
-        "additionalProperties": false,
+        "enum": [
+          "New",
+          "InProgress",
+          "Done",
+          "Archived"
+        ],
+        "type": "string",
         "description": "Enumerates the possible statuses of a case Sak."
       }
     }

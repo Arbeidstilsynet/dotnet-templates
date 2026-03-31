@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Microsoft.OpenApi;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.App.Extensions;
@@ -26,24 +27,7 @@ internal static class OpenApiExtensions
                 .AddSchemaTransformer(
                     (schema, context, ct) =>
                     {
-                        schema.AdditionalPropertiesAllowed = false;
-
-                        if (schema.Enum is { Count: > 0 })
-                        {
-                            for (var i = schema.Enum.Count - 1; i >= 0; i--)
-                            {
-                                var value = schema.Enum[i];
-                                if (
-                                    value is null
-                                    || string.Equals(
-                                        value.ToString(),
-                                        "null",
-                                        StringComparison.OrdinalIgnoreCase
-                                    )
-                                )
-                                    schema.Enum.RemoveAt(i);
-                            }
-                        }
+                        schema.EnumsAsStringUnions();
 
                         return Task.CompletedTask;
                     }
@@ -91,5 +75,37 @@ internal static class OpenApiExtensions
                 }
             );
         }
+    }
+}
+
+file static class Extensions
+{
+    /// <summary>
+    /// Treat enums as string unions.
+    /// </summary>
+    /// <param name="schema"></param>
+    /// <remarks>Requires <see cref="JsonStringEnumConverter"/> to work</remarks>
+    /// <returns></returns>
+    public static OpenApiSchema EnumsAsStringUnions(this OpenApiSchema schema)
+    {
+        if (schema.Enum is { Count: > 0 })
+        {
+            for (var i = schema.Enum.Count - 1; i >= 0; i--)
+            {
+                var value = schema.Enum[i];
+                if (
+                    value is null
+                    || string.Equals(value.ToString(), "null", StringComparison.OrdinalIgnoreCase)
+                )
+                    schema.Enum.RemoveAt(i);
+            }
+
+            if (schema.Enum.Count > 0)
+            {
+                schema.Type ??= JsonSchemaType.String;
+            }
+        }
+
+        return schema;
     }
 }

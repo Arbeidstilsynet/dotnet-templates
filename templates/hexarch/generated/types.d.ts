@@ -4,7 +4,7 @@
  */
 
 export interface paths {
-    "/Actions/start-sak": {
+    "/actions/start-sak": {
         parameters: {
             query?: never;
             header?: never;
@@ -43,7 +43,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Actions/end-sak": {
+    "/actions/end-sak": {
         parameters: {
             query?: never;
             header?: never;
@@ -82,7 +82,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Actions/archive-sak": {
+    "/actions/archive-sak": {
         parameters: {
             query?: never;
             header?: never;
@@ -121,7 +121,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Saker": {
+    "/saker": {
         parameters: {
             query?: never;
             header?: never;
@@ -185,7 +185,7 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
-    "/Saker/{sakId}": {
+    "/saker/{sakId}": {
         parameters: {
             query?: never;
             header?: never;
@@ -260,8 +260,11 @@ export interface components {
             /** @description The current status of the case. */
             status: components["schemas"]["SakStatus"];
         };
-        /** @description Enumerates the possible statuses of a case Sak. */
-        SakStatus: number;
+        /**
+         * @description Enumerates the possible statuses of a case Sak.
+         * @enum {string}
+         */
+        SakStatus: "New" | "InProgress" | "Done" | "Archived";
     };
     responses: never;
     parameters: never;
