@@ -220,8 +220,7 @@ This template includes automated TypeScript type generation from your OpenAPI sp
 ### Setup and Customization
 
 1. **NPM package name** is automatically derived from your project name:
-   - When you create a template with `dotnet new hexarch -n MyAwesomeService`, the npm package name becomes `@my-awesome-service/types`
-   - The package name follows the pattern: `@{your-project-name-slugified}/types`
+   - When you create a template with `dotnet new hexarch -n MyCoolApp`, the npm package name becomes `@my-cool-app/types`
    - To override with a custom name, edit the `name` field in [package.json](./package.json) after template generation
 
 2. **Customize the OpenAPI specification** in [App/src/Extensions/OpenApiExtensions.cs](./App/src/Extensions/OpenApiExtensions.cs):
@@ -244,7 +243,9 @@ This will:
 1. Generate the OpenAPI specification in `generated/openApi.json`
 2. Generate TypeScript type definitions in `generated/types.d.ts`
 
-For CI pipelines, run `pnpm generate:types` before build/test/publish steps to ensure generated types are up to date.
+### ⚠️ CI/CD Considerations
+
+If you have dependent projects, or publishing steps, you should ensure that `pnpm generate:types` is run ahead of them in your CI/CD pipeline.
 
 ### Using the generated types with openapi-fetch
 
