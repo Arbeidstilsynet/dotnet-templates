@@ -1,7 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("App.Test")]
-[assembly: InternalsVisibleTo("App.GenerateOpenApi")]
+[assembly: InternalsVisibleTo("Tools.GenerateOpenApi")]
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.App;
 

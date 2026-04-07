@@ -115,9 +115,11 @@ dotnet test
 │   └── Ports
 │       ├── App
 │       └── Infrastructure
-└── Infrastructure
-    ├── src
-    └── test
+├── Infrastructure
+│   ├── src
+│   └── test
+└── Tools
+    └── Tools.GenerateOpenApi
 ```
 
 - ArchUnit.Tests
@@ -133,6 +135,8 @@ dotnet test
   - **App** _uses_ Domain.Ports.App
   - Responsible for injecting the necessary dependencies and exposing API endpoints
   - **App.Test** contains typically integration tests
+- Tools
+  - Various tools that are used for development, e.g. OpenApi generation
 
 > Domain.Logic and Infrastructure implementations are internal, and only exposed through DependencyInjection extensions.
 

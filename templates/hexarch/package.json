@@ -9,7 +9,7 @@
     }
   },
   "scripts": {
-    "generate:openapi": "dotnet build App/App.GenerateOpenApi/App.GenerateOpenApi.csproj",
+    "generate:openapi": "dotnet build Tools/Tools.GenerateOpenApi/Tools.GenerateOpenApi.csproj",
     "generate:ts": "openapi-typescript generated/openApi.json -o generated/types.d.ts",
     "generate:types": "pnpm generate:openapi && pnpm generate:ts"
   },
