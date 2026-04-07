@@ -6,6 +6,8 @@ settings:
 
 importers:
 
+  .: {}
+
   templates/hexarch:
     devDependencies:
       openapi-typescript:
