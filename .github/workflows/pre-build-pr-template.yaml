@@ -30,4 +30,4 @@ jobs:
           exclude: |
             templates/hexarch/compose.yaml
             templates/hexarch/compose.infra.yaml
-
+            templates/hexarch/package.json
