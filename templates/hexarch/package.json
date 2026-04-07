@@ -9,9 +9,8 @@
     }
   },
   "scripts": {
-    "setup": "pnpm install",
-    "generate:openapi": "dotnet clean App/App.GenerateOpenApi/App.GenerateOpenApi.csproj && dotnet build App/App.GenerateOpenApi/App.GenerateOpenApi.csproj",
-    "generate:ts": "pnpm exec openapi-typescript generated/openApi.json -o generated/types.d.ts",
+    "generate:openapi": "dotnet build App/App.GenerateOpenApi/App.GenerateOpenApi.csproj",
+    "generate:ts": "openapi-typescript generated/openApi.json -o generated/types.d.ts",
     "generate:types": "pnpm generate:openapi && pnpm generate:ts"
   },
   "devDependencies": {

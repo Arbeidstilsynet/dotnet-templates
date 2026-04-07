@@ -234,7 +234,7 @@ This template includes automated TypeScript type generation from your OpenAPI sp
 Generate types on-demand:
 
 ```terminal
-pnpm setup # Run this once to install dependencies
+pnpm install # Run this once to install dependencies
 pnpm generate:types
 ```
 
