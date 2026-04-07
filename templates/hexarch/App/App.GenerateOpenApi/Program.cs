@@ -1,9 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-using System.Reflection;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Arbeidstilsynet.Common.AspNetCore.Extensions.Extensions;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.App.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);

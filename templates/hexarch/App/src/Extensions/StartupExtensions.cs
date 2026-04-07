@@ -5,7 +5,6 @@ using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.App;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.OpenApi;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.App.Extensions;
 
@@ -34,7 +33,7 @@ internal static class StartupExtensions
             openApiOptions: openApiOptions =>
                 openApiOptions
                     .ConfigureOpenApiSpec()
-                    .ConfigureAuthSpec(appName, apiConfiguration.AuthenticationConfiguration)
+                    .ConfigureAuthSpec(apiConfiguration.AuthenticationConfiguration)
         );
 
         services.ConfigureCors(

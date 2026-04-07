@@ -2,7 +2,6 @@ using System.ComponentModel.DataAnnotations;
 using Arbeidstilsynet.Common.FeatureFlags.Model;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.DependencyInjection;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.App;
 

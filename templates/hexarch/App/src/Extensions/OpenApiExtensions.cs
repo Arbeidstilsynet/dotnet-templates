@@ -5,76 +5,75 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.App.Extensions;
 
 internal static class OpenApiExtensions
 {
-    extension(Microsoft.AspNetCore.OpenApi.OpenApiOptions openApiOptions)
+    public static Microsoft.AspNetCore.OpenApi.OpenApiOptions ConfigureOpenApiSpec(
+        this Microsoft.AspNetCore.OpenApi.OpenApiOptions openApiOptions
+    )
     {
-        public Microsoft.AspNetCore.OpenApi.OpenApiOptions ConfigureOpenApiSpec()
-        {
-            return openApiOptions
-                .AddDocumentTransformer(
-                    (document, context, cancellationToken) =>
-                    {
-                        var appName = IAssemblyInfo.AppName;
-                        document.Info = new OpenApiInfo
-                        {
-                            Title = $"{appName} API",
-                            Version = "v1",
-                            Description = $"Common entrypoints to interact with {appName}.",
-                        };
-
-                        return Task.CompletedTask;
-                    }
-                )
-                .AddSchemaTransformer(
-                    (schema, context, ct) =>
-                    {
-                        schema.EnumsAsStringUnions();
-
-                        return Task.CompletedTask;
-                    }
-                );
-        }
-
-        public Microsoft.AspNetCore.OpenApi.OpenApiOptions ConfigureAuthSpec(
-            string appName,
-            AuthConfiguration authConfiguration
-        )
-        {
-            return openApiOptions.AddDocumentTransformer(
+        return openApiOptions
+            .AddDocumentTransformer(
                 (document, context, cancellationToken) =>
                 {
-                    if (!authConfiguration.DangerousDisableAuth)
+                    var appName = IAssemblyInfo.AppName;
+                    document.Info = new OpenApiInfo
                     {
-                        document.Components ??= new OpenApiComponents();
-                        document.Components.SecuritySchemes ??=
-                            new Dictionary<string, IOpenApiSecurityScheme>();
-                        document.Components.SecuritySchemes["Bearer"] = new OpenApiSecurityScheme
-                        {
-                            Type = SecuritySchemeType.Http,
-                            Scheme = "bearer",
-                            BearerFormat = "JWT",
-                        };
-                        document.Components.SecuritySchemes["OAuth2"] = new OpenApiSecurityScheme
-                        {
-                            Type = SecuritySchemeType.OAuth2,
-                            Flows = new OpenApiOAuthFlows
-                            {
-                                ClientCredentials = new OpenApiOAuthFlow
-                                {
-                                    TokenUrl = new Uri(
-                                        $"https://login.microsoftonline.com/{authConfiguration.EntraTenantId}/oauth2/v2.0/token"
-                                    ),
-                                    Scopes = new Dictionary<string, string>
-                                    {
-                                        { authConfiguration.EntraScope, "Access API" },
-                                    },
-                                },
-                            },
-                        };
-                    }
+                        Title = $"{appName} API",
+                        Version = "v1",
+                        Description = $"Common entrypoints to interact with {appName}.",
+                    };
+
+                    return Task.CompletedTask;
+                }
+            )
+            .AddSchemaTransformer(
+                (schema, context, ct) =>
+                {
+                    schema.EnumsAsStringUnions();
+
                     return Task.CompletedTask;
                 }
             );
-        }
+    }
+
+    public static Microsoft.AspNetCore.OpenApi.OpenApiOptions ConfigureAuthSpec(
+        this Microsoft.AspNetCore.OpenApi.OpenApiOptions openApiOptions,
+        AuthConfiguration authConfiguration
+    )
+    {
+        return openApiOptions.AddDocumentTransformer(
+            (document, context, cancellationToken) =>
+            {
+                if (!authConfiguration.DangerousDisableAuth)
+                {
+                    document.Components ??= new OpenApiComponents();
+                    document.Components.SecuritySchemes ??=
+                        new Dictionary<string, IOpenApiSecurityScheme>();
+                    document.Components.SecuritySchemes["Bearer"] = new OpenApiSecurityScheme
+                    {
+                        Type = SecuritySchemeType.Http,
+                        Scheme = "bearer",
+                        BearerFormat = "JWT",
+                    };
+                    document.Components.SecuritySchemes["OAuth2"] = new OpenApiSecurityScheme
+                    {
+                        Type = SecuritySchemeType.OAuth2,
+                        Flows = new OpenApiOAuthFlows
+                        {
+                            ClientCredentials = new OpenApiOAuthFlow
+                            {
+                                TokenUrl = new Uri(
+                                    $"https://login.microsoftonline.com/{authConfiguration.EntraTenantId}/oauth2/v2.0/token"
+                                ),
+                                Scopes = new Dictionary<string, string>
+                                {
+                                    { authConfiguration.EntraScope, "Access API" },
+                                },
+                            },
+                        },
+                    };
+                }
+                return Task.CompletedTask;
+            }
+        );
     }
 }
 
