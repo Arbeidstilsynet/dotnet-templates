@@ -1,2 +1,8 @@
 packages:
   - templates/hexarch
+
+autoInstallPeers: true
+
+minimumReleaseAge: 4320 # 3 days
+
+trustPolicy: no-downgrade
