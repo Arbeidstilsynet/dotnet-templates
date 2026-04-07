@@ -245,7 +245,7 @@ This will:
 
 ### ⚠️ CI/CD Considerations
 
-If you have dependent projects, or publishing steps, you should ensure that `pnpm generate:types` is run ahead of them in your CI/CD pipeline.
+If you have dependent steps (such as package publishing) you should ensure that `pnpm generate:types` is run ahead of them in your CI/CD pipeline.
 
 ### Using the generated types with openapi-fetch
 
