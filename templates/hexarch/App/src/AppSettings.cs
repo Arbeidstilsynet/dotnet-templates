@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Arbeidstilsynet.Common.AspNetCore.Extensions.CrossCutting;
 using Arbeidstilsynet.Common.FeatureFlags.Model;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Logic.DependencyInjection;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.DependencyInjection;
@@ -48,32 +49,8 @@ internal record ApiConfiguration
     public CorsConfiguration Cors { get; init; } = new();
 
     [ConfigurationKeyName("Authentication")]
-    public AuthConfiguration AuthenticationConfiguration { get; init; } = new();
+    public AuthConfiguration? AuthenticationConfiguration { get; init; }
 
     [ConfigurationKeyName("FeatureFlag")]
     public FeatureFlagSettings FeatureFlagSettings { get; init; } = new();
-}
-
-internal record CorsConfiguration
-{
-    [Required]
-    public string[] AllowedOrigins { get; init; } = [];
-
-    [Required]
-    public bool AllowCredentials { get; init; } = false;
-}
-
-internal record AuthConfiguration
-{
-    [ConfigurationKeyName("DangerousDisableAuth")]
-    public bool DangerousDisableAuth { get; init; } = false;
-
-    [ConfigurationKeyName("TenantId")]
-    public string EntraTenantId { get; init; } = string.Empty;
-
-    [ConfigurationKeyName("ClientId")]
-    public string EntraClientId { get; init; } = string.Empty;
-
-    [ConfigurationKeyName("Scope")]
-    public string EntraScope { get; init; } = string.Empty;
 }
