@@ -7,6 +7,13 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.App.Extensions;
 
 internal static class StartupExtensions
 {
+    public static IMvcBuilder ConfigureMainApi(this IServiceCollection services)
+    {
+        services.AddOpenApi(openApiOptions => openApiOptions.ConfigureBasicOpenApiSpec(IAssemblyInfo.AppName));
+
+        return services.ConfigureStandardMvc();
+    }
+    
     public static IServiceCollection ConfigureStandardApi(
         this IServiceCollection services,
         string appName,
@@ -20,7 +27,9 @@ internal static class StartupExtensions
         {
             configure.AddConfiguration(configurationRoot);
         });
-        services.ConfigureStandardApi();
+
+        services.ConfigureMainApi();
+        services.AddStandardHealthChecks();
 
         if (startupChecks != null)
         {
@@ -28,7 +37,6 @@ internal static class StartupExtensions
         }
 
         services.ConfigureOpenTelemetry(appName);
-        services.AddOpenApi(openApiOptions => openApiOptions.ConfigureOpenApiSpec());
 
         services.ConfigureCors(apiConfiguration.Cors, env.IsDevelopment());
         if (apiConfiguration.AuthenticationConfiguration is { } authConfiguration)

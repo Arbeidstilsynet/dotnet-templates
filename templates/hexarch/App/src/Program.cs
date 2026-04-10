@@ -18,8 +18,7 @@ services.ConfigureStandardApi(
     string.IsNullOrEmpty(appNameFromConfig) ? IAssemblyInfo.AppName : appNameFromConfig,
     appSettings.ApiConfig,
     env,
-    builder.Configuration,
-    (provider) => [provider.GetRequiredService<IDatabaseMigrationService>().RunMigrations()]
+    builder.Configuration
 );
 services.AddFeatureFlags(appSettings.ApiConfig.FeatureFlagSettings);
 
@@ -35,5 +34,11 @@ if (env.IsDevelopment())
 
 app.AddStandardApi(appSettings.ApiConfig);
 app.MapFeatureFlagEndpoint();
+
+using (var scope = app.Services.CreateScope())
+{
+    var migrationService = scope.ServiceProvider.GetRequiredService<IDatabaseMigrationService>();
+    await migrationService.RunMigrations();
+}
 
 await app.RunAsync();
