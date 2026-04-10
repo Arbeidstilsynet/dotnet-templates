@@ -9,11 +9,13 @@ internal static class StartupExtensions
 {
     public static IMvcBuilder ConfigureMainApi(this IServiceCollection services)
     {
-        services.AddOpenApi(openApiOptions => openApiOptions.ConfigureBasicOpenApiSpec(IAssemblyInfo.AppName));
+        services.AddOpenApi(openApiOptions =>
+            openApiOptions.ConfigureBasicOpenApiSpec(IAssemblyInfo.AppName)
+        );
 
         return services.ConfigureStandardMvc();
     }
-    
+
     public static IServiceCollection ConfigureStandardApi(
         this IServiceCollection services,
         string appName,
