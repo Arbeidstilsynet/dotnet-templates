@@ -4,7 +4,7 @@
     <!-- Follow the instructions on
     https://learn.microsoft.com/en-us/nuget/create-packages/package-authoring-best-practices -->
     <PackageId>Arbeidstilsynet.Templates</PackageId>
-    <Version>3.1.0</Version>
+    <Version>3.2.0</Version>
     <Title>Templates for internal use at Arbeidstilsynet</Title>
     <Authors>Arbeidstilsynet</Authors>
     <Description>Templates to get started with dotnet projects. To see the different types, refer to

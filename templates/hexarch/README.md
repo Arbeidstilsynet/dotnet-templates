@@ -115,9 +115,11 @@ dotnet test
 │   └── Ports
 │       ├── App
 │       └── Infrastructure
-└── Infrastructure
-    ├── src
-    └── test
+├── Infrastructure
+│   ├── src
+│   └── test
+└── Tools
+    └── Tools.GenerateOpenApi
 ```
 
 - ArchUnit.Tests
@@ -133,6 +135,8 @@ dotnet test
   - **App** _uses_ Domain.Ports.App
   - Responsible for injecting the necessary dependencies and exposing API endpoints
   - **App.Test** contains typically integration tests
+- Tools
+  - Various tools that are used for development, e.g. OpenApi generation
 
 > Domain.Logic and Infrastructure implementations are internal, and only exposed through DependencyInjection extensions.
 
@@ -212,6 +216,61 @@ services.AddOpenTelemetry()
                 options.AddOtlpExporter();
             });
 ```
+
+## 📦 TypeScript Type Generation
+
+This template includes automated TypeScript type generation from your OpenAPI specification. The generated types can be used to create clients or for type-safe interactions with your API.
+
+### Setup and Customization
+
+1. **NPM package name** is automatically derived from your project name:
+   - When you create a template with `dotnet new hexarch -n MyCoolApp`, the npm package name becomes `@my-cool-app/types`
+   - To override with a custom name, edit the `name` field in [package.json](./package.json) after template generation
+
+2. **Customize the OpenAPI specification** in [App/src/Extensions/OpenApiExtensions.cs](./App/src/Extensions/OpenApiExtensions.cs):
+   - Modify the [`ConfigureOpenApiSpec()`](./App/src/Extensions/OpenApiExtensions.cs#L9) method to adjust schema transformations
+
+3. **Adjust TypeScript generation options** in [package.json](./package.json):
+   - Update the `generate:ts` script to customize [openapi-typescript](https://openapi-ts.dev/cli) behavior as needed
+
+### Generate TypeScript Types
+
+Generate types on-demand:
+
+```terminal
+pnpm install # Run this once to install dependencies
+pnpm generate:types
+```
+
+This will:
+
+1. Generate the OpenAPI specification in `generated/openApi.json`
+2. Generate TypeScript type definitions in `generated/types.d.ts`
+
+### ⚠️ CI/CD Considerations
+
+If you have dependent steps (such as package publishing) you should ensure that the generated types are up-to-date:
+
+```terminal
+pnpm generate:types && git diff --exit-code
+```
+
+### Using the generated types with openapi-fetch
+
+The generated `types.d.ts` can be used directly with [openapi-fetch](https://openapi-ts.dev/openapi-fetch/).
+
+```typescript
+import createClient from 'openapi-fetch';
+import type { paths } from '@your-package-name/types';
+
+const client = createClient<paths>({
+  baseUrl: 'http://localhost:8080',
+});
+
+const { data, error } = await client.GET('/Saker');
+```
+
+This gives you fully typed request and response handling for your endpoints.
 
 ## 📝 Further reads
 

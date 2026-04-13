@@ -14,14 +14,12 @@ var services = builder.Services;
 var env = builder.Environment;
 
 var appNameFromConfig = Environment.GetEnvironmentVariable("OTEL_SERVICE_NAME");
-services.ConfigureStandardApi(
+services.ConfigureApp(
     string.IsNullOrEmpty(appNameFromConfig) ? IAssemblyInfo.AppName : appNameFromConfig,
     appSettings.ApiConfig,
     env,
-    builder.Configuration,
-    (provider) => [provider.GetRequiredService<IDatabaseMigrationService>().RunMigrations()]
+    builder.Configuration
 );
-services.AddFeatureFlags(appSettings.ApiConfig.FeatureFlagSettings);
 
 services.AddDomain(appSettings.DomainConfig);
 services.AddInfrastructure(appSettings.InfrastructureConfig);
@@ -33,7 +31,12 @@ if (env.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.AddStandardApi(appSettings.ApiConfig);
-app.MapFeatureFlagEndpoint();
+app.AddApi(appSettings.ApiConfig);
+
+using (var scope = app.Services.CreateScope())
+{
+    var migrationService = scope.ServiceProvider.GetRequiredService<IDatabaseMigrationService>();
+    await migrationService.RunMigrations();
+}
 
 await app.RunAsync();
