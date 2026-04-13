@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 var appAssembly =
     typeof(Arbeidstilsynet.HexagonalArchitectureTemplateDocker.App.IAssemblyInfo).Assembly;
 
-builder.Services.ConfigureMainApi().AddApplicationPart(appAssembly);
+builder.Services.ConfigureApi().AddApplicationPart(appAssembly);
 
 var app = builder.Build();
 
