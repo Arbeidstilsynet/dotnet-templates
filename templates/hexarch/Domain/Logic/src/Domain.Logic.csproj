@@ -2,8 +2,8 @@
   <ItemGroup>
     <PackageReference Include="Mapster" Version="10.0.7" />
     <PackageReference Include="Mapster.DependencyInjection" Version="10.0.7" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.5" />
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.5" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="10.0.6" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="10.0.6" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../../Ports/App/Domain.Ports.App.csproj" />

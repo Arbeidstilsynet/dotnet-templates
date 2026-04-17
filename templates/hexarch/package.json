@@ -14,7 +14,7 @@
     "generate:types": "pnpm generate:openapi && pnpm generate:ts"
   },
   "devDependencies": {
-    "openapi-typescript": "7.10.1",
+    "openapi-typescript": "7.13.0",
     "typescript": "5.9.3"
   }
 }
