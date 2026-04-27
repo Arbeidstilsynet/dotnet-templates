@@ -10,7 +10,6 @@ namespace Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Db;
 internal class SakRepository(SakDbContext dbContext, IMapper mapper, ILogger<SakRepository> logger)
     : Domain.Ports.Infrastructure.ISakRepository
 {
-
     public async Task<Sak> PersistSak(Sak sak)
     {
         using var activity = Tracer.Source.StartActivity();
