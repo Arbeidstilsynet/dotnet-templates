@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
   <ItemGroup>
-    <PackageReference Include="Arbeidstilsynet.Common.AspNetCore.Extensions" Version="2.5.2" />
+    <PackageReference Include="Arbeidstilsynet.Common.AspNetCore.Extensions" Version="3.0.0" />
     <PackageReference Include="Arbeidstilsynet.Common.FeatureFlags" Version="2.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.5" />
   </ItemGroup>
