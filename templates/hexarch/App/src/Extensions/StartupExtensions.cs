@@ -42,10 +42,7 @@ internal static class StartupExtensions
         services.ConfigureOpenTelemetry(appName);
 
         services.ConfigureCors(apiConfiguration.Cors, env.IsDevelopment());
-        if (apiConfiguration.AuthenticationConfiguration is { } authConfiguration)
-        {
-            services.AddStandardAuth(authConfiguration);
-        }
+        services.AddStandardAuth(apiConfiguration.AuthenticationConfiguration);
 
         services.AddFeatureFlags(apiConfiguration.FeatureFlagSettings);
 

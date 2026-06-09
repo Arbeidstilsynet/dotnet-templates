@@ -48,8 +48,9 @@ internal record ApiConfiguration
     [ConfigurationKeyName("Cors")]
     public CorsConfiguration Cors { get; init; } = new();
 
+    [Required]
     [ConfigurationKeyName("Authentication")]
-    public AuthConfiguration? AuthenticationConfiguration { get; init; }
+    public required AuthConfiguration AuthenticationConfiguration { get; init; }
 
     [ConfigurationKeyName("FeatureFlag")]
     public FeatureFlagSettings FeatureFlagSettings { get; init; } = new();
