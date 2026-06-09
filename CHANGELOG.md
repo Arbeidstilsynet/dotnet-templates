@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- fix(hexarch): make `ApiConfiguration.AuthenticationConfiguration` required to avoid accidentally running insecure
+- fix(hexarch): make `ApiConfiguration.AuthenticationConfiguration` required to avoid accidentally running without authentication configured
 
 ## 3.2.1
 
