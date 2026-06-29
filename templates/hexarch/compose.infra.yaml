@@ -23,7 +23,7 @@ services:
       retries: 10
 
   unleash_web:
-    image: unleashorg/unleash-server@sha256:07139700dd09a68b35bac8b4b49456fbb1ec1bfb4cc80c360a1c2877dcbf9510
+    image: unleashorg/unleash-server@sha256:177a8ad815fa2070168de0f1dafb8de9f36134b11c27e56ba8602eb2a3712ed6
     networks:
       - HexagonalArchitectureTemplateDocker_network
     ports:
