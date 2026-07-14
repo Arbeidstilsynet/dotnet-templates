@@ -3,22 +3,35 @@ name: Pre-Build Check (reusable)
 on:
   workflow_call:
     outputs:
-      should-continue:
+      should-be-published:
         description: "Indicates whether the workflow should continue based on changes in the templates directory."
-        value: ${{ jobs.check.outputs.should-continue }}
+        value: ${{ jobs.check.outputs.should-be-published }}
 
 jobs:
   check:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     outputs:
-      should-continue: ${{ steps.check_changes_for_publishing.outputs.changes_detected }}
+      build-needed: ${{ steps.check_changes_for_build.outputs.changes_detected }}
+      should-be-published: ${{ steps.check_changes_for_publishing.outputs.changes_detected }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6
         with:
           fetch-depth: 0
 
+      - name: Build needed?
+        uses: Arbeidstilsynet/action-check-changes@6e51077b178b819e4194f40e32bd562df0954f3f # v1
+        id: check_changes_for_build
+        with:
+          base-ref: origin/main
+          include: |
+            templates/common-package
+            templates/hexarch
+          exclude: |
+            templates/hexarch/compose.yaml
+            templates/hexarch/compose.infra.yaml
+            templates/hexarch/package.json
       - name: Changes for publishing?
         uses: Arbeidstilsynet/action-check-changes@6e51077b178b819e4194f40e32bd562df0954f3f # v1
         id: check_changes_for_publishing

@@ -11,12 +11,13 @@ jobs:
   build:
     name: Build all templates
     needs: pre-build
-    if: ${{ needs.pre-build.outputs.should-continue == 'true' }}
+    if: ${{ needs.pre-build.outputs.build-needed == 'true' || needs.pre-build.outputs.should-be-published == 'true' }}
     uses: ./.github/workflows/build-template.yaml
 
   post-build:
     name: Post Build Checks
-    needs: build
+    needs: pre-build
+    if: ${{ needs.pre-build.outputs.should-be-published == 'true' }}
     uses: ./.github/workflows/post-build-pr-template.yaml
     permissions:
       contents: read
