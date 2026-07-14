@@ -3,6 +3,9 @@ name: Pre-Build Check (reusable)
 on:
   workflow_call:
     outputs:
+      build-needed:
+        description: "Indicates whether the workflow should continue based on changes in the templates directory."
+        value: ${{ jobs.check.outputs.build-needed }}
       should-be-published:
         description: "Indicates whether the workflow should continue based on changes in the templates directory."
         value: ${{ jobs.check.outputs.should-be-published }}
