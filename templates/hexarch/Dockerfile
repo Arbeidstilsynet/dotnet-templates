@@ -27,7 +27,7 @@ COPY Infrastructure/ ./Infrastructure/
 RUN dotnet publish ./App/src/App.csproj -c Release -f net10.0 -o /app --no-restore
 
 # final stage/image
-FROM mcr.microsoft.com/dotnet/aspnet:10.0-alpine@sha256:57bd717ac18ff6c8a39cc0ee4a76c1f15adc46df50434c73eff0c3f1df4c88f0
+FROM mcr.microsoft.com/dotnet/aspnet:10.0-alpine@sha256:27b6b84beeede74fd16886177d360799c8e4299ceadfbd64eef57bafead7878a
 WORKDIR /app
 COPY --from=build /app ./
 ENTRYPOINT ["dotnet", "App.dll"]
