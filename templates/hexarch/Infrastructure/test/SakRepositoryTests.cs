@@ -31,16 +31,16 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
         };
 
         // act
-        var createdSak = await _sut.PersistSak(newSak);
+        var persistedSak = await _sut.PersistSak(newSak);
         // assert
-        var result = await _sut.GetSak(createdSak.Id);
-        result.ShouldNotBeNull();
-        result.Id.ShouldBe(newSak.Id);
-        result.Organisasjonsnummer.ShouldBe(newSak.Organisasjonsnummer);
-        result.CreatedAt.ShouldBe(createdSak.CreatedAt);
-        result.Deadline.ShouldBe(createdSak.Deadline);
-        result.LastUpdated.ShouldBe(createdSak.LastUpdated);
-        result.Status.ShouldBe(newSak.Status);
+        persistedSak.Id.ShouldBe(newSak.Id);
+        persistedSak.Organisasjonsnummer.ShouldBe(newSak.Organisasjonsnummer);
+        persistedSak.Deadline.ShouldBe(newSak.Deadline, TimeSpan.FromMicroseconds(1));
+        persistedSak.Status.ShouldBe(newSak.Status);
+        persistedSak.CreatedAt.ShouldBe(persistedSak.LastUpdated);
+
+        var fetchedSak = await _sut.GetSak(persistedSak.Id);
+        fetchedSak.ShouldBe(persistedSak);
     }
 
     [Fact]
@@ -56,8 +56,8 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
         var updatedSak = await _sut.UpdateSakStatus(createdSak.Id, SakStatus.InProgress);
         // assert
         updatedSak.ShouldNotBeNull();
-        updatedSak.Id.ShouldBe(createdSak.Id);
-        updatedSak.Organisasjonsnummer.ShouldBe(createdSak.Organisasjonsnummer);
+        updatedSak.Id.ShouldBe(persistedSak.Id);
+        updatedSak.Organisasjonsnummer.ShouldBe(persistedSak.Organisasjonsnummer);
         updatedSak.CreatedAt.ShouldBe(persistedSak.CreatedAt);
         updatedSak.Deadline.ShouldBe(persistedSak.Deadline);
         updatedSak.LastUpdated.ShouldBeGreaterThan(persistedSak.LastUpdated);
