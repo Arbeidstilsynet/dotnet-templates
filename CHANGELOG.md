@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - changed(hexarch): replace Verify snapshots with direct Shouldly assertions
+- changed(deps): update Testcontainers.PostgreSql to v4.15.0
 
 ## 3.3.1
 
