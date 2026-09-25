@@ -12,8 +12,6 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
 
     private static readonly string SampleOrgNr = "123456789";
 
-    private readonly VerifySettings _verifierSettings = new();
-
     public SakRepositoryTests(
         ITestOutputHelper testOutputHelper,
         InfrastructureAdapterTestFixture infrastractureAdapterTestFixture
@@ -21,9 +19,6 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
         : base(testOutputHelper, infrastractureAdapterTestFixture)
     {
         _sut = infrastractureAdapterTestFixture.GetService<ISakRepository>(testOutputHelper)!;
-
-        _verifierSettings.DontScrubGuids();
-        _verifierSettings.UseDirectory("Snapshots");
     }
 
     [Fact]
@@ -36,10 +31,16 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
         };
 
         // act
-        var createdSak = await _sut.PersistSak(newSak);
+        var persistedSak = await _sut.PersistSak(newSak);
         // assert
-        var result = await _sut.GetSak(createdSak.Id);
-        await Verify(result, _verifierSettings);
+        persistedSak.Id.ShouldBe(newSak.Id);
+        persistedSak.Organisasjonsnummer.ShouldBe(newSak.Organisasjonsnummer);
+        persistedSak.Deadline.ShouldBe(newSak.Deadline, TimeSpan.FromMicroseconds(1));
+        persistedSak.Status.ShouldBe(newSak.Status);
+        persistedSak.CreatedAt.ShouldBe(persistedSak.LastUpdated);
+
+        var fetchedSak = await _sut.GetSak(persistedSak.Id);
+        fetchedSak.ShouldBe(persistedSak);
     }
 
     [Fact]
@@ -50,11 +51,17 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
         {
             Organisasjonsnummer = SampleOrgNr,
         };
-        await _sut.PersistSak(createdSak);
+        var persistedSak = await _sut.PersistSak(createdSak);
         // act
         var updatedSak = await _sut.UpdateSakStatus(createdSak.Id, SakStatus.InProgress);
         // assert
-        await Verify(updatedSak, _verifierSettings);
+        updatedSak.ShouldNotBeNull();
+        updatedSak.Id.ShouldBe(persistedSak.Id);
+        updatedSak.Organisasjonsnummer.ShouldBe(persistedSak.Organisasjonsnummer);
+        updatedSak.CreatedAt.ShouldBe(persistedSak.CreatedAt);
+        updatedSak.Deadline.ShouldBe(persistedSak.Deadline);
+        updatedSak.LastUpdated.ShouldBeGreaterThan(persistedSak.LastUpdated);
+        updatedSak.Status.ShouldBe(SakStatus.InProgress);
     }
 
     [Fact]
