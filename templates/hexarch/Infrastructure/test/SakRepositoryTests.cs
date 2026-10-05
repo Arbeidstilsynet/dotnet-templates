@@ -1,6 +1,6 @@
+using Arbeidstilsynet.Common.TestExtensions.Snapshots;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Infrastructure;
-using Arbeidstilsynet.Common.TestExtensions.Snapshots;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Test.Fixtures;
 using Shouldly;
 using Xunit.Microsoft.DependencyInjection.Abstracts;
