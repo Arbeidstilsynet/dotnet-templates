@@ -1,3 +1,4 @@
+using Arbeidstilsynet.Common.TestExtensions.Snapshots;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Data;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Domain.Ports.Infrastructure;
 using Arbeidstilsynet.HexagonalArchitectureTemplateDocker.Infrastructure.Test.Fixtures;
@@ -12,7 +13,9 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
 
     private static readonly string SampleOrgNr = "123456789";
 
-    private readonly VerifySettings _verifierSettings = new();
+    private readonly SnapshotSettings _snapshotSettings = new SnapshotSettings()
+        .DontScrubGuids()
+        .UseDirectory("Snapshots");
 
     public SakRepositoryTests(
         ITestOutputHelper testOutputHelper,
@@ -21,9 +24,6 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
         : base(testOutputHelper, infrastractureAdapterTestFixture)
     {
         _sut = infrastractureAdapterTestFixture.GetService<ISakRepository>(testOutputHelper)!;
-
-        _verifierSettings.DontScrubGuids();
-        _verifierSettings.UseDirectory("Snapshots");
     }
 
     [Fact]
@@ -39,7 +39,7 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
         var createdSak = await _sut.PersistSak(newSak);
         // assert
         var result = await _sut.GetSak(createdSak.Id);
-        await Verify(result, _verifierSettings);
+        await Snapshot.Verify(result, _snapshotSettings);
     }
 
     [Fact]
@@ -54,7 +54,7 @@ public class SakRepositoryTests : TestBed<InfrastructureAdapterTestFixture>
         // act
         var updatedSak = await _sut.UpdateSakStatus(createdSak.Id, SakStatus.InProgress);
         // assert
-        await Verify(updatedSak, _verifierSettings);
+        await Snapshot.Verify(updatedSak, _snapshotSettings);
     }
 
     [Fact]
