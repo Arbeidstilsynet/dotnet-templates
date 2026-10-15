@@ -48,6 +48,11 @@ If not, you can add a new package by running the following command in the `dotne
 dotnet new common-package -n "YourPackageName"
 ```
 
+New packages declare MIT licensing and Arbeidstilsynet authorship, link back to
+dotnet-common, and embed that repository's shared icon from `shared/icon.png`.
+Run the command from an up-to-date checkout containing this asset; the template
+reuses it rather than copying an icon into every package.
+
 ## License
 
 `Arbeidstilsynet.Templates` is licensed under [MIT](https://github.com/Arbeidstilsynet/dotnet-templates/blob/main/LICENSE).

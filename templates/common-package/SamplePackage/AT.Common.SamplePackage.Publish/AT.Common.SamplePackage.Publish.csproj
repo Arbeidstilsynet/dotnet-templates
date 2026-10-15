@@ -6,7 +6,7 @@
     <RootNamespace>Arbeidstilsynet.Common.SamplePackage</RootNamespace>
     <PackageId>Arbeidstilsynet.Common.SamplePackage</PackageId>
     <Product>Arbeidstilsynet.Common.SamplePackage</Product>
-    <Authors>Digital Samhandling</Authors>
+    <Authors>Arbeidstilsynet</Authors>
     <Company>Arbeidstilsynet</Company>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Description></Description>
@@ -16,6 +16,10 @@
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageReleaseNotes>(Package release notes are in CHANGELOG.md)</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/Arbeidstilsynet/dotnet-common</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Arbeidstilsynet/dotnet-common</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageIcon>icon.png</PackageIcon>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference
@@ -25,6 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="\" />
+    <None Include="..\..\shared\icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
   <Target
     Name="InjectPackageReleaseNotesFromFile"
