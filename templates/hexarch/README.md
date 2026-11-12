@@ -217,60 +217,61 @@ services.AddOpenTelemetry()
             });
 ```
 
-## 📦 TypeScript Type Generation
+## 📦 OpenAPI spec and typed client
 
-This template includes automated TypeScript type generation from your OpenAPI specification. The generated types can be used to create clients or for type-safe interactions with your API.
+The backend owns the API contract: `generated/openApi.json`, emitted by building
+[Tools/Tools.GenerateOpenApi](./Tools/Tools.GenerateOpenApi). Customize the spec in
+[App/src/Extensions/StartupExtensions.cs](./App/src/Extensions/StartupExtensions.cs).
 
-### Setup and Customization
-
-1. **NPM package name** is automatically derived from your project name:
-   - When you create a template with `dotnet new hexarch -n MyCoolApp`, the npm package name becomes `@my-cool-app/types`
-   - To override with a custom name, edit the `name` field in [package.json](./package.json) after template generation
-
-2. **Customize the OpenAPI specification** in [App/src/Extensions/OpenApiExtensions.cs](./App/src/Extensions/OpenApiExtensions.cs):
-   - Modify the [`ConfigureOpenApiSpec()`](./App/src/Extensions/OpenApiExtensions.cs#L9) method to adjust schema transformations
-
-3. **Adjust TypeScript generation options** in [package.json](./package.json):
-   - Update the `generate:ts` script to customize [openapi-typescript](https://openapi-ts.dev/cli) behavior as needed
-
-### Generate TypeScript Types
-
-Generate types on-demand:
+A typed TypeScript client (SDK functions plus a bundled fetch client) is generated from that spec with
+[hey-api](https://heyapi.dev/docs/openapi/typescript/get-started) into `generated/api-client/`.
+Generator options live in [openapi-ts.config.ts](./openapi-ts.config.ts); see the hey-api docs for what
+can be configured.
 
 ```terminal
-pnpm install # Run this once to install dependencies
-pnpm generate:types
+pnpm install # once
+pnpm generate:client
 ```
 
-This will:
-
-1. Generate the OpenAPI specification in `generated/openApi.json`
-2. Generate TypeScript type definitions in `generated/types.d.ts`
-
-### ⚠️ CI/CD Considerations
-
-If you have dependent steps (such as package publishing) you should ensure that the generated types are up-to-date:
+This regenerates `generated/openApi.json` and `generated/api-client/`. Commit both, and regenerate after
+every API change. To catch a stale client in CI, run the same command and fail on drift:
 
 ```terminal
-pnpm generate:types && git diff --exit-code
+pnpm generate:client && git diff --exit-code -- generated/
 ```
 
-### Using the generated types with openapi-fetch
+### Package name
 
-The generated `types.d.ts` can be used directly with [openapi-fetch](https://openapi-ts.dev/openapi-fetch/).
+The npm package name is derived from your project name: `dotnet new hexarch -n MyCoolApp` gives
+`@my-cool-app/api-client`. Change the `name` field in [package.json](./package.json) if you need something
+else.
+
+### Using the client from a frontend
+
+Add the package as a workspace dependency (`"@my-cool-app/api-client": "workspace:*"`) and set the base URL
+once at startup. Any other per-frontend setup, such as interceptors, goes there as well:
 
 ```typescript
-import createClient from 'openapi-fetch';
-import type { paths } from '@your-package-name/types';
+import { client, getSaker, postSaker } from "@my-cool-app/api-client";
 
-const client = createClient<paths>({
-  baseUrl: 'http://localhost:8080',
-});
+client.setConfig({ baseUrl: "http://localhost:8080" });
 
-const { data, error } = await client.GET('/Saker');
+const { data: sak } = await postSaker({ body: { organisasjonsnummer: "123456789" } });
+const { data: saker } = await getSaker();
 ```
 
-This gives you fully typed request and response handling for your endpoints.
+Requests throw on non-2xx responses (`throwOnError: true`), so `data` is always the typed response body.
+
+The package exports the client as TypeScript source, not compiled JavaScript. Bundlers such as Next.js and
+Vite compile it as part of the frontend build.
+
+### Why TypeScript 6?
+
+[package.json](./package.json) aliases `typescript` to `@typescript/typescript6`. hey-api needs the
+TypeScript compiler API at runtime, which TypeScript 7 doesn't ship
+([hey-api/hey-api#4235](https://github.com/hey-api/hey-api/issues/4235)). pnpm overrides and
+`packageExtensions` can't redirect a peer dependency, so the alias has to be in the package that runs the
+generator. Frontends can stay on TypeScript 7.
 
 ## 📝 Further reads
 
