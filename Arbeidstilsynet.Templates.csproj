@@ -40,7 +40,7 @@
   <ItemGroup>
     <Content
       Include="templates\**\*"
-      Exclude="templates\**\bin\**;templates\**\obj\**;templates\**\hexarch-migrations\**"
+      Exclude="templates\**\bin\**;templates\**\obj\**;templates\**\hexarch-migrations\**;templates\**\node_modules\**"
     />
     <Compile Remove="**\*" />
   </ItemGroup>

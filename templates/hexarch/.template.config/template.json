@@ -38,7 +38,8 @@
                         ".idea/**",
                         "pipelines/**",
                         "**/volume/**",
-                        "generated/**"
+                        "generated/**",
+                        "**/node_modules/**"
                     ]
                 }
             ]
