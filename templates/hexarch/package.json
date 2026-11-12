@@ -1,20 +1,16 @@
 {
-  "name": "@__NPM_PACKAGE_NAME_SLUG__/types",
+  "name": "@__NPM_PACKAGE_NAME_SLUG__/backend",
   "version": "0.0.0",
   "private": true,
-  "types": "./generated/types.d.ts",
   "exports": {
-    ".": {
-      "types": "./generated/types.d.ts"
-    }
+    "./api-client": "./generated/api-client/index.ts"
   },
   "scripts": {
     "generate:openapi": "dotnet build Tools/Tools.GenerateOpenApi/Tools.GenerateOpenApi.csproj",
-    "generate:ts": "openapi-typescript generated/openApi.json -o generated/types.d.ts",
-    "generate:types": "pnpm generate:openapi && pnpm generate:ts"
+    "generate:client": "pnpm run generate:openapi && openapi-ts"
   },
   "devDependencies": {
-    "openapi-typescript": "7.13.0",
-    "typescript": "7.0.2"
+    "@hey-api/openapi-ts": "0.99.0",
+    "typescript": "npm:@typescript/typescript6@6.0.2"
   }
 }
