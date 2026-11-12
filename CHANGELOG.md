@@ -9,10 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-Breaking for projects created from the template: run `pnpm generate:client` instead of `pnpm generate:types`, and import from `@<project>/backend/api-client` instead of `@<project>/types`.
+Breaking for projects created from the template: run `pnpm generate:client` instead of `pnpm generate:types`, and import from `@<project>/api-client` instead of `@<project>/types`.
 
-- changed(hexarch): replace openapi-typescript with @hey-api/openapi-ts. `pnpm generate:client` now generates a typed SDK and fetch client into `generated/api-client/`, exported as `./api-client`. `generate:types`, `generate:ts` and `generated/types.d.ts` are removed
-- changed(hexarch): rename the npm package from `@<project>/types` to `@<project>/backend`
+- changed(hexarch): replace openapi-typescript with @hey-api/openapi-ts. `pnpm generate:client` now generates a typed SDK and fetch client into `generated/api-client/`, exported as the package root. `generate:types`, `generate:ts` and `generated/types.d.ts` are removed
+- changed(hexarch): rename the npm package from `@<project>/types` to `@<project>/api-client`
 
 ## 3.5.3
 

@@ -1,9 +1,9 @@
 {
-  "name": "@__NPM_PACKAGE_NAME_SLUG__/backend",
+  "name": "@__NPM_PACKAGE_NAME_SLUG__/api-client",
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./api-client": "./generated/api-client/index.ts"
+    ".": "./generated/api-client/index.ts"
   },
   "scripts": {
     "generate:openapi": "dotnet build Tools/Tools.GenerateOpenApi/Tools.GenerateOpenApi.csproj",

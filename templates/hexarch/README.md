@@ -243,16 +243,16 @@ pnpm generate:client && git diff --exit-code -- generated/
 ### Package name
 
 The npm package name is derived from your project name: `dotnet new hexarch -n MyCoolApp` gives
-`@my-cool-app/backend`. Change the `name` field in [package.json](./package.json) if you need something
-else, for example `backend` when the service lives in a monorepo next to its frontends.
+`@my-cool-app/api-client`. Change the `name` field in [package.json](./package.json) if you need something
+else.
 
 ### Using the client from a frontend
 
-Add the package as a workspace dependency (`"@my-cool-app/backend": "workspace:*"`) and set the base URL
+Add the package as a workspace dependency (`"@my-cool-app/api-client": "workspace:*"`) and set the base URL
 once at startup. Any other per-frontend setup, such as interceptors, goes there as well:
 
 ```typescript
-import { client, getSaker, postSaker } from "@my-cool-app/backend/api-client";
+import { client, getSaker, postSaker } from "@my-cool-app/api-client";
 
 client.setConfig({ baseUrl: "http://localhost:8080" });
 
@@ -262,7 +262,7 @@ const { data: saker } = await getSaker();
 
 Requests throw on non-2xx responses (`throwOnError: true`), so `data` is always the typed response body.
 
-`./api-client` is exported as TypeScript source, not compiled JavaScript. Bundlers such as Next.js and
+The package exports the client as TypeScript source, not compiled JavaScript. Bundlers such as Next.js and
 Vite compile it as part of the frontend build.
 
 ### Why TypeScript 6?
