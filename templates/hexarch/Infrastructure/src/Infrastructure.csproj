@@ -7,7 +7,7 @@
       Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore"
       Version="10.0.12"
     />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.3" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="11.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../../Domain/Ports/Infrastructure/Domain.Ports.Infrastructure.csproj" />
